@@ -1,0 +1,54 @@
+<div class="hero-unit">
+	<h1>Log in</h1>
+	<p>Authentication Story</p>
+	<ul>
+		<li>admin/123</li>
+		<li>user/123</li>
+	</ul>
+	<form ng-submit="login()" name="loginForm" class="form-horizontal">
+		<div class="control-group">
+			<label for="UserName" class="control-label">Username</label>
+			<div class="controls">
+				<input type="text" data-ng-model="UserName" placeholder="Username" name="username" required="required"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="Password" class="control-label">Password</label>
+			<div class="controls">
+				<input type="Password" data-ng-model="Password" placeholder="password" name="password" required="required"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label for="RememberMe" class="checkbox">
+					<input type="checkbox" data-ng-model="RememberMe" name="rememberme"/>Remember me
+				</label>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">Log in</button>
+			</div>
+		</div>
+	</form>
+	<hr/>
+	<!--<p>... or use one of them fancy social logins:</p>
+	<div class="btn-group">
+		<a href="" data-ng-click="loginOauth('facebook')" class="btn">
+			<i class="icon-facebook-sign"></i> 
+			Facebook
+		</a>
+		<a href="" data-ng-click="loginOauth('twitter')" class="btn">
+			<i class="icon-twitter"></i>
+			Twitter
+		</a>
+		<a href="" data-ng-click="loginOauth('google')" class="btn">
+			<i class="icon-google-plus-sign"></i>
+			Google
+		</a>
+		<a href="" data-ng-click="loginOauth('linkedin')" class="btn">
+			<i class="icon-linkedin"></i>
+			LinkedIn
+		</a>
+	</div>-->
+</div>
