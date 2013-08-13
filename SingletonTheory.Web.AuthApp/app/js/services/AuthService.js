@@ -15,12 +15,31 @@ angular.module('angular-client-side-auth')
 		_.extend(currentUser, user);
 	};
 
+	function getRole(UserRoleRequest, user, success, error) {
+		$http.get('/roles', UserRoleRequest).success(function (res) {
+			if (userRoles.admin.title == res.Roles[0]) {
+				user.role = userRoles.admin;
+			}
+			else if (userRoles.user.title == res.Roles[0]) {
+				user.role = userRoles.user;
+			}
+			else {
+				user.role = userRoles.public;
+			};
+
+			changeUser(user);
+			success(user);
+		}).error(error);
+	};
+
 	return {
 		authorize: function (accessLevel, role) {
 			if (role === undefined)
 				role = currentUser.role;
 
-			return accessLevel.bitMask & role.bitMask;
+			var authorized = accessLevel.bitMask & role.bitMask;
+
+			return authorized;
 		},
 		isLoggedIn: function (user) {
 			if (user === undefined)
@@ -35,12 +54,14 @@ angular.module('angular-client-side-auth')
 		},
 		login: function (user, success, error) {
 			$http.post('/auth', user).success(function (user) {
-				changeUser(user);
-				success(user);
+				getRole({
+					UserName: user.UserName,
+					SessionId: user.SessionId
+				}, user, success, error);
 			}).error(error);
 		},
 		logout: function (success, error) {
-			$http.post('/logout').success(function () {
+			$http.post('/auth/logout').success(function () {
 				changeUser({
 					UserName: '',
 					role: userRoles.public

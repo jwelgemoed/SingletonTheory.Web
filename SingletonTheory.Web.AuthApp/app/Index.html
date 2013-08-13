@@ -3,7 +3,7 @@
 <!--ng-app="myApp">-->
 <head>
 	<meta charset="utf-8">
-	<title>My AngularJS App</title>
+	<title>Singleton Theory Auth</title>
 	<link rel="stylesheet" href="css/app.css" />
 	<!--<base href="/index.html" />-->
 	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
@@ -17,18 +17,11 @@
 </head>
 <body data-ng-cloak>
 	<div data-ng-controller="NavCtrl" class="navbar">
-		<!--<ul class="menu">
-			<li><a href="#/view1">view1</a></li>
-			<li><a href="#/view2">view2</a></li>
-		</ul>-->
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<ul class="nav">
 					<li data-access-level="accessLevels.anon" active-nav>
 						<a href="index.html#/login">Log in</a>
-					</li>
-					<li data-access-level="accessLevels.anon" active-nav>
-						<a href="index.html#/register">Register</a>
 					</li>
 					<li data-access-level="accessLevels.user" active-nav>
 						<a href="index.html#/">Home</a>
@@ -38,6 +31,9 @@
 					</li>
 					<li data-access-level="accessLevels.admin" active-nav>
 						<a href="index.html#/admin">Admin</a>
+					</li>
+					<li data-access-level="accessLevels.admin" active-nav>
+						<a href="index.html#/register">Register</a>
 					</li>
 					<li data-access-level="accessLevels.user">
 						<a href="" data-ng-click="logout()">Log out</a>
@@ -55,19 +51,6 @@
 		<div data-ng-view="ng-view"></div>
 		<div data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
 	</div>
-	<!--<div ng-controller="TimeCtrl">
-		Date format:
-		<input ng-model="format" />
-		<hr />
-		Current time is: <span date-format="format"></span>
-	</div>-->
-	<!--<div ng-view></div>-->
-
-	<!--<div>Angular seed app: v<span app-version></span></div>-->
-
-	<!-- In production use:
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-	-->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-cookies.js"></script>

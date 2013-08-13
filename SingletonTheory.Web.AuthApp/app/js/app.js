@@ -19,25 +19,25 @@ angular.module('angular-client-side-auth', ['ngCookies'])
 						});
 				$routeProvider.when('/register',
 						{
-							templateUrl: '/partials/register',
+							templateUrl: '/partials/register.html',
 							controller: 'RegisterCtrl',
-							access: access.anon
+							access: access.admin
 						});
 				$routeProvider.when('/private',
 						{
-							templateUrl: '/partials/private',
+							templateUrl: '/partials/private.html',
 							controller: 'PrivateCtrl',
 							access: access.user
 						});
 				$routeProvider.when('/admin',
 						{
-							templateUrl: '/partials/admin',
+							templateUrl: '/partials/admin.html',
 							controller: 'AdminCtrl',
 							access: access.admin
 						});
 				$routeProvider.when('/404',
 						{
-							templateUrl: '/partials/404',
+							templateUrl: '/partials/404.html',
 							access: access.public
 						});
 				$routeProvider.otherwise({ redirectTo: '/404' });
