@@ -1,9 +1,21 @@
-﻿/// <reference path="../../app/lib/angular/angular.js" />
-/// <reference path="../../app/lib/angular/angular-cookies.js" />
-/// <reference path="../lib/angular/angular-mocks.js" />
-/// <reference path="../../app/js/app.js" />
-/// <reference path="../../app/js/services/AuthService.js" />
-/// <reference path="../../app/js/services/UserServices.js" />
-/// <reference path="../../app/js/routingConfig.js" />
-/// <reference path="../../app/js/controllers/LoginCtrl.js" />
+﻿/// <reference path="../lib/jasmine/jasmine.js" />
 
+'use strict';
+
+describe('Login Scenario', function() {
+	beforeEach(function () {
+		browser().navigateTo('/');
+	});
+
+	it('should automatically redirect to /login when location hash/fragment is empty', function () {
+		expect(browser().location().url()).toBe('/login');
+	});
+
+	it('should login with UserName="user"', function () {
+		//browser().navigateTo('/');
+		input('UserName').enter('user');
+		input('Password').enter('123');
+		element('button').click();
+		expect(browser().location().url()).toBe('/');
+	});
+});

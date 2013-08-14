@@ -9,40 +9,38 @@ module.exports = function (config) {
 
 
 		// frameworks to use
-		frameworks: ['jasmine'],
+		frameworks: ['ng-scenario'],
 
 
 		// list of files / patterns to load in the browser
 		files: [
-			'../app/lib/angular/angular.js',
-			'../app/lib/angular/*.js',
-			'../tests/lib/angular/angular-mocks.js',
-			'../app/lib/underscore/*.js',
-			'../app/js/app.js',
-			'../app/js/routingConfig.js',
-			'../app/js/services/AuthService.js',
-			'../app/js/services/UserService.js',
-			'../app/js/directives/AccessLevelDirective.js',
-			'../app/js/directives/ActiveNavDirective.js',
-			'../app/js/directives/AppDirectives.js',
-			'../app/js/controllers/LoginCtrl.js',
-			'../tests/unit/auth.spec.js',
+			//'../app/lib/angular/angular.js',
+			//'../app/lib/angular/*.js',
+			//'../tests/lib/angular/angular-mocks.js',
+			//'../tests/lib/angular/angular-scenario.js',
+			//'../app/lib/underscore/*.js',
+			//'../app/js/app.js',
+			//'../app/js/routingConfig.js',
+			//'../app/js/services/AuthService.js',
+			//'../app/js/services/UserService.js',
+			//'../app/js/directives/AccessLevelDirective.js',
+			//'../app/js/directives/ActiveNavDirective.js',
+			//'../app/js/directives/AppDirectives.js',
+			//'../app/js/controllers/LoginCtrl.js',
+			'../tests/e2e/*.js',
 		],
 
 		// list of files to exclude
-		exclude: [
-
-
-		],
+		exclude: [],
 
 
 		// test results reporter to use
 		// possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-		reporters: ['progress'],
+		reporters: ['dots'],
 
 
 		// web server port
-		port: 9876,
+		port: 9877,
 
 
 		// enable / disable colors in the output (reporters and logs)
@@ -75,6 +73,17 @@ module.exports = function (config) {
 
 		// Continuous Integration mode
 		// if true, it capture browsers, run tests and exit
-		singleRun: false
+		singleRun: false,
+
+		urlRoot: '/__karma/',
+
+		proxies: {
+			'/': 'http://auth.singletontheory.com:8080/'
+		},
+
+		plugins: [
+			'karma-ng-scenario',
+			'karma-chrome-launcher'
+		]
 	});
 };
