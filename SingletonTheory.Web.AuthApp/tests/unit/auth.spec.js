@@ -30,7 +30,16 @@ describe('Authentication', function () {
 		Auth = $injector.get('Auth');
 
 		// backend definition common for all tests
-		$httpBackend.when('POST', '/auth').respond({ UserId: '1', UserName: 'user', FirstName: 'Hello', Surname: 'User' }, { 'A-Token': 'xxx' });
+		$httpBackend.when('POST', '/auth').respond({
+			UserId: '1',
+			UserName: 'user',
+			FirstName: 'Hello',
+			Surname: 'User'
+		}, { 'A-Token': 'xxx' });
+
+		$httpBackend.when('GET', '/roles').respond({
+			"Roles":["user"],
+			"UserName":"user"}, { 'A-Token': 'xxx' });
 
 		createController = function (params) {
 			return $controller('LoginCtrl', params);
