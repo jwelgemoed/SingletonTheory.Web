@@ -15,7 +15,7 @@ angular.module('angular-client-side-auth')
 				Auth.register({
 					UserName: $scope.UserName,
 					Password: $scope.Password,
-					role: $scope.role
+					role: $scope.role.title
 				},
 			function () {
 				$location.path('/');
