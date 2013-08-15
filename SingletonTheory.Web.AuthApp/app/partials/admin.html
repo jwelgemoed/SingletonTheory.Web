@@ -10,7 +10,7 @@
 	</thead>
 	<tbody>
 		<tr data-ng-repeat="user in users">
-			<td>{{ user.id }}</td>
+			<td>{{ user.Id }}</td>
 			<td>
 				<i data-ng-show="user.provider == 'twitter'" class="icon-twitter"></i>
 				<i data-ng-show="user.provider == 'facebook'" class="icon-facebook-sign"></i>
@@ -19,7 +19,7 @@
 				{{ user.UserName }}
 			</td>
 			<td>
-				<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
+				<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.Roles[0] }}</span>
 			</td>
 		</tr>
 	</tbody>
