@@ -91,6 +91,7 @@
     <Content Include="app\lib\angular\version.txt" />
     <Content Include="tests\e2e\LoginScenario.js" />
     <Content Include="tests\e2e\runner.html" />
+    <Content Include="tests\e2e\extensions\angular.scenario.custom.js" />
     <Content Include="tests\lib\jasmine\jasmine.js" />
     <Content Include="app\lib\requirejs\require.js" />
     <Content Include="app\lib\underscore\underscore-min.js" />
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\SSTest.html" />
+    <Content Include="tests\lib\jquery\jquery.js" />
     <Content Include="tests\unit\auth.spec.js" />
     <Content Include="tests\lib\angular\angular-mocks.js" />
     <Content Include="tests\lib\angular\angular-scenario.js" />

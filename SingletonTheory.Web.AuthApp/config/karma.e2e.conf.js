@@ -27,7 +27,9 @@ module.exports = function (config) {
 			//'../app/js/directives/ActiveNavDirective.js',
 			//'../app/js/directives/AppDirectives.js',
 			//'../app/js/controllers/LoginCtrl.js',
-			'../tests/e2e/*.js',
+			'../tests/lib/jquery/jquery.js',
+			'../tests/e2e/extensions/angular.scenario.custom.js',
+			'../tests/e2e/LoginScenario.js',
 		],
 
 		// list of files to exclude
