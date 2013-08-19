@@ -75,6 +75,10 @@
     <Content Include="app\js\routingConfig.js" />
     <Content Include="app\js\controllers\TimeCtrl.js" />
     <Content Include="app\js\services\UserService.js" />
+    <Content Include="app\lib\ui-bootstrap\ui-bootstrap-0.5.0.js" />
+    <Content Include="app\lib\ui-bootstrap\ui-bootstrap-0.5.0.min.js" />
+    <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.js" />
+    <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.min.js" />
     <Content Include="app\TestIcon.ico" />
     <Content Include="config\karma.e2e.conf.js" />
     <Content Include="config\karma.unit.conf.js" />
