@@ -14,14 +14,7 @@ angular.module('angular-client-side-auth')
 		    $scope.loading = false;
 		});
 
-	    $scope.Refresh(function (res) {
-	        $scope.users = res;
-	        $scope.loading = false;
-	    },
-        function (err) {
-            $rootScope.error = "Failed to fetch users.";
-            $scope.loading = false;
-        });
+
 
 
 	    //********** addUserDialog **********
