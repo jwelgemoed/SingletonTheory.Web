@@ -42,7 +42,9 @@ angular.module('angular-client-side-auth', ['ngCookies', 'ui.bootstrap'])
 						});
 				$routeProvider.otherwise({ redirectTo: '/404' });
 
-				$locationProvider.html5Mode(false);
+				// Enable HTML 5
+				$locationProvider.html5Mode(true);
+				$locationProvider.hashPrefix('!');
 
 				var interceptor = ['$location', '$q', function ($location, $q) {
 					function success(response) {
