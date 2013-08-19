@@ -15,8 +15,8 @@ angular.module('angular-client-side-auth')
 		_.extend(currentUser, user);
 	};
 
-	function getRole(UserRoleRequest, user, success, error) {
-		$http.get('/roles', UserRoleRequest).success(function (res) {
+	function getRole(user, success, error) {
+		$http.get('/roles').success(function (res) {
 			if (userRoles.admin.title == res.Roles[0]) {
 				user.role = userRoles.admin;
 			}
@@ -54,10 +54,7 @@ angular.module('angular-client-side-auth')
 		},
 		login: function (user, success, error) {
 			$http.post('/auth', user).success(function (user) {
-				getRole({
-					UserName: user.UserName,
-					SessionId: user.SessionId
-				}, user, success, error);
+				getRole(user, success, error);
 			}).error(error);
 		},
 		logout: function (success, error) {
