@@ -1,0 +1,130 @@
+﻿<div class="container" >
+<h1>User Admin</h1>
+<p>This view is visible to users with the administrator role.</p>
+  <!--  Toolbar Section  -->
+<div class="row-fluid filter">
+    <div class="well well-small span2 form-inline">
+       <button class="btn" ng-click="open()">Open me!</button>
+    </div>
+
+    <form class="well well-small span10 form-inline empty-toolbar-box">
+        <div class="pull-right">
+            <div class="input-append">
+                <input type="text" class="input-large" ng-model="userSearchQuery" localise="placeholder" placeholder="Start typing to Search"><span class="add-on"><i class="icon-search"></i></span>
+            </div>
+            <button class="btn btn-small" ng-click="users.refresh()"><i class="icon-refresh"></i> <span localise>Refresh</span></button>
+        </div>
+    </form>
+</div>
+
+<table data-ng-hide="loading" class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-ng-repeat="user in users">
+            <td>{{ user.Id }}</td>
+            <td>
+                <i data-ng-show="user.provider == 'twitter'" class="icon-twitter"></i>
+                <i data-ng-show="user.provider == 'facebook'" class="icon-facebook-sign"></i>
+                <i data-ng-show="user.provider == 'google'" class="icon-google-plus-sign"></i>
+                <i data-ng-show="user.provider == 'linkedin'" class="icon-linkedin"></i>
+                {{ user.UserName }}
+            </td>
+            <td>
+                <span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.Roles[0] }}</span>
+            </td>
+            <td>
+              <button class="btn btn-mini" ng-click="addUserDialog.show(user)"><i class="icon-edit"></i> <span localise>Edit</span></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+    <!-- MODAL TEST -->
+    <div modal="shouldBeOpen" close="close()" options="opts">
+        <div class="modal-header">
+            <h3>I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">{{item}}</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- END MODAL TEST -->
+
+    <!--===== AddUser Dialog START =====-->
+    <div class="modal hide changeModal" ui-modal id="addModal" ng-model="addUserDialog.visible">
+        <div class="modal-header">
+            <button ng-click="addUserDialog.hide()" class="close" type="button">×</button>
+            <h3 ng-show="addUserDialog.isNew" localise>Add User</h3>
+            <h3 ng-show="addUserDialog.isEdit" localise>Edit User</h3>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+            <form ng-submit="register()" name="registerForm" class="form-horizontal">
+                <div class="control-group">
+                    <label for="username" class="control-label">Username</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="UserName" placeholder="Username" name="username" required="required" data-ng-minlength="1" data-ng-maxlength="20"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Password" class="control-label">Password</label>
+                    <div class="controls">
+                        <input type="password" data-ng-model="Password" placeholder="Password" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="radio inline">
+                        <input type="radio" name="role" data-ng-model="role" id="adminRole" data-ng-value="userRoles.admin"/>
+                        Administrator
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" name="role" data-ng-model="role" id="Radio1" data-ng-value="userRoles.user"/>
+                        Normal user
+                    </label>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" data-ng-disabled="registerForm.$invalid" class="btn">Submit</button>
+                    </div>
+                </div>
+                <div ng-show="registerForm.$invalid" class="alert alert-error">
+                    <strong>Please correct the following errors:</strong>
+                    <ul>
+                        <li ng-show="registerForm.UserName.$error.required">Username is required</li>
+                        <li ng-show="registerForm.UserName.$error.minlength">Username has to be at least 1 character long</li>
+                        <li ng-show="registerForm.UserName.$error.maxlength">Username has to be at most 20 character long</li>
+                        <li ng-show="registerForm.Password.$error.required">Password is required</li>
+                        <li ng-show="registerForm.Password.$error.minlength">Password must be at least 5 characters long</li>
+                        <li ng-show="registerForm.Password.$error.maxlength">Password must be at most 60 characters long</li>
+                    </ul>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn" ng-click="addUserDialog.hide()" localise>Cancel</button>
+                <button class="btn btn-primary" ng-show="addUserDialog.isNew"
+                        ng-click="addUserDialog.save()"
+                        ng-disabled="addUserForm.$invalid || addUserDialog.errors.userExists" localise>Save</button>
+                <button class="btn btn-primary" ng-show="addUserDialog.isEdit"
+                        ng-click="addUserDialog.update(addUserDialog.user)"
+                        ng-disabled="addUserForm.$invalid || addUserDialog.errors.userExists" localise>Update</button>
+            </div>
+
+            <!--===== AddUser Dialog END =====--></div></div>
+    
+    
+
+</div>
