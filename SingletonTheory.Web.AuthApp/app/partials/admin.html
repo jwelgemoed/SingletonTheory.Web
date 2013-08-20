@@ -72,10 +72,14 @@
       <div class="control-group" >
           <label for="addUserDialog.mrole" class="control-label">User role</label>
           <div class="controls" >
-             <select ng-model="addUserDialog.mrole" ng-options="opt for opt in addUserDialog.options.mrole"></select>
+              <select ng-model="addUserDialog.mrole" ng-options="opt for opt in addUserDialog.options.mrole"></select>
           </div>
       </div>
-	<div ng-show="addUserDialog.$invalid" class="alert alert-error">
+       <div class="control-group" ng-show="addUserDialog.isEdit">
+          <label class="checkbox"><input type=checkbox ng-model="addUserDialog.Meta.Active">Active</label>
+      </div>
+      
+      <div ng-show="addUserDialog.$invalid" class="alert alert-error">
 		<strong>Please correct the following errors:</strong>
 		<ul>
 			<li ng-show="registerForm.UserName.$error.required">Username is required</li>

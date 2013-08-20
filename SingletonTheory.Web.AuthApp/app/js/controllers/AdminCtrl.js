@@ -48,11 +48,15 @@ angular.module('angular-client-side-auth')
 	    $scope.addUserDialog = addUserDialog;
 	    //---------- properties ----------
 	    addUserDialog.userTemplate = {
-	        UserName: '', Password: '', Roles: ''
+	        UserName: '', Password: '', Roles: '', Active: ''
 	    };
 	    
 	    addUserDialog.mrole = "admin";
 
+	    addUserDialog.Meta = {
+	        Active: true
+	    };
+	    
 	    addUserDialog.options = {
 	        mrole: ["admin", "user"]
 	    };
@@ -69,9 +73,11 @@ angular.module('angular-client-side-auth')
 	            addUserDialog.originalUser = user;
 	            addUserDialog.user = angular.copy(user);
 	            addUserDialog.mrole = user.Roles[0];
+	            addUserDialog.Meta.Active = user.Meta.Active === "True";
 	        } else {
 	            addUserDialog.isEdit = !(addUserDialog.isNew = true);
 	            addUserDialog.user = angular.copy(addUserDialog.userTemplate);
+	            addUserDialog.Meta.Active = true;
 	        }
 
 	        addUserDialog.visible = true;
@@ -82,12 +88,14 @@ angular.module('angular-client-side-auth')
 	        addUserDialog.errors.problem = false;
 	        addUserDialog.visible = false;
 	    };
+	    
 	    //========== save ==========  
 	    addUserDialog.save = function () {
 	        Auth.register({
 	            UserName: addUserDialog.user.UserName,
 	            Password: addUserDialog.user.Password,
-	            role: addUserDialog.mrole
+	            role: addUserDialog.mrole,
+	            Active: addUserDialog.Meta.Active
 	        },
             function () {
                 addUserDialog.visible = false;
@@ -101,7 +109,8 @@ angular.module('angular-client-side-auth')
 	    //========== update ==========
 	    addUserDialog.update = function () {
 	        Auth.register({
-	            role: addUserDialog.mrole
+	            role: addUserDialog.mrole,
+	            Active: addUserDialog.Meta.Active
 	        },
             function () {
                 addUserDialog.visible = false;
