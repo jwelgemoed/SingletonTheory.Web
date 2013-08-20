@@ -46,11 +46,17 @@ angular.module('angular-client-side-auth')
 				user = currentUser;
 			return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
 		},
-		register: function (user, success, error) {
-			$http.post('/register', user).success(function (res) {
+		addUser: function (user, success, error) {
+			$http.post('/user', user).success(function (res) {
 				changeUser(res);
 				success();
 			}).error(error);
+		},
+		updateUser: function (user, success, error) {
+		    $http.put('/user', user).success(function (res) {
+		        changeUser(res);
+		        success();
+		    }).error(error);
 		},
 		login: function (user, success, error) {
 			$http.post('/auth', user).success(function (user) {

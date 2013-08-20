@@ -48,7 +48,7 @@ angular.module('angular-client-side-auth')
 	    $scope.addUserDialog = addUserDialog;
 	    //---------- properties ----------
 	    addUserDialog.userTemplate = {
-	        UserName: '', Password: '', Roles: '', Active: ''
+	       Id: '', UserName: '', Password: '', Roles: '', Active: ''
 	    };
 	    
 	    addUserDialog.mrole = "admin";
@@ -91,7 +91,8 @@ angular.module('angular-client-side-auth')
 	    
 	    //========== save ==========  
 	    addUserDialog.save = function () {
-	        Auth.register({
+	        Auth.addUser({
+                Id: 0,
 	            UserName: addUserDialog.user.UserName,
 	            Password: addUserDialog.user.Password,
 	            role: addUserDialog.mrole,
@@ -108,7 +109,8 @@ angular.module('angular-client-side-auth')
 
 	    //========== update ==========
 	    addUserDialog.update = function () {
-	        Auth.register({
+	        Auth.updateUser({
+	            Id: addUserDialog.user.Id,
 	            role: addUserDialog.mrole,
 	            Active: addUserDialog.Meta.Active
 	        },
