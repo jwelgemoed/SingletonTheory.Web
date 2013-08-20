@@ -5,17 +5,29 @@ angular.module('angular-client-side-auth')
 	['$rootScope', '$scope', 'Users', 'Auth', function ($rootScope, $scope, Users, Auth) {
 	    $scope.loading = true;
 	    $scope.userRoles = Auth.userRoles;
+
+	    $scope.options = {
+	        activeFilterDescriptions: [{ "value": "", "text": "All Users" }, { "value": "True", "text": "Active Users" }, { "value": "False", "text": "In-Active Users" }]
+	    };
+
+	    $scope.activeFilterDescriptions = $scope.options.activeFilterDescriptions[1]; //Set the default
 	    
 	    //********** init **********
 	    $scope.init = function () {
 	        wusers.refresh();
 	    };
-
+        
+	    $scope.activeFilter = function (row) {
+	           
+	        return !!((row.Meta.Active.toUpperCase().indexOf($scope.activeFilterDescriptions.value.toUpperCase() || '') !== -1));
+	    };
+	    
 	    $scope.usersSearchQuery = '';
 	    $scope.usersSearch = function (row) {
 	       return !!((row.Id.toString().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
                 row.UserName.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
-                row.Roles[0].toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1));
+                row.Roles[0].toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
+                row.Meta.Active.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1));
 	    };
 
 	    //********** users **********
@@ -34,15 +46,6 @@ angular.module('angular-client-side-auth')
 	        });
 	    };
 
-	    //Users.getAll(function (res) {
-	    //    $scope.users = res;
-	    //    $scope.loading = false;
-	    //},
-		//function (err) {
-		//    $rootScope.error = "Failed to fetch users.";
-		//    $scope.loading = false;
-		//});
-
 	    //********** addUserDialog **********
 	    var addUserDialog = {};
 	    $scope.addUserDialog = addUserDialog;
@@ -51,8 +54,6 @@ angular.module('angular-client-side-auth')
 	       Id: '', UserName: '', Password: '', Roles: '', Active: ''
 	    };
 	    
-	    addUserDialog.mrole = "admin";
-
 	    addUserDialog.Meta = {
 	        Active: true
 	    };
@@ -60,6 +61,8 @@ angular.module('angular-client-side-auth')
 	    addUserDialog.options = {
 	        mrole: ["admin", "user"]
 	    };
+	    
+	    addUserDialog.mrole = addUserDialog.options.mrole[0];//Set the default
 
 	    addUserDialog.user = angular.copy(addUserDialog.userTemplate);
 	    addUserDialog.errors = { userExists: false };

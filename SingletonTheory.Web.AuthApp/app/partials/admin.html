@@ -6,6 +6,9 @@
            <button class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i> <span localise>Add</span></button>
         </div>
         <form class="well well-small span10 form-inline empty-toolbar-box">
+            <div class="pull-left">
+                <select ng-model="activeFilterDescriptions" ng-options="opt.text for opt in options.activeFilterDescriptions"></select>
+            </div>
             <div class="pull-right">
                 <div class="input-append">
                     <input type="text" class="input-large" ng-model="usersSearchQuery" localise="placeholder" placeholder="Start typing to Search"><span class="add-on"><i class="icon-search"></i></span>
@@ -21,17 +24,21 @@
                 <th>Id</th>
                 <th>Username</th>
                 <th>Role</th>
+                <th>Active</th>
                 <th>Edit</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in wusers.items | filter:usersSearch | orderBy:wusers.sorting.field:wusers.sorting.reverse">
+            <tr ng-repeat="user in wusers.items | filter:activeFilter | filter:usersSearch | orderBy:wusers.sorting.field:wusers.sorting.reverse">
                 <td>{{ user.Id }}</td>
                 <td>
                     {{ user.UserName }}
                 </td>
                 <td>
                     <span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.Roles[0] }}</span>
+                </td>
+                <td>
+                    {{ user.Meta.Active }}
                 </td>
                 <td>
                     <button class="btn btn-mini" ng-click="addUserDialog.show(user)"><i class="icon-edit"></i> <span localise>Edit</span></button>
