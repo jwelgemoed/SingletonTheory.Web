@@ -18,7 +18,7 @@ describe('Authentication', function () {
 	var authService;
 
 	//you need to indicate your module in a test
-	beforeEach(module('user-application'));
+	beforeEach(module(userApplicationModule.name));
 
 	beforeEach(inject(function ($injector) {
 		// Set up the mock http service responses
