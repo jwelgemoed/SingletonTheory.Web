@@ -30,14 +30,14 @@ describe('Authentication', function () {
 		authService = $injector.get('AuthService');
 
 		// backend definition common for all tests
-		$httpBackend.when('POST', '/auth').respond({
+		$httpBackend.when('POST', '/authapi').respond({
 			UserId: '1',
 			UserName: 'user',
 			FirstName: 'Hello',
 			Surname: 'User'
 		}, { 'A-Token': 'xxx' });
 
-		$httpBackend.when('GET', '/roles').respond({
+		$httpBackend.when('GET', '/rolesapi').respond({
 			"Roles":["user"],
 			"UserName":"user"}, { 'A-Token': 'xxx' });
 
@@ -71,7 +71,7 @@ describe('Authentication', function () {
 		it('Login()', function () {
 			$scope.UserName = 'user';
 			$scope.Password = '123';
-			$httpBackend.expectPOST('/auth').respond(201, '');
+			$httpBackend.expectPOST('/authapi').respond(201, '');
 			$scope.login();
 			$httpBackend.flush();
 		});
