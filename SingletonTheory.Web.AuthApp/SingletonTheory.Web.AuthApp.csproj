@@ -60,18 +60,16 @@
     <Content Include="app\css\app.css" />
     <Content Include="app\DownloadPage.html" />
     <Content Include="app\favicon.ico" />
-    <Content Include="app\index-async.html" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
-    <Content Include="app\js\controllers\PrivateCtrl.js" />
     <Content Include="app\js\directives\AccessLevelDirective.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
-    <Content Include="app\js\directives\blurDirective.js" />
-    <Content Include="app\js\directives\focusDirective.js" />
-    <Content Include="app\js\directives\validationDirective.js" />
+    <Content Include="app\js\directives\BlurDirective.js" />
+    <Content Include="app\js\directives\FocusDirective.js" />
+    <Content Include="app\js\directives\ValidationDirective.js" />
     <Content Include="app\js\services\AuthService.js" />
-    <Content Include="app\js\controllers\AdminCtrl.js" />
+    <Content Include="app\js\controllers\UsersCtrl.js" />
     <Content Include="app\js\controllers\NavCtrl.js" />
     <Content Include="app\js\directives\ActiveNavDirective.js" />
     <Content Include="app\js\filters\Interpolate.js" />
@@ -82,7 +80,6 @@
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-0.5.0.min.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.min.js" />
-    <Content Include="app\TestIcon.ico" />
     <Content Include="config\karma.e2e.conf.js" />
     <Content Include="config\karma.unit.conf.js" />
     <Content Include="app\lib\angular\angular-cookies.js" />
@@ -103,11 +100,9 @@
     <Content Include="app\lib\requirejs\require.js" />
     <Content Include="app\lib\underscore\underscore-min.js" />
     <Content Include="app\partials\404.html" />
-    <Content Include="app\partials\admin.html" />
+    <Content Include="app\partials\users.html" />
     <Content Include="app\partials\home.html" />
     <Content Include="app\partials\login.html" />
-    <Content Include="app\partials\private.html" />
-    <Content Include="app\partials\register.html" />
     <Content Include="app\Index.html" />
   </ItemGroup>
   <ItemGroup>

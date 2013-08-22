@@ -18,22 +18,10 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 							controller: 'LoginCtrl',
 							access: access.anon
 						});
-				$routeProvider.when('/register',
+				$routeProvider.when('/users',
 						{
-							templateUrl: '/partials/register.html',
-							controller: 'RegisterCtrl',
-							access: access.admin
-						});
-				$routeProvider.when('/private',
-						{
-							templateUrl: '/partials/private.html',
-							controller: 'PrivateCtrl',
-							access: access.user
-						});
-				$routeProvider.when('/admin',
-						{
-							templateUrl: '/partials/admin.html',
-							controller: 'AdminCtrl',
+							templateUrl: '/partials/users.html',
+							controller: 'UsersCtrl',
 							access: access.admin
 						});
 				$routeProvider.when('/404',

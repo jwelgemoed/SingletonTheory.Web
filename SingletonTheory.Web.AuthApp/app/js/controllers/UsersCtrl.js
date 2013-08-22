@@ -1,6 +1,6 @@
 'use strict';
 
-userApplicationModule.controller('AdminCtrl',
+userApplicationModule.controller('UsersCtrl',
 	['$rootScope', '$scope', 'Users', 'Auth', function ($rootScope, $scope, Users, Auth) {
 	    $scope.loading = true;
 	    $scope.userRoles = Auth.userRoles;
