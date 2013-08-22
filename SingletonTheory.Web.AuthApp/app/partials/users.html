@@ -62,7 +62,7 @@
 				<div class="control-group">
 					<label for="username" class="control-label">Username</label>
 					<div class="controls">
-						<input type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" user-available ng-readonly="addUserDialog.isEdit" />
+						<input type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" ng-blur="addUserDialog.validateUser(addUserDialog.user.UserName)" user-available ng-readonly="addUserDialog.isEdit" />
 					</div>
 				</div>
 				<div class="control-group" ng-show="addUserDialog.isNew">
