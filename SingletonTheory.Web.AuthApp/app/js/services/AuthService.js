@@ -15,7 +15,7 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 	};
 
 	function getRole(user, success, error) {
-		$http.get('/roles').success(function (res) {
+		$http.get('/rolesapi').success(function (res) {
 			if (userRoles.admin.title == res.Roles[0]) {
 				user.role = userRoles.admin;
 			}
@@ -46,12 +46,12 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 			return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
 		},
 		login: function (user, success, error) {
-			$http.post('/auth', user).success(function (user) {
+			$http.post('/authapi', user).success(function (user) {
 				getRole(user, success, error);
 			}).error(error);
 		},
 		logout: function (success, error) {
-			$http.post('/auth/logout').success(function () {
+			$http.post('/authapi/logout').success(function () {
 				changeUser({
 					UserName: '',
 					role: userRoles.public
