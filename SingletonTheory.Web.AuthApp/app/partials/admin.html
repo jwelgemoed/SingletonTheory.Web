@@ -3,7 +3,7 @@
     <!--  Toolbar Section  -->
     <div class="row-fluid filter">
         <div class="well well-small span2 form-inline">
-           <button class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i> <span localise>Add</span></button>
+            <button class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i><span>Add</span></button>
         </div>
         <form class="well well-small span10 form-inline empty-toolbar-box">
             <div class="pull-left">
@@ -11,9 +11,9 @@
             </div>
             <div class="pull-right">
                 <div class="input-append">
-                    <input type="text" class="input-large" ng-model="usersSearchQuery" localise="placeholder" placeholder="Start typing to Search"><span class="add-on"><i class="icon-search"></i></span>
+                    <input type="text" class="input-large" ng-model="usersSearchQuery" placeholder="Start typing to Search"><span class="add-on"><i class="icon-search"></i></span>
                 </div>
-                <button class="btn btn-small" ng-click="wusers.refresh()"><i class="icon-refresh"></i> <span localise>Refresh</span></button>
+                <button class="btn btn-small" ng-click="wusers.refresh()"><i class="icon-refresh"></i><span>Refresh</span></button>
             </div>
         </form>
     </div>
@@ -31,88 +31,83 @@
         <tbody>
             <tr ng-repeat="user in wusers.items | filter:activeFilter | filter:usersSearch | orderBy:wusers.sorting.field:wusers.sorting.reverse">
                 <td>{{ user.Id }}</td>
-                <td>
-                    {{ user.UserName }}
+                <td>{{ user.UserName }}
                 </td>
                 <td>
                     <span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.Roles[0] }}</span>
                 </td>
-                <td>
-                    {{ user.Meta.Active }}
+                <td>{{ user.Meta.Active }}
                 </td>
                 <td>
-                    <button class="btn btn-mini" ng-click="addUserDialog.show(user)"><i class="icon-edit"></i> <span localise>Edit</span></button>
+                    <button class="btn btn-mini" ng-click="addUserDialog.show(user)"><i class="icon-edit"></i><span>Edit</span></button>
                 </td>
             </tr>
         </tbody>
     </table>
-
     <div class="well well-small">&nbsp;</div>
-
 </div>
 
 
 <!--===== AddUser Dialog START =====-->
 <div modal="addUserDialog.visible" close="close()" options="opts">
-  <div class="modal-header">
-    <button ng-click="addUserDialog.hide()" class="close" type="button">×</button>
-    <h3 ng-show="addUserDialog.isNew" localise>Add User</h3>
-    <h3 ng-show="addUserDialog.isEdit" localise>Edit User</h3>
-  </div>
+    <div class="modal-header">
+        <button ng-click="addUserDialog.hide()" class="close" type="button">×</button>
+        <h3 ng-show="addUserDialog.isNew" >Add User</h3>
+        <h3 ng-show="addUserDialog.isEdit" >Edit User</h3>
+    </div>
 
-  <!-- Modal Body -->
-  <div class="modal-body">
-  <form class="well well-small form-inline" name="addUserForm" >
-      <div class="controls">
-          <div class="control-group">
-              <label for="username" class="control-label">Username</label>
-              <div class="controls">
-                  <input type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="userName"  data-ng-minlength="1" data-ng-maxlength="20" user-available ng-readonly="addUserDialog.isEdit"/>
-              </div>
-          </div>
-          <div class="control-group" ng-show="addUserDialog.isNew">
-              <label for="Password" class="control-label">Password</label>
-              <div class="controls" >
-                  <input type="password" data-ng-model="addUserDialog.user.Password" placeholder="Password" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60"/>
-              </div>
-          </div>
-          <div class="control-group" >
-              <label for="addUserDialog.mrole" class="control-label">User role</label>
-              <div class="controls" >
-                  <select ng-model="addUserDialog.mrole" ng-options="opt for opt in addUserDialog.options.mrole"></select>
-              </div>
-          </div>
-          <div class="control-group" ng-show="addUserDialog.isEdit">
-              <label class="checkbox"><input type=checkbox ng-model="addUserDialog.Meta.Active">Active</label>
-          </div>
-      
-          <div ng-show="addUserForm.$invalid || addUserDialog.errors.userExists" class="alert alert-error">
-              <strong>Please correct the following errors:</strong>
-              <ul>
-                  <!--<li ng-show="addUserDialog.errors.userExists">Username already exists.</li>-->
-                  <li ng-show="addUserForm.userName.$error.userAvailable">Username already exists</li>
-<!--                  <li ng-show="addUserForm.userName.$error.required">Username is required</li>-->
-                  <li ng-show="addUserForm.userName.$error.minlength">Username has to be at least 1 character long</li>
-                  <li ng-show="addUserForm.userName.$error.maxlength">Username has to be at most 20 character long</li>
-                  <li ng-show="addUserForm.password.$error.required">Password is required</li>
-                  <li ng-show="addUserForm.password.$error.minlength">Password must be at least 5 characters long</li>
-                  <li ng-show="addUserForm.password.$error.maxlength">Password must be at most 60 characters long</li>
-              </ul>
-          </div>
-          <div class="modal-footer">
-            <button class="btn" ng-click="addUserDialog.hide()" localise>Cancel</button>
-            <button class="btn btn-primary" ng-show="addUserDialog.isNew"
-                    ng-click="addUserDialog.save()"
-                    ng-disabled="addUserForm.$invalid" localise>Save</button>
-            <button class="btn btn-primary" ng-show="addUserDialog.isEdit"
-                    ng-click="addUserDialog.update(addUserDialog.user)"
-                    localise>Update</button>
-          </div>
-      </div>
+    <!-- Modal Body -->
+    <div class="modal-body">
+        <form class="well well-small form-inline" name="addUserForm">
+            <div class="controls">
+                <div class="control-group">
+                    <label for="username" class="control-label">Username</label>
+                    <div class="controls">
+                        <input type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" user-available ng-readonly="addUserDialog.isEdit" />
+                    </div>
+                </div>
+                <div class="control-group" ng-show="addUserDialog.isNew">
+                    <label for="Password" class="control-label">Password</label>
+                    <div class="controls">
+                        <input type="password" data-ng-model="addUserDialog.user.Password" placeholder="Password" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="addUserDialog.mrole" class="control-label">User role</label>
+                    <div class="controls">
+                        <select ng-model="addUserDialog.mrole" ng-options="opt for opt in addUserDialog.options.mrole"></select>
+                    </div>
+                </div>
+                <div class="control-group" ng-show="addUserDialog.isEdit">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="addUserDialog.Meta.Active">Active</label>
+                </div>
 
-</form>
-
-
-  </div>
+                <div ng-show="addUserForm.$invalid || addUserDialog.errors.userExists" class="alert alert-error">
+                    <strong>Please correct the following errors:</strong>
+                    <ul>
+                        <!--<li ng-show="addUserDialog.errors.userExists">Username already exists.</li>-->
+                        <li ng-show="addUserForm.userName.$error.userAvailable">Username already exists</li>
+                        <!--                  <li ng-show="addUserForm.userName.$error.required">Username is required</li>-->
+                        <li ng-show="addUserForm.userName.$error.minlength">Username has to be at least 1 character long</li>
+                        <li ng-show="addUserForm.userName.$error.maxlength">Username has to be at most 20 character long</li>
+                        <li ng-show="addUserForm.password.$error.required">Password is required</li>
+                        <li ng-show="addUserForm.password.$error.minlength">Password must be at least 5 characters long</li>
+                        <li ng-show="addUserForm.password.$error.maxlength">Password must be at most 60 characters long</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" ng-click="addUserDialog.hide()" >Cancel</button>
+                    <button class="btn btn-primary" ng-show="addUserDialog.isNew"
+                        ng-click="addUserDialog.save()"
+                        ng-disabled="addUserForm.$invalid" >
+                        Save</button>
+                    <button class="btn btn-primary" ng-show="addUserDialog.isEdit"
+                        ng-click="addUserDialog.update(addUserDialog.user)">
+                        Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-      <!--===== AddUser Dialog END =====-->
+<!--===== AddUser Dialog END =====-->

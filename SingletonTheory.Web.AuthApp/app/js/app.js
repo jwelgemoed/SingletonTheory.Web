@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('angular-client-side-auth', ['ngCookies', 'ui.bootstrap'])
-			.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+var authModule = angular.module('angular-client-side-auth', ['ngCookies', 'ui.bootstrap']);
+
+authModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
 				var access = routingConfig.accessLevels;
 

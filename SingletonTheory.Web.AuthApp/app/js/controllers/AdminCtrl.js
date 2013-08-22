@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('angular-client-side-auth')
-	.controller('AdminCtrl',
+//angular.module('angular-client-side-auth')
+authModule.controller('AdminCtrl',
 	['$rootScope', '$scope', 'Users', 'Auth', function ($rootScope, $scope, Users, Auth) {
 	    $scope.loading = true;
 	    $scope.userRoles = Auth.userRoles;

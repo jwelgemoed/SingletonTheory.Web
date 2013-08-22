@@ -2,8 +2,8 @@
 
 'use strict';
 
-angular.module('angular-client-side-auth')
-.factory('Auth', function ($http, $cookieStore) {
+//angular.module('angular-client-side-auth')
+authModule.factory('Auth', function ($http, $cookieStore) {
 
 	var accessLevels = routingConfig.accessLevels
 			, userRoles = routingConfig.userRoles

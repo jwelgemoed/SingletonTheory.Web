@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-angular.module('angular-client-side-auth')
-.directive('userAvailable', function($http) { // available
+//angular.module('angular-client-side-auth')
+authModule.directive('userAvailable', function ($http) { // available
     return {
         require: 'ngModel',
         link: function(scope, elem, attr, ctrl) {
@@ -9,12 +9,12 @@ angular.module('angular-client-side-auth')
                 $http.post('/userExist', {
                     UserName: viewValue
                 }).success(function (result) {
-                        ctrl.$setValidity('userAvailable', result);
+                    ctrl.$setValidity('userAvailable', result);
                     return viewValue;
-                }).error(function (data, status, headers, config) {
+                }).error(function () {
                     console.log("error");
                     //ctrl.$setValidity('emailAvailable', false);
-                    return undefined;
+                    return viewValue;
                 });
             });
         }

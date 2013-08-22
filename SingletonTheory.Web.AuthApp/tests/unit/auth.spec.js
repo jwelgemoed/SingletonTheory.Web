@@ -18,7 +18,7 @@ describe('Authentication', function () {
 	var Auth;
 
 	//you need to indicate your module in a test
-	beforeEach(module('angular-client-side-auth'));
+	beforeEach(authModule);
 
 	beforeEach(inject(function ($injector) {
 		// Set up the mock http service responses

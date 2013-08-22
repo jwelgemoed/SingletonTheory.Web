@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-angular.module('angular-client-side-auth')
-.directive('ngFocus', ['$parse', function ($parse) {
+//angular.module('angular-client-side-auth')
+authModule.directive('ngFocus', ['$parse', function ($parse) {
     return function(scope, element, attr) {
         var fn = $parse(attr['ngFocus']);
         element.bind('focus', function(event) {
