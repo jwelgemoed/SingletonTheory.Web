@@ -4,7 +4,7 @@
 /// <reference path="../lib/angular/angular-mocks.js" />
 /// <reference path="../../app/js/app.js" />
 /// <reference path="../../app/js/services/AuthService.js" />
-/// <reference path="../../app/js/services/UserServices.js" />
+/// <reference path="../../app/js/services/UserService.js" />
 /// <reference path="../../app/js/routingConfig.js" />
 /// <reference path="../../app/js/controllers/LoginCtrl.js" />
 
@@ -18,7 +18,7 @@ describe('Authentication', function () {
 	var authService;
 
 	//you need to indicate your module in a test
-	beforeEach(userApplicationModule);
+	beforeEach(module('user-application'));
 
 	beforeEach(inject(function ($injector) {
 		// Set up the mock http service responses
@@ -38,8 +38,9 @@ describe('Authentication', function () {
 		}, { 'A-Token': 'xxx' });
 
 		$httpBackend.when('GET', '/rolesapi').respond({
-			"Roles":["user"],
-			"UserName":"user"}, { 'A-Token': 'xxx' });
+			"Roles": ["user"],
+			"UserName": "user"
+		}, { 'A-Token': 'xxx' });
 
 		createController = function (params) {
 			return $controller('LoginCtrl', params);
@@ -63,7 +64,6 @@ describe('Authentication', function () {
 			ctrl = createController(params);
 		}),
 		it('Injectables should be defined', function () {
-			//expect(ctrl).toBeDefined();
 			expect(params).toBeDefined();
 			expect($scope).toBeDefined();
 			expect(authService).toBeDefined();
@@ -76,4 +76,5 @@ describe('Authentication', function () {
 			$httpBackend.flush();
 		});
 	});
+
 });

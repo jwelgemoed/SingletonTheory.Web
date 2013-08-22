@@ -16,6 +16,8 @@ module.exports = function (config) {
 		files: [
 			'../app/lib/angular/angular.js',
 			'../app/lib/angular/*.js',
+			'../app/lib/ui-bootstrap/ui-bootstrap-0.5.0.min.js',
+			'../app/lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.min.js',
 			'../tests/lib/angular/angular-mocks.js',
 			'../app/lib/underscore/*.js',
 			'../app/js/app.js',
@@ -26,7 +28,7 @@ module.exports = function (config) {
 			'../app/js/directives/ActiveNavDirective.js',
 			'../app/js/directives/AppDirectives.js',
 			'../app/js/controllers/LoginCtrl.js',
-			'../tests/unit/*.js',
+			'../tests/unit/*.js'
 		],
 
 		// list of files to exclude
