@@ -59,11 +59,11 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 				$httpProvider.responseInterceptors.push(interceptor);
 			}])
 
-		.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+		.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, authService) {
 			$rootScope.$on("$routeChangeStart", function (event, next, current) {
 				$rootScope.error = null;
-				if (!Auth.authorize(next.access)) {
-					if (Auth.isLoggedIn()) $location.path('/');
+				if (!authService.authorize(next.access)) {
+					if (authService.isLoggedIn()) $location.path('/');
 					else $location.path('/login');
 				}
 			});

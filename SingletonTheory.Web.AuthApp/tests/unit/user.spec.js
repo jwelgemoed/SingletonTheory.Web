@@ -15,7 +15,7 @@ describe('User administration', function () {
     var $window;
     var $controller;
     var $httpBackend;
-    var Auth;
+    var authService;
 
     //you need to indicate your module in a test
     beforeEach(userApplicationModule);
@@ -27,7 +27,7 @@ describe('User administration', function () {
         $location = $injector.get('$location');
         $window = $injector.get('$window');
         $controller = $injector.get('$controller');
-        Auth = $injector.get('Auth');
+        authService = $injector.get('AuthService');
 
         //// backend definition common for all tests
         //$httpBackend.when('POST', '/auth').respond({
@@ -67,7 +67,7 @@ describe('User administration', function () {
 		    //expect(ctrl).toBeDefined();
 		    expect(params).toBeDefined();
 		    expect($scope).toBeDefined();
-		    expect(Auth).toBeDefined();
+		    expect(authService).toBeDefined();
 		}),
 		it('Login()', function () {
 		    $scope.UserName = 'user';

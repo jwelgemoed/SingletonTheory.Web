@@ -1,13 +1,13 @@
 ﻿'use strict';
 
 userApplicationModule.controller('LoginCtrl',
-	['$rootScope', '$scope', '$location', '$window', 'Auth', function ($rootScope, $scope, $location, $window, Auth) {
+	['$rootScope', '$scope', '$location', '$window', 'AuthService', function ($rootScope, $scope, $location, $window, authService) {
 
 		$scope.login =
 			function () {
 				$scope.RememberMe = $scope.RememberMe == undefined ? false : $scope.RememberMe;
 
-				Auth.login({
+				authService.login({
 					UserName: $scope.UserName,
 					Password: $scope.Password,
 					RememberMe: $scope.RememberMe

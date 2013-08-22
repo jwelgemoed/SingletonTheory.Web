@@ -2,7 +2,7 @@
 
 'use strict';
 
-userApplicationModule.factory('Auth', function ($http, $cookieStore) {
+userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 
 	var accessLevels = routingConfig.accessLevels
 			, userRoles = routingConfig.userRoles
@@ -44,19 +44,6 @@ userApplicationModule.factory('Auth', function ($http, $cookieStore) {
 			if (user === undefined)
 				user = currentUser;
 			return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
-		},
-		userExist: function (user, success, error) {
-		    $http.post('/userExist', user).success(success).error(error);
-
-		},
-		addUser: function (user, success, error) {
-			$http.post('/user', user).success(function (res) {
-				//changeUser(res);
-				success();
-			}).error(error);
-		},
-		updateUser: function (user, success, error) {
-		    $http.put('/user', user).success(success).error(error);
 		},
 		login: function (user, success, error) {
 			$http.post('/auth', user).success(function (user) {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-userApplicationModule.directive('accessLevel', ['Auth', function (Auth) {
+userApplicationModule.directive('accessLevel', ['AuthService', function (authService) {
 		return {
 			restrict: 'A',
 			link: function ($scope, element, attrs) {
@@ -8,7 +8,7 @@ userApplicationModule.directive('accessLevel', ['Auth', function (Auth) {
 						, userRole
 						, accessLevel;
 
-				$scope.user = Auth.user;
+				$scope.user = authService.user;
 				$scope.$watch('user', function (user) {
 					if (user.role)
 						userRole = user.role;
@@ -22,7 +22,7 @@ userApplicationModule.directive('accessLevel', ['Auth', function (Auth) {
 
 				function updateCSS() {
 					if (userRole && accessLevel) {
-						if (!Auth.authorize(accessLevel, userRole))
+						if (!authService.authorize(accessLevel, userRole))
 							element.css('display', 'none');
 						else
 							element.css('display', prevDisp);
