@@ -1,7 +1,6 @@
 ﻿'use strict';
 
-//angular.module('angular-client-side-auth')
-authModule.directive('accessLevel', ['Auth', function (Auth) {
+userApplicationModule.directive('accessLevel', ['Auth', function (Auth) {
 		return {
 			restrict: 'A',
 			link: function ($scope, element, attrs) {

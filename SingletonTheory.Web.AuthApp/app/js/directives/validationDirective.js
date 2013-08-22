@@ -1,7 +1,6 @@
 ﻿'use strict';
 
-//angular.module('angular-client-side-auth')
-authModule.directive('userAvailable', function ($http) { // available
+userApplicationModule.directive('userAvailable', function ($http) { // available
     return {
         require: 'ngModel',
         link: function(scope, elem, attr, ctrl) {

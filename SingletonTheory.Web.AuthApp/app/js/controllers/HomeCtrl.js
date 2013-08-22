@@ -1,11 +1,9 @@
 ﻿'use strict';
 
-//angular.module('angular-client-side-auth')
-authModule.controller('HomeCtrl',
+userApplicationModule.controller('HomeCtrl',
 	['$rootScope', function ($rootScope) { }]);
 
-//angular.module('angular-client-side-auth')
-authModule.controller('RegisterCtrl',
+userApplicationModule.controller('RegisterCtrl',
 	['$rootScope', '$scope', '$location', 'Auth', function ($rootScope, $scope, $location, Auth) {
 		$scope.role = Auth.userRoles.user;
 		$scope.userRoles = Auth.userRoles;

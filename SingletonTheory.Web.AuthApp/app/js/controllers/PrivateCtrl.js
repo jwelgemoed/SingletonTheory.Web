@@ -1,5 +1,4 @@
 ﻿'use strict';
 
-//angular.module('angular-client-side-auth')
-authModule.controller('PrivateCtrl',
+userApplicationModule.controller('PrivateCtrl',
 	['$rootScope', function ($rootScope) { }]);

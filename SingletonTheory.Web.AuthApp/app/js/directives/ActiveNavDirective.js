@@ -1,7 +1,6 @@
 'use strict';
 
-//angular.module('angular-client-side-auth')
-authModule.directive('activeNav', ['$location', function ($location) {
+userApplicationModule.directive('activeNav', ['$location', function ($location) {
 		return {
 			restrict: 'A',
 			link: function (scope, element, attrs) {

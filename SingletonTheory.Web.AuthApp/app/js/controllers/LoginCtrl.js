@@ -1,7 +1,6 @@
 ﻿'use strict';
 
-//angular.module('angular-client-side-auth')
-authModule.controller('LoginCtrl',
+userApplicationModule.controller('LoginCtrl',
 	['$rootScope', '$scope', '$location', '$window', 'Auth', function ($rootScope, $scope, $location, $window, Auth) {
 
 		$scope.login =

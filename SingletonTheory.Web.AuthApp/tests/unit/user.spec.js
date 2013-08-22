@@ -18,7 +18,7 @@ describe('User administration', function () {
     var Auth;
 
     //you need to indicate your module in a test
-    beforeEach(authModule);
+    beforeEach(userApplicationModule);
 
     beforeEach(inject(function ($injector) {
         // Set up the mock http service responses
