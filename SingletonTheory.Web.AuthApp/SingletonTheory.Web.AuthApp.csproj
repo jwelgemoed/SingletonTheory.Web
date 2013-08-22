@@ -67,6 +67,9 @@
     <Content Include="app\js\controllers\PrivateCtrl.js" />
     <Content Include="app\js\directives\AccessLevelDirective.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
+    <Content Include="app\js\directives\blurDirective.js" />
+    <Content Include="app\js\directives\focusDirective.js" />
+    <Content Include="app\js\directives\validationDirective.js" />
     <Content Include="app\js\services\AuthService.js" />
     <Content Include="app\js\controllers\AdminCtrl.js" />
     <Content Include="app\js\controllers\NavCtrl.js" />
@@ -116,6 +119,7 @@
     <Content Include="tests\unit\auth.spec.js" />
     <Content Include="tests\lib\angular\angular-mocks.js" />
     <Content Include="tests\lib\angular\angular-scenario.js" />
+    <Content Include="tests\unit\user.spec.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

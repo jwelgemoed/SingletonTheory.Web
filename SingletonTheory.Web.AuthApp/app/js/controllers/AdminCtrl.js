@@ -50,7 +50,7 @@ angular.module('angular-client-side-auth')
 	    var addUserDialog = {};
 	    $scope.addUserDialog = addUserDialog;
 	    //---------- properties ----------
-	    addUserDialog.userTemplate = {
+        addUserDialog.userTemplate = {
 	       Id: '', UserName: '', Password: '', Roles: '', Active: ''
 	    };
 	    
@@ -124,5 +124,23 @@ angular.module('angular-client-side-auth')
             function (err) {
                 addUserDialog.error = err;
             });
+	    };
+	    
+	    //========== userNameExists ==========
+	    addUserDialog.validateUser = function (username, callback) {
+	        Auth.userExist({
+	            UserName: username
+	        }, function (result) {
+	            addUserDialog.errors.userExists = result;
+	            if (callback) callback(result);
+	        }, function (err) {
+	            addUserDialog.error = err;
+	        });
+	    };
+	    
+	    //========== validateUserForm ==========
+	    addUserDialog.validateUserForm = function (invalid) {
+	        var x = invalid || addUserDialog.errors.userExists;
+	        return x;
 	    };
 	}]);
