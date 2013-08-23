@@ -17,8 +17,10 @@ describe('User administration', function () {
 	var $controller;
 	var $httpBackend;
 	var userService;
-	var allUsersResponse;
-
+	var userResults;
+	var userToAdd;
+	var userAddResult;
+	
 	//you need to indicate your module in a test
 	beforeEach(module(userApplicationModule.name, mockUserData.name));
 
@@ -30,15 +32,14 @@ describe('User administration', function () {
 		$window = $injector.get('$window');
 		$controller = $injector.get('$controller');
 		userService = $injector.get('UserService');
-		allUsersResponse = $injector.get('defaultJSON');
+		userResults = $injector.get('userResults');
+		userToAdd = $injector.get('userToAdd');
+		userAddResult = $injector.get('userAddResult');
 
 		//// backend definition common for all tests
-		$httpBackend.when('GET', '/usersapi').respond(allUsersResponse.userResults);
-
-		//$httpBackend.when('GET', '/roles').respond({
-		//    "Roles": ["user"],
-		//    "UserName": "user"
-		//}, { 'A-Token': 'xxx' });
+		$httpBackend.when('GET', '/usersapi').respond(userResults.userResults);
+		$httpBackend.when('POST', '/userapi').respond(userResults.userAddResult);
+		$httpBackend.when('PUT', '/userapi').respond(userResults.userResults[0]);
 
 		createController = function (params) {
 			return $controller('UsersCtrl', params);
@@ -65,7 +66,9 @@ describe('UsersCtrl', function () {
 		expect(params).toBeDefined();
 		expect($scope).toBeDefined();
 		expect(userService).toBeDefined();
-		expect(allUsersResponse).toBeDefined();
+		expect(userResults).toBeDefined();
+		expect(userToAdd).toBeDefined();
+		expect(userAddResult).toBeDefined();
 	}),
 	it('Activite filter options should exist', function () {
 		expect($scope.options).toBeDefined();
@@ -83,20 +86,40 @@ describe('UsersCtrl', function () {
 		expect($scope.users.items.length).toBe(6);
 	}),
 	it('Active filter should return true', function () {
-		expect($scope.activeFilter(allUsersResponse.userResults[1])).toBe(true);
+		expect($scope.activeFilter(userResults.userResults[1])).toBe(true);
 	}),
 	it('Active filter should return false', function () {
-		expect($scope.activeFilter(allUsersResponse.userResults[0])).toBe(false);
+		expect($scope.activeFilter(userResults.userResults[0])).toBe(false);
 	}),
 	it('User search filter should return true', function () {
 		$scope.usersSearchQuery = 'TheYeti';
-		expect($scope.usersSearch(allUsersResponse.userResults[5])).toBe(true);
+		expect($scope.usersSearch(userResults.userResults[5])).toBe(true);
 	}),
 	it('User search filter should return false', function () {
 		$scope.usersSearchQuery = 'TheYeti';
 		for (var x = 0; x < 5; x++) {
-			expect($scope.usersSearch(allUsersResponse.userResults[x])).toBe(false);
+			expect($scope.usersSearch(userResults.userResults[x])).toBe(false);
 		}
+	}),
+	it('Should add a user', function () {
+		spyOn($scope.users, 'refresh');
+		$scope.addUserDialog.user.UserName = userToAdd.userToAdd.UserName,
+		$scope.addUserDialog.user.Password = userToAdd.userToAdd.Password,
+		$scope.addUserDialog.mrole = userToAdd.userToAdd.role,
+		$scope.addUserDialog.Meta.Active = userToAdd.userToAdd.Active,
+		$scope.addUserDialog.save();
+		$httpBackend.flush();
+		expect($scope.users.refresh).toHaveBeenCalled();
+	}),
+	it('Should update a user', function () {
+		spyOn($scope.users, 'refresh');
+		var userToUpdate = userResults.userResults[0];
+		$scope.addUserDialog.user = userToUpdate,
+		$scope.addUserDialog.role = userToUpdate.Roles[0],
+		$scope.addUserDialog.Meta.Active = userToUpdate.Meta.Active,
+		$scope.addUserDialog.update();
+		$httpBackend.flush();
+		expect($scope.users.refresh).toHaveBeenCalled();
 	})
 	;
 	/*
