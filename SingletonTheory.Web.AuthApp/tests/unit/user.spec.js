@@ -33,7 +33,7 @@ describe('User administration', function () {
 		allUsersResponse = $injector.get('defaultJSON');
 
 		//// backend definition common for all tests
-		$httpBackend.when('GET', '/usersapi').respond(allUsersResponse);
+		$httpBackend.when('GET', '/usersapi').respond(allUsersResponse.userResults);
 
 		//$httpBackend.when('GET', '/roles').respond({
 		//    "Roles": ["user"],
@@ -78,10 +78,25 @@ describe('UsersCtrl', function () {
 		expect($scope.options.activeFilterDescriptions[2].text).toBe('In-Active Users');
 	}),
 	it('Should get all 6 users', function () {
-		$httpBackend.expectGET('/usersapi').respond(200, allUsersResponse.userResults);
 		$scope.init();
 		$httpBackend.flush();
 		expect($scope.users.items.length).toBe(6);
+	}),
+	it('Active filter should return true', function () {
+		expect($scope.activeFilter(allUsersResponse.userResults[1])).toBe(true);
+	}),
+	it('Active filter should return false', function () {
+		expect($scope.activeFilter(allUsersResponse.userResults[0])).toBe(false);
+	}),
+	it('User search filter should return true', function () {
+		$scope.usersSearchQuery = 'TheYeti';
+		expect($scope.usersSearch(allUsersResponse.userResults[5])).toBe(true);
+	}),
+	it('User search filter should return false', function () {
+		$scope.usersSearchQuery = 'TheYeti';
+		for (var x = 0; x < 5; x++) {
+			expect($scope.usersSearch(allUsersResponse.userResults[x])).toBe(false);
+		}
 	})
 	;
 	/*
