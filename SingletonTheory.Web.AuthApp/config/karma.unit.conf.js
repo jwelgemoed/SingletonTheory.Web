@@ -28,6 +28,8 @@ module.exports = function (config) {
 			'../app/js/directives/ActiveNavDirective.js',
 			'../app/js/directives/AppDirectives.js',
 			'../app/js/controllers/LoginCtrl.js',
+			'../app/js/controllers/UsersCtrl.js',
+			'../tests/unit/MockData/*.js',
 			'../tests/unit/*.js'
 		],
 

@@ -36,12 +36,12 @@ userApplicationModule.controller('UsersCtrl',
 	    $scope.regExNoNumbers = /^([^0-9]*)$/;
 	    users.items = [];
 	    //========== load ==========
-	    users.refresh = function (callback) {
+	    users.refresh = function () {
 	    	userService.getAll(function (res) {
 	    		users.items = [];
 	    		users.items = res;
 	            $scope.loading = false;
-	            if (callback) callback(users);
+	           // if (callback) callback(users);
 	        });
 	    };
 		
