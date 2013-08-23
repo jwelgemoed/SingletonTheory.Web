@@ -58,10 +58,10 @@ userApplicationModule.controller('UsersCtrl',
 	    };
 	    
 	    addUserDialog.options = {
-	        mrole: ['admin', 'user']
+	        role: ['admin', 'user']
 	    };
 	    
-	    addUserDialog.mrole = addUserDialog.options.mrole[0];//Set the default
+	    addUserDialog.role = addUserDialog.options.role[1];//Set the default
 
 	    addUserDialog.user = angular.copy(addUserDialog.userTemplate);
 	    addUserDialog.errors = { userExists: false };
@@ -69,12 +69,12 @@ userApplicationModule.controller('UsersCtrl',
 	    //========== show ==========
 	    addUserDialog.show = function (user, callback) {
 	        addUserDialog.errors.service = null;
-	        addUserDialog.mrole = 'admin';
+
 	        if (arguments.length === 1) {
 	            addUserDialog.isNew = !(addUserDialog.isEdit = true);
 	            addUserDialog.originalUser = user;
 	            addUserDialog.user = angular.copy(user);
-	            addUserDialog.mrole = user.Roles[0];
+	            addUserDialog.role = user.Roles[0];
 	            addUserDialog.Meta.Active = user.Meta.Active === 'True';
 	        } else {
 	            addUserDialog.isEdit = !(addUserDialog.isNew = true);
@@ -98,7 +98,7 @@ userApplicationModule.controller('UsersCtrl',
                 Id: 0,
 	            UserName: addUserDialog.user.UserName,
 	            Password: addUserDialog.user.Password,
-	            role: addUserDialog.mrole,
+	            role: addUserDialog.role,
 	            Active: addUserDialog.Meta.Active
 	        },
             function () {
@@ -114,7 +114,7 @@ userApplicationModule.controller('UsersCtrl',
 	    addUserDialog.update = function () {
 	    	userService.updateUser({
 	            Id: addUserDialog.user.Id,
-	            role: addUserDialog.mrole,
+	            role: addUserDialog.role,
 	            Active: addUserDialog.Meta.Active
 	        },
             function () {
