@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../lib/underscore/underscore-min.js" />
+/// <reference path="~/app/js/routingConfig.js" />
 
 'use strict';
 
