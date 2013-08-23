@@ -13,7 +13,7 @@ userApplicationModule.controller('UsersCtrl',
 	    
 	    //********** init **********
 	    $scope.init = function () {
-	        wusers.refresh();
+	    	users.refresh();
 	    };
         
 	    $scope.activeFilter = function (row) {
@@ -30,18 +30,18 @@ userApplicationModule.controller('UsersCtrl',
 	    };
 
 	    //********** users **********
-	    var wusers = {};
-	    $scope.wusers = wusers;
+	    var users = {};
+	    $scope.users = users;
 	    //---------- properties ----------
 	    $scope.regExNoNumbers = /^([^0-9]*)$/;
-	    wusers.items = [];
+	    users.items = [];
 	    //========== load ==========
-	    wusers.refresh = function (callback) {
+	    users.refresh = function (callback) {
 	    	userService.getAll(function (res) {
-	            wusers.items = [];
-	            wusers.items = res;
+	    		users.items = [];
+	    		users.items = res;
 	            $scope.loading = false;
-	            if (callback) callback(wusers);
+	            if (callback) callback(users);
 	        });
 	    };
 		
@@ -103,7 +103,7 @@ userApplicationModule.controller('UsersCtrl',
 	        },
             function () {
                 addUserDialog.visible = false;
-                wusers.refresh();
+                users.refresh();
             },
             function (err) {
                 addUserDialog.error = err;
@@ -119,7 +119,7 @@ userApplicationModule.controller('UsersCtrl',
 	        },
             function () {
                 addUserDialog.visible = false;
-                wusers.refresh();
+                users.refresh();
             },
             function (err) {
                 addUserDialog.error = err;
