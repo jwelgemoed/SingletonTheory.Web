@@ -121,6 +121,7 @@
   <ItemGroup>
     <Content Include="StartKarma_UnitTests.bat" />
     <Content Include="StartKarma_e2eTests.bat" />
+    <Content Include="tests\e2e\extensions\TestHelpers.js" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

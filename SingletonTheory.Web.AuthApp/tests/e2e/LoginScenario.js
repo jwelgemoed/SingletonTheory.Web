@@ -1,5 +1,6 @@
 ﻿/// <reference path="../lib/jasmine/jasmine.js" />
 /// <reference path="extensions/angular.scenario.custom.js" />
+/// <reference path="extensions/TestHelpers.js" />
 /// <reference path="../lib/angular/angular-scenario.js" />
 
 'use strict';
@@ -10,7 +11,7 @@ describe('Login Scenario', function () {
 	});
 
 	afterEach(function () {
-		
+		TestHelpers.logout();
 	});
 
 	it('should automatically redirect to /login when location hash/fragment is empty', function () {
@@ -18,21 +19,14 @@ describe('Login Scenario', function () {
 	});
 
 	it('should fail login for invalid password', function () {
+		TestHelpers.login('user', '1234');
 		expect(browser().location().url()).toBe('/login');
-		input('UserName').enter('user');
-		input('Password').enter('1234');
-		element('button').click();
-		//expect(browser().location().url()).toBe('/login');
-	
+		expect(element('#errorContainer').html()).toContain('Failed to login');
 	});
 
 	it('should login with UserName="user"', function () {
-		expect(browser().location().url()).toBe('/login');
-		input('UserName').enter('user');
-		input('Password').enter('123');
-		element('button').click();
+		TestHelpers.login('user', '123');
 		expect(browser().location().url()).toBe('/');
-		element('#logoutButton').click();
-		expect(browser().location().url()).toBe('/login');
+		expect(element('#ng-view').html()).toContain('Welcome to the Dashboard');
 	});
 });

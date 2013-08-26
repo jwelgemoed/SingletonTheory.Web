@@ -29,7 +29,8 @@ module.exports = function (config) {
 			//'../app/js/controllers/LoginCtrl.js',
 			'../tests/lib/jquery/jquery.js',
 			'../tests/e2e/extensions/angular.scenario.custom.js',
-			'../tests/e2e/LoginScenario.js',
+			'../tests/e2e/extensions/TestHelpers.js',
+			'../tests/e2e/LoginScenario.js'
 		],
 
 		// list of files to exclude
