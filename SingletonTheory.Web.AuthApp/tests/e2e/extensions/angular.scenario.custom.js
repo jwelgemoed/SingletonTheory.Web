@@ -7,3 +7,7 @@ angular.scenario.dsl('value', function () {
 		});
 	};
 });
+
+//it('should equal 42 - Displays how to add custom extensions', function () {
+//	expect(value(42)).toBe(42);
+//});
