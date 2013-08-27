@@ -94,18 +94,13 @@ describe('Login Scenario', function () {
 		input('addUserDialog.user.Password').enter(passwordForUser);
 		element('#saveNewUserButton').click();
 		expect(element('#usersRepeater tr:last td:nth-child(2)').html()).toContain(userNameToAdd);
-		/*
-		element('#usersRepeater tr').query(function (tr, done) {
-			var hit = false;
-			$.each(tr, function (index, value) {
-				if (value.cells[1].innerText == userNameToAdd && value.cells[3].innerText == 'True') {
-					hit = true;
-				}
-			});
-			expect(value(hit)).toBe(true);
-			done();
-		});
-		*/
+		expect(element('#usersRepeater tr:last td:nth-child(4)').html()).toContain('True');
+		element('#usersRepeater tr:last button').click();
+		input('addUserDialog.Meta.Active').check();
+		element('#saveEditedUserButton').click();
+		select('activeFilterDescriptions').option('All Users');
+		expect(element('#usersRepeater tr:last td:nth-child(2)').html()).toContain(userNameToAdd);
+		expect(element('#usersRepeater tr:last td:nth-child(4)').html()).toContain('False');
 	});
 
 });

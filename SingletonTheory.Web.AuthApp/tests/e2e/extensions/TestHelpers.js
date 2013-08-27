@@ -25,20 +25,8 @@ login: function (userName, password) {
 		for (var i = 0; i < 7; i++)
 			text += possible.charAt(Math.floor(Math.random() * possible.length));
 		return text;
-	},
-
-	confirmrepeatercolumncontainsvalue: function (selector, columntIndex, valueToCheck) {
-		element(selector).query(function (tr, done) {
-			var hit = false;
-			$.each(tr, function (index, value) {
-				if (value.cells[columntIndex].innerText == valueToCheck) {
-					hit = true;
-				}
-			});
-			expect(value(hit)).toBe(true);
-			done();
-		});
 	}
+
 };
 
 
