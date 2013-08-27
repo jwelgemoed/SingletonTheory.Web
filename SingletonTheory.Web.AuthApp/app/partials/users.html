@@ -1,9 +1,9 @@
-<div class="container" ng-init="init()">
+<div id="userAdminContainer" class="container" ng-init="init()">
 	<h1>Administrate Users</h1>
 	<!--  Toolbar Section  -->
 	<div class="row-fluid filter">
 		<div class="well well-small span2 form-inline">
-			<button class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i><span>Add</span></button>
+			<button id="addUserButton" class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i><span>Add</span></button>
 		</div>
 		<form class="well well-small span10 form-inline empty-toolbar-box">
 			<div class="pull-left">
@@ -18,7 +18,7 @@
 		</form>
 	</div>
 
-	<table data-ng-hide="loading" class="table table-striped">
+	<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Id</th>
@@ -56,19 +56,19 @@
 	</div>
 
 	<!-- Modal Body -->
-	<div class="modal-body">
+	<div id="userAddEditPopupBody" class="modal-body">
 		<form class="well well-small form-inline" name="addUserForm">
 			<div class="controls">
 				<div class="control-group">
 					<label for="username" class="control-label">Username</label>
 					<div class="controls">
-						<input type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" ng-blur="addUserDialog.validateUser(addUserDialog.user.UserName)" user-available ng-readonly="addUserDialog.isEdit" />
+						<input id="userNameInput" type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" ng-blur="addUserDialog.validateUser(addUserDialog.user.UserName)"  ng-readonly="addUserDialog.isEdit" />
 					</div>
 				</div>
 				<div class="control-group" ng-show="addUserDialog.isNew">
 					<label for="Password" class="control-label">Password</label>
 					<div class="controls">
-						<input type="password" data-ng-model="addUserDialog.user.Password" placeholder="Password" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60" />
+						<input id="passwordInput" type="password" data-ng-model="addUserDialog.user.Password" placeholder="Password" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60" />
 					</div>
 				</div>
 				<div class="control-group">
@@ -97,11 +97,11 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn" ng-click="addUserDialog.hide()">Cancel</button>
-					<button class="btn btn-primary" ng-show="addUserDialog.isNew"
+					<button id="saveNewUserButton" class="btn btn-primary" ng-show="addUserDialog.isNew"
 						ng-click="addUserDialog.save()"
 						ng-disabled="addUserForm.$invalid">
 						Save</button>
-					<button class="btn btn-primary" ng-show="addUserDialog.isEdit"
+					<button id="saveEditedUserButton" class="btn btn-primary" ng-show="addUserDialog.isEdit"
 						ng-click="addUserDialog.update(addUserDialog.user)">
 						Update</button>
 				</div>
