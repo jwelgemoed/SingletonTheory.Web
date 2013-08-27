@@ -19,14 +19,26 @@ describe('Login Scenario', function () {
 	});
 
 	it('should fail login for invalid password', function () {
-		TestHelpers.login('user', '1234');
+		TestHelpers.login(adminUserUserName, adminUserInvalidPassword);
 		expect(browser().location().url()).toBe('/login');
 		expect(element('#errorContainer').html()).toContain('Failed to login');
 	});
 
 	it('should login with UserName="user"', function () {
-		TestHelpers.login('user', '123');
+		TestHelpers.login(normalUserUserName, normalUserPassword);
 		expect(browser().location().url()).toBe('/');
 		expect(element('#ng-view').html()).toContain('Welcome to the Dashboard');
+	});
+
+	it('should allow user admin to have access to admin menu', function () {
+		TestHelpers.login(adminUserUserName, adminUserPassword);
+		expect(browser().location().url()).toBe('/');
+		expect(element("#adminActionsMenu").css("display")).not().toBe("none");
+	});
+	
+	it('should not allow normal user to have access to admin menu', function () {
+		TestHelpers.login(normalUserUserName, normalUserPassword);
+		expect(browser().location().url()).toBe('/');
+		expect(element("#adminActionsMenu").css("display")).toBe("none");
 	});
 });

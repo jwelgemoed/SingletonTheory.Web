@@ -1,7 +1,13 @@
 ﻿
-var TestHelpers = {
+var adminUserUserName = 'admin';
+var adminUserPassword = '123';
+var adminUserInvalidPassword = 'fdsjh';
+var normalUserUserName = 'user';
+var normalUserPassword = '123';
+var normalUserInvalidPassword = 'fdsjh';
 
-	login: function (userName, password) {
+var TestHelpers = {
+login: function (userName, password) {
 		expect(browser().location().url()).toBe('/login');
 		input('UserName').enter(userName);
 		input('Password').enter(password);

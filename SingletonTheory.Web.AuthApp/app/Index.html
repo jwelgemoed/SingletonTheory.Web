@@ -18,7 +18,7 @@
 	</script>
 </head>
 <body data-ng-cloak>
-	<div data-ng-controller="NavCtrl" class="navbar">
+	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar">
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<ul class="nav">
@@ -32,7 +32,7 @@
 					</li>
 				</ul>
 				<ul class="nav">
-					<li data-access-level="accessLevels.admin" active-nav>
+					<li id="adminActionsMenu" data-access-level="accessLevels.admin" active-nav>
 						<a href="#" role="button" class="dropdown-toggle">Administrator Actions<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
@@ -43,7 +43,7 @@
 					</li>
 				</ul>
 				<ul class="nav">
-					<li data-access-level="accessLevels.user">
+					<li id="logoutButtonContainer" data-access-level="accessLevels.user">
 						<a id="logoutButton" href="" data-ng-click="logout()">Log out</a>
 					</li>
 				</ul>
