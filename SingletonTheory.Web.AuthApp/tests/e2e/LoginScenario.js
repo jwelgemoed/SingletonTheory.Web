@@ -79,19 +79,10 @@ describe('Login Scenario', function () {
 		input('addUserDialog.user.UserName').enter(userNameToAdd);
 		input('addUserDialog.user.Password').enter(passwordForUser);
 		element('#saveNewUserButton').click();
-		element('#usersRepeater tr').query(function (tr, done) {
-			var hit = false;
-			$.each(tr, function (index, value) {
-				if (value.cells[1].innerText == userNameToAdd) {
-					hit = true;
-				}
-			});
-			expect(value(hit)).toBe(true);
-			done();
-		});
+		expect(element('#usersRepeater tr:last td:nth-child(2)').html()).toContain(userNameToAdd);
 	});
 	
-	it('should add edit a random user', function () {
+	it('should edit a random user', function () {
 		var userNameToAdd = TestHelpers.makerandomtext();
 		var passwordForUser = TestHelpers.makerandomtext();
 		TestHelpers.login(adminUserUserName, adminUserPassword);
@@ -102,7 +93,7 @@ describe('Login Scenario', function () {
 		input('addUserDialog.user.UserName').enter(userNameToAdd);
 		input('addUserDialog.user.Password').enter(passwordForUser);
 		element('#saveNewUserButton').click();
-		expect(element('#usersRepeater tr: last').text()).toMatch('hello');
+		expect(element('#usersRepeater tr:last td:nth-child(2)').html()).toContain(userNameToAdd);
 		/*
 		element('#usersRepeater tr').query(function (tr, done) {
 			var hit = false;
