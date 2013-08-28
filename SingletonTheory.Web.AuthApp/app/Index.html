@@ -49,12 +49,13 @@
 				</ul>
 				<div id="userInfo" data-access-level="accessLevels.user" class="pull-right">
 					Welcome&nbsp;
-														<strong>{{ user.UserName }}&nbsp;</strong>
+					<strong>{{ user.UserName }}&nbsp;</strong>
 					<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
 				</div>
 			</div>
 		</div>
 	</div>
+	 <span data-i18n="_TestTitle_"></span>
 	<div class="container">
 		<div id="ng-view" data-ng-view="ng-view"></div>
 		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
@@ -79,5 +80,6 @@
 	<script src="/js/directives/FocusDirective.js"></script>
 	<script src="/js/directives/AccessLevelDirective.js"></script>
 	<script src="/js/directives/ActiveNavDirective.js"></script>
+	<script src="/js/services/LocalizationService.js"></script>
 </body>
 </html>

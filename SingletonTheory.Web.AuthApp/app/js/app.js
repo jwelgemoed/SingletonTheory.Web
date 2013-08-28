@@ -1,6 +1,8 @@
 'use strict';
 
-var userApplicationModule = angular.module('user-application', ['ngCookies', 'ui.bootstrap']);
+var userApplicationModule = angular.module('user-application', ['ngCookies', 'ui.bootstrap','localization']);
+
+var localizationModule = angular.module('localization',[]);
 
 userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
