@@ -23,7 +23,7 @@ localizationModule
 			// success handler for all server communication
 			successCallback: function(data) {
 				// store the returned array in the dictionary
-				localize.dictionary = data;
+				localize.dictionary = data.LocalizationDictionary;
 				// set the flag that the resource are loaded
 				localize.resourceFileLoaded = true;
 				// broadcast that the file has been loaded
@@ -38,14 +38,10 @@ localizationModule
 
 			// loads the language resource file from the server
 			initLocalizedResources: function() {
-				// build the url to retrieve the localized resource file
-				var url = 'i18n/resources-locale_' + localize.language + '.js';
 				// request the resource file
-				$http({ method: "GET", url: url, cache: false }).success(localize.successCallback).error(function() {
-					// the request failed set the url to the default resource file
-					var url = 'i18n/resources-locale_default.js';
+				$http.get('/localize/' + localize.language).success(localize.successCallback).error(function() {
 					// request the default resource file
-					$http({ method: "GET", url: url, cache: false }).success(localize.successCallback);
+					$http.get('/localize/default').success(localize.successCallback).error(error);
 				});
 			},
 
@@ -59,12 +55,12 @@ localizationModule
 					// use the filter service to only return those entries which match the value
 					// and only take the first result
 					var entry = $filter('filter')(localize.dictionary, function(element) {
-						return element.key === value;
+						return element.Key === value;
 					}
 					)[0];
 
 					// set the result
-					result = entry.value;
+					result = entry.Value;
 				}
 				// return the value to the call
 				return result;

@@ -60,10 +60,6 @@
     <Content Include="app\css\app.css" />
     <Content Include="app\DownloadPage.html" />
     <Content Include="app\favicon.ico" />
-    <Content Include="app\i18n\resources-locale_default.js" />
-    <Content Include="app\i18n\resources-locale_en-US.js" />
-    <Content Include="app\i18n\resources-locale_es-es.js" />
-    <Content Include="app\i18n\resources-locale_es.js" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />

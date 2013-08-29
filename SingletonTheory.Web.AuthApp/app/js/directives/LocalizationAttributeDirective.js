@@ -1,5 +1,13 @@
 ﻿'use strict';
 
+/*
+ * An AngularJS Localization Directive
+ *
+ * Written by Jim Lavin
+ * http://codingsmackdown.tv
+ *
+ */
+
 // translation directive that can handle dynamic strings
 // updates the attribute value of the attached element
 // usage <span data-i18n-attr="TOKEN|ATTRIBUTE" ></span>
