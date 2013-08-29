@@ -118,6 +118,8 @@
     <Content Include="tests\unit\auth.spec.js" />
     <Content Include="tests\lib\angular\angular-mocks.js" />
     <Content Include="tests\lib\angular\angular-scenario.js" />
+    <Content Include="tests\unit\localization.srv.js" />
+    <Content Include="tests\unit\MockData\LocalizationMockData.js" />
     <Content Include="tests\unit\MockData\UsersMockData.js" />
     <Content Include="tests\unit\user.spec.js" />
     <Content Include="web.config" />
