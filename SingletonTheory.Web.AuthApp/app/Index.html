@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<ul class="nav">
 					<li data-access-level="accessLevels.anon" active-nav>
-						<a href="/login">Log in</a>
+						<a href="/login" data-i18n="_LogInAnchor_"></a>
 					</li>
 				</ul>
 				<ul class="nav">
@@ -45,6 +45,16 @@
 				<ul class="nav">
 					<li id="logoutButtonContainer" data-access-level="accessLevels.user">
 						<a id="logoutButton" href="" data-ng-click="logout()">Log out</a>
+					</li>
+				</ul>
+				<ul class="nav">
+					<li data-access-level="accessLevels.anon" active-nav>
+						<button  ng-click="setEnglish()">English</button>
+					</li>
+				</ul>
+				<ul class="nav">
+					<li data-access-level="accessLevels.anon" active-nav>
+						<button  ng-click="setDutch()" >Nederlands</button>
 					</li>
 				</ul>
 				<div id="userInfo" data-access-level="accessLevels.user" class="pull-right">

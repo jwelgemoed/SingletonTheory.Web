@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-userApplicationModule.controller('NavCtrl', ['$scope', '$location', 'AuthService', function ($scope, $location, authService) {
+userApplicationModule.controller('NavCtrl', ['$scope', '$location', 'AuthService','localize', function ($scope, $location, authService, localize) {
 	$scope.user = authService.user;
 		$scope.userRoles = authService.userRoles;
 		$scope.accessLevels = authService.accessLevels;
@@ -12,4 +12,13 @@ userApplicationModule.controller('NavCtrl', ['$scope', '$location', 'AuthService
 				$rootScope.error = "Failed to logout";
 			});
 		};
-	}]);
+
+		$scope.setEnglish = function () {
+			localize.setLanguage('en-US');
+		};
+	
+		$scope.setDutch = function () {
+			localize.setLanguage('nl-nl');
+		};
+	
+}]);
