@@ -65,6 +65,8 @@ localizationModule
 					result = entry.Value;
 				}
 				// return the value to the call
+				if (result == undefined || result == '')
+					result = value;
 				return result;
 			}
 		};
