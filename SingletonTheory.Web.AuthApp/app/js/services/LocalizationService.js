@@ -7,6 +7,7 @@
  * http://codingsmackdown.tv
  *
  */
+var localizationModule = angular.module('localization', []);
 
 localizationModule
 	// localization service responsible for retrieving resource files from the server and

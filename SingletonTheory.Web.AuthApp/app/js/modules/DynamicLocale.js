@@ -53,7 +53,6 @@ dynamicLocaleModule.provider('dynamicLocale', function () {
 			});
 		}
 
-
 		var cachedLocale = localeCache.get(localeId);
 		if (cachedLocale) {
 			$rootScope.$evalAsync(function () {
@@ -84,7 +83,7 @@ dynamicLocaleModule.provider('dynamicLocale', function () {
 		}
 	};
 
-	this.$get = ['$rootScope', '$interpolate', '$locale', 'tmhDynamicLocaleCache', function ($rootScope, interpolate, locale, tmhDynamicLocaleCache) {
+	this.$get = ['$rootScope', '$interpolate', '$locale', 'dynamicLocaleCache', function ($rootScope, interpolate, locale, dynamicLocaleCache) {
 		var localeLocation = interpolate(localeLocationPattern);
 
 		return {
@@ -96,13 +95,13 @@ dynamicLocaleModule.provider('dynamicLocale', function () {
        *    instance with the information from the new locale
        */
 			set: function (value) {
-				loadLocale(localeLocation({ locale: value }), locale, value, $rootScope, tmhDynamicLocaleCache);
+				loadLocale(localeLocation({ locale: value }), locale, value, $rootScope, dynamicLocaleCache);
 			}
 		};
 	}];
 
-}).provider('tmhDynamicLocaleCache', function () {
+}).provider('dynamicLocaleCache', function () {
 	this.$get = ['$cacheFactory', function ($cacheFactory) {
-		return $cacheFactory('tmh.dynamicLocales');
+		return $cacheFactory('dynamicLocales');
 	}];
 });
