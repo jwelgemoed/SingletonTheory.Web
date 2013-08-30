@@ -71,6 +71,7 @@
     <Content Include="app\js\directives\LocalizationDirective.js" />
     <Content Include="app\js\directives\ValidationDirective.js" />
     <Content Include="app\js\filters\LocalizationFilter.js" />
+    <Content Include="app\js\modules\DynamicLocale.js" />
     <Content Include="app\js\services\AuthService.js" />
     <Content Include="app\js\controllers\UsersCtrl.js" />
     <Content Include="app\js\controllers\NavCtrl.js" />
@@ -80,6 +81,12 @@
     <Content Include="app\js\controllers\TimeCtrl.js" />
     <Content Include="app\js\services\LocalizationService.js" />
     <Content Include="app\js\services\UserService.js" />
+    <Content Include="app\lib\angular\i18n\angular-locale_en-be.js" />
+    <Content Include="app\lib\angular\i18n\angular-locale_en-us.js" />
+    <Content Include="app\lib\angular\i18n\angular-locale_en.js" />
+    <Content Include="app\lib\angular\i18n\angular-locale_nl-be.js" />
+    <Content Include="app\lib\angular\i18n\angular-locale_nl-nl.js" />
+    <Content Include="app\lib\angular\i18n\angular-locale_nl.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-0.5.0.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-0.5.0.min.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.js" />

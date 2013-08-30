@@ -4,18 +4,21 @@
 /// <reference path="~/app/lib/angular/angular.js" />
 /// <reference path="~/tests/lib/angular/angular-mocks.js" />
 /// <reference path="~/app/js/app.js" />
+/// <reference path="~/app/js/modules/DynamicLocale.js" />
 
 describe('Localization', function () {
 	var enUS;
 	var nlnl;
 	var defval;
 	var $httpBackend;
+	var dynamicLocale;
 
-	beforeEach(angular.mock.module(localizationModule.name, mockLocalizationData.name));
+	beforeEach(angular.mock.module(localizationModule.name, mockLocalizationData.name, dynamicLocaleModule.name));
 
 	beforeEach(inject(function ($injector) {
 
 		$httpBackend = $injector.get('$httpBackend');
+		dynamicLocale = $injector.get('dynamicLocale');
 		enUS = $injector.get('en-US');
 		nlnl = $injector.get('nl-nl');
 		defval = $injector.get('default');
@@ -36,6 +39,7 @@ describe('Localization', function () {
 	describe("Unit: Testing localization service", function () {
 		it('Injectables should be defined', function() {
 			expect(enUS).toBeDefined();
+			expect(dynamicLocale).toBeDefined();
 		}),
 		it('should contain a localize service', inject(function(localize) {
 			expect(localize).toBeDefined();

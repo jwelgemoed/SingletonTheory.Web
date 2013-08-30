@@ -1,12 +1,13 @@
 'use strict';
 
-var userApplicationModule = angular.module('user-application', ['ngCookies', 'ui.bootstrap','localization']);
+var userApplicationModule = angular.module('user-application', ['ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule']);
 
 var localizationModule = angular.module('localization',[]);
 
 userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
-				var access = routingConfig.accessLevels;
+	var access = routingConfig.accessLevels;
+	
 
 				$routeProvider.when('/',
 						{
@@ -53,9 +54,9 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 						}
 					}
 
-					return function (promise) {
+					return function(promise) {
 						return promise.then(success, error);
-					}
+					};
 				}];
 
 				$httpProvider.responseInterceptors.push(interceptor);

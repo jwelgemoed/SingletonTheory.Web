@@ -11,7 +11,7 @@
 localizationModule
 	// localization service responsible for retrieving resource files from the server and
 	// managing the translation dictionary
-	.factory('localize', ['$http', '$rootScope', '$window', '$filter', function($http, $rootScope, $window, $filter) {
+	.factory('localize', ['$http', '$rootScope', '$window', '$filter', 'dynamicLocale', function ($http, $rootScope, $window, $filter,dynamicLocale) {
 		var localize = {
 			// use the $window service to get the language of the user's browser
 			language: $window.navigator.userLanguage || $window.navigator.language,
@@ -43,6 +43,7 @@ localizationModule
 					// request the default resource file
 					$http.get('/localize/default').success(localize.successCallback).error(error);
 				});
+				dynamicLocale.set(localize.language);
 			},
 
 			// checks the dictionary for a localized resource string

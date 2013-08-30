@@ -33,7 +33,7 @@
 				</ul>
 				<ul class="nav">
 					<li id="adminActionsMenu" data-access-level="accessLevels.admin" active-nav>
-						<a id="adminActionsMenuToggle" href="#"  role="button" class="dropdown-toggle">Administrator Actions<b class="caret"></b>
+						<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle">Administrator Actions<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li data-access-level="accessLevels.admin" active-nav>
@@ -49,12 +49,12 @@
 				</ul>
 				<ul class="nav">
 					<li data-access-level="accessLevels.anon" active-nav>
-						<button  ng-click="setEnglish()">English</button>
+						<button ng-click="setEnglish()">English</button>
 					</li>
 				</ul>
 				<ul class="nav">
 					<li data-access-level="accessLevels.anon" active-nav>
-						<button  ng-click="setDutch()" >Nederlands</button>
+						<button ng-click="setDutch()">Nederlands</button>
 					</li>
 				</ul>
 				<div id="userInfo" data-access-level="accessLevels.user" class="pull-right">
@@ -64,8 +64,11 @@
 				</div>
 			</div>
 		</div>
+		<span>{{123456079.12|number}}</span>
+		<span>{{1288323623006 | date:'medium'}}</span>
 	</div>
-	 <span data-i18n="_TestTitle_"></span>
+	<span data-i18n="_TestTitle_"></span>
+
 	<div class="container">
 		<div id="ng-view" data-ng-view="ng-view"></div>
 		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
@@ -76,6 +79,7 @@
 	<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.min.js"></script>
 	<script src="/lib/ui-bootstrap/ui-bootstrap-0.5.0.min.js"></script>
 	<script src="/js/routingConfig.js"></script>
+	<script src="/js/modules/DynamicLocale.js"></script>
 	<script src="/js/app.js"></script>
 	<script src="/js/services/AuthService.js"></script>
 	<script src="/js/services/UserService.js"></script>
@@ -94,5 +98,6 @@
 	<script src="/js/directives/LocalizationDirective.js"></script>
 	<script src="/js/directives/LocalizationAttributeDirective.js"></script>
 	<script src="/js/filters/LocalizationFilter.js"></script>
+
 </body>
 </html>
