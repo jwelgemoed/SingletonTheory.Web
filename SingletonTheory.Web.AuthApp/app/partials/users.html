@@ -13,7 +13,7 @@
 				<div class="input-append">
 					<input type="text" class="input-large" ng-model="usersSearchQuery" placeholder="Start typing to Search"><span class="add-on"><i class="icon-search"></i></span>
 				</div>
-				<button class="btn btn-small" ng-click="users.refresh()"><i class="icon-refresh"></i><span>Refresh</span></button>
+				<button class="btn btn-small" ng-click="refresh()"><i class="icon-refresh"></i><span>Refresh</span></button>
 			</div>
 		</form>
 	</div>
@@ -29,7 +29,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="user in users.items | filter:activeFilter | filter:usersSearch | orderBy:users.sorting.field:users.sorting.reverse">
+			<tr ng-repeat="user in users | filter:activeFilter | filter:usersSearch | orderBy:sorting.field:sorting.reverse">
 				<td>{{ user.Id }}</td>
 				<td>{{ user.UserName }}
 				</td>

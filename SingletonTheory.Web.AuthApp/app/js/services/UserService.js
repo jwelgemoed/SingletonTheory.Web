@@ -1,5 +1,7 @@
 ﻿'use strict';
 
+/// <reference path="~/app/js/app.js" />
+
 userApplicationModule.factory('UserService', function ($http) {
 	return {
 		getAll: function (success, error) {
@@ -17,4 +19,14 @@ userApplicationModule.factory('UserService', function ($http) {
 			$http.put('/userapi', user).success(success).error(error);
 		}
 	};
+});
+
+userApplicationModule.factory('UserResource', function ($resource) {
+	return $resource('/usersapi', ///:listController:id/:docController
+	{
+		id: "@id",
+		listController: "@listController",
+		docController: "@docController",
+		isArray: true
+	});
 });
