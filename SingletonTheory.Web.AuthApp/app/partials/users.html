@@ -1,9 +1,9 @@
 <div id="userAdminContainer" class="container" ng-init="init()">
-	<h1>Administrate Users</h1>
+	<h1 data-i18n="_AdministrateUsersHeading_"></h1>
 	<!--  Toolbar Section  -->
 	<div class="row-fluid filter">
 		<div class="well well-small span2 form-inline">
-			<button id="addUserButton" class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i><span>Add</span></button>
+			<button id="addUserButton" class="btn btn-small" ng-click="addUserDialog.show()"><i class="icon-plus"></i><span data-i18n="_AddHeading_" ></span></button>
 		</div>
 		<form class="well well-small span10 form-inline empty-toolbar-box">
 			<div class="pull-left">
@@ -11,9 +11,9 @@
 			</div>
 			<div class="pull-right">
 				<div class="input-append">
-					<input type="text" class="input-large" ng-model="usersSearchQuery" placeholder="Start typing to Search"><span class="add-on"><i class="icon-search"></i></span>
+					<input type="text" class="input-large" ng-model="usersSearchQuery" data-i18n-attr="_SearchMessage_|placeholder"><span class="add-on"><i class="icon-search"></i></span>
 				</div>
-				<button class="btn btn-small" ng-click="users.refresh()"><i class="icon-refresh"></i><span>Refresh</span></button>
+				<button class="btn btn-small" ng-click="users.refresh()"><i class="icon-refresh"></i><span data-i18n="_RefreshHeading_"></span></button>
 			</div>
 		</form>
 	</div>
@@ -21,11 +21,11 @@
 	<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Username</th>
-				<th>Role</th>
-				<th>Active</th>
-				<th>Edit</th>
+				<th data-i18n="_IdentityHeading_"></th>
+				<th data-i18n="_UserNameHeading_"></th>
+				<th data-i18n="_RoleHeading_"></th>
+				<th data-i18n="_ActiveHeading_"></th>
+				<th data-i18n="_EditHeading_"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,7 +39,7 @@
 				<td>{{ user.Meta.Active }}
 				</td>
 				<td>
-					<button class="btn btn-mini" ng-click="addUserDialog.show(user)"><i class="icon-edit"></i><span>Edit</span></button>
+					<button class="btn btn-mini" ng-click="addUserDialog.show(user)"><i class="icon-edit"></i><span data-i18n="_EditHeading_"></span></button>
 				</td>
 			</tr>
 		</tbody>
