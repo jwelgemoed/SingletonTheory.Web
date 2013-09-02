@@ -51,8 +51,8 @@
 <div modal="addUserDialog.visible" close="close()" options="opts">
 	<div class="modal-header">
 		<button ng-click="addUserDialog.hide()" class="close" type="button">×</button>
-		<h3 ng-show="addUserDialog.isNew">Add User</h3>
-		<h3 ng-show="addUserDialog.isEdit">Edit User</h3>
+		<h3 ng-show="addUserDialog.isNew" data-i18n="_AddUserHeading_"></h3>
+		<h3 ng-show="addUserDialog.isEdit" data-i18n="_EditUserHeading_"></h3>
 	</div>
 
 	<!-- Modal Body -->
@@ -60,26 +60,27 @@
 		<form class="well well-small form-inline" name="addUserForm">
 			<div class="controls">
 				<div class="control-group">
-					<label for="username" class="control-label">Username</label>
+					<label for="username" class="control-label" data-i18n="_UserNameHeading_"></label>
 					<div class="controls">
-						<input id="userNameInput" type="text" placeholder="Enter a unique username" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" ng-blur="addUserDialog.validateUser(addUserDialog.user.UserName)"  ng-readonly="addUserDialog.isEdit" />
+						<input id="userNameInput" type="text" data-i18n-attr="_UserNameMessage_|placeholder" data-ng-model="addUserDialog.user.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" ng-blur="addUserDialog.validateUser(addUserDialog.user.UserName)"  ng-readonly="addUserDialog.isEdit" />
 					</div>
 				</div>
 				<div class="control-group" ng-show="addUserDialog.isNew">
-					<label for="Password" class="control-label">Password</label>
+					<label for="Password" class="control-label" data-i18n="_PasswordHeading_"></label>
 					<div class="controls">
-						<input id="passwordInput" type="password" data-ng-model="addUserDialog.user.Password" placeholder="Password" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60" />
+						<input id="passwordInput" type="password" data-ng-model="addUserDialog.user.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60" />
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="addUserDialog.role" class="control-label">User role</label>
+					<label for="addUserDialog.role" class="control-label" data-i18n="_RoleHeading_"></label>
 					<div class="controls">
 						<select ng-model="addUserDialog.role" ng-options="opt for opt in addUserDialog.options.role"></select>
 					</div>
 				</div>
 				<div class="control-group" ng-show="addUserDialog.isEdit">
-					<label class="checkbox">
-						<input type="checkbox" ng-model="addUserDialog.Meta.Active">Active</label>
+					<label for="activeInput" class="checkbox" >
+					<input id="activeInput" type="checkbox" ng-model="addUserDialog.Meta.Active" /><span data-i18n="_ActiveHeading_"></span>
+				</label>
 				</div>
 
 				<div ng-show="addUserForm.$invalid || addUserDialog.errors.userExists" class="alert alert-error">
@@ -96,14 +97,14 @@
 					</ul>
 				</div>
 				<div class="modal-footer">
-					<button class="btn" ng-click="addUserDialog.hide()">Cancel</button>
+					<button class="btn" ng-click="addUserDialog.hide()" data-i18n="_CancelHeading_"></button>
 					<button id="saveNewUserButton" class="btn btn-primary" ng-show="addUserDialog.isNew"
 						ng-click="addUserDialog.save()"
-						ng-disabled="addUserForm.$invalid">
-						Save</button>
+						ng-disabled="addUserForm.$invalid" data-i18n="_SaveHeading_">
+						</button>
 					<button id="saveEditedUserButton" class="btn btn-primary" ng-show="addUserDialog.isEdit"
-						ng-click="addUserDialog.update(addUserDialog.user)">
-						Update</button>
+						ng-click="addUserDialog.update(addUserDialog.user)" data-i18n="_UpdateHeading_">
+						</button>
 				</div>
 			</div>
 		</form>
