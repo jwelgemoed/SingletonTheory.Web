@@ -1,33 +1,32 @@
 <div class="hero-unit">
-	<h1>Log in</h1>
-	<p>Authentication Story</p>
+	<h1 data-i18n="_LogInHeading_"></h1>
 	<ul>
 		<li>admin/123</li>
 		<li>user/123</li>
 	</ul>
 	<form ng-submit="login()" name="loginForm" class="form-horizontal">
 		<div class="control-group">
-			<label for="UserName" class="control-label">Username</label>
+			<label for="UserName" class="control-label" data-i18n="_UserNameHeading_"></label>
 			<div class="controls">
-				<input type="text" data-ng-model="UserName" placeholder="Username" name="username" required="required"/>
+				<input type="text" data-ng-model="UserName" data-i18n-attr="_UserNameHeading_|placeholder" name="username" required="required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="Password" class="control-label">Password</label>
+			<label for="Password" class="control-label" data-i18n="_PasswordHeading_">Password</label>
 			<div class="controls">
-				<input type="Password" data-ng-model="Password" placeholder="password" name="password" required="required"/>
+				<input type="Password" data-ng-model="Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" required="required"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<label for="RememberMe" class="checkbox">
-					<input type="checkbox" data-ng-model="RememberMe" name="rememberme"/>Remember me
+				<label for="RememberMeInput" class="checkbox" >
+					<input id="RememberMeInput" type="checkbox" data-ng-model="RememberMe" name="rememberme" /><span data-i18n="_RememberMeHeading_"></span>
 				</label>
 			</div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<button id="loginButton" type="submit" class="btn">Log in</button>
+				<button id="loginButton" type="submit" class="btn" data-i18n="_LogInHeading_" ></button>
 			</div>
 		</div>
 	</form>
