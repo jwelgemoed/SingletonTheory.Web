@@ -3,7 +3,7 @@
 <!--ng-app="myApp">-->
 <head>
 	<meta charset="utf-8">
-	<title>Singleton Theory Auth</title>
+	<title data-i18n="_MainTitle_"></title>
 	<link rel="stylesheet" href="css/app.css" />
 	<!-- Allows crawlers to crawl the site -->
 	<meta name="fragment" content="!" />
@@ -23,28 +23,28 @@
 			<div class="container-fluid">
 				<ul class="nav">
 					<li data-access-level="accessLevels.anon" active-nav>
-						<a href="/login" data-i18n="_LogInAnchor_"></a>
+						<a href="/login" data-i18n="_LogInHeading_"></a>
 					</li>
 				</ul>
 				<ul class="nav">
 					<li data-access-level="accessLevels.user" active-nav>
-						<a href="/">Home</a>
+						<a data-i18n="_HomeAnchor_" href="/"></a>
 					</li>
 				</ul>
 				<ul class="nav">
 					<li id="adminActionsMenu" data-access-level="accessLevels.admin" active-nav>
-						<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle">Administrator Actions<b class="caret"></b>
+						<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle" data-i18n="_AdminActionsAnchor_"><b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li data-access-level="accessLevels.admin" active-nav>
-								<a id="adminUsersMenuItem" href="/users">Adminstrate Users</a>
+								<a id="adminUsersMenuItem" href="/users" data-i18n="_AdministrateUsersHeading_"></a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="nav">
 					<li id="logoutButtonContainer" data-access-level="accessLevels.user">
-						<a id="logoutButton" href="" data-ng-click="logout()">Log out</a>
+						<a id="logoutButton" href="" data-ng-click="logout()" data-i18n="_LogOutAnchor_"></a>
 					</li>
 				</ul>
 				<ul class="nav">
@@ -58,18 +58,18 @@
 					</li>
 				</ul>
 				<div id="userInfo" data-access-level="accessLevels.user" class="pull-right">
-					Welcome&nbsp;
+					<span data-i18n="_UserWelcomeMessage_"></span>&nbsp;
 					<strong>{{ user.UserName }}&nbsp;</strong>
 					<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
 				</div>
 			</div>
 		</div>
-		<span>{{123456079.12|number}}</span>
-		<br />
-		<span>{{1288323623006 | date:'medium'}}</span>
+<!--
+	<span>{{123456079.12|number}}</span>
+	<br />
+	<span>{{1288323623006 | date:'medium'}}</span>
+	-->
 	</div>
-	<span data-i18n="_TestTitle_"></span>
-
 	<div class="container">
 		<div id="ng-view" data-ng-view="ng-view"></div>
 		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>

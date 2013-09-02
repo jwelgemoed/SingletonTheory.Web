@@ -33,7 +33,7 @@ localizationModule.directive('i18nAttr', ['localize', function (localize) {
 			}
 		},
 		link: function (scope, elm, attrs) {
-			scope.$on('localizeResourcesUpdated', function () {
+			scope.$on('localizeResourcesUpdates', function () {
 				i18NAttrDirective.updateText(elm, attrs.i18nAttr);
 			});
 
