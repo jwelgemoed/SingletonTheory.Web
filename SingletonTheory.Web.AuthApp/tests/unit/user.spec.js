@@ -70,16 +70,6 @@ describe('UsersCtrl', function () {
 		expect(userToAdd).toBeDefined();
 		expect(userAddResult).toBeDefined();
 	}),
-	it('Activite filter options should exist', function () {
-		expect($scope.options).toBeDefined();
-		expect($scope.options.activeFilterDescriptions.length).toBe(3);
-		expect($scope.options.activeFilterDescriptions[0].value).toBe('');
-		expect($scope.options.activeFilterDescriptions[0].text).toBe('All Users');
-		expect($scope.options.activeFilterDescriptions[1].value).toBe('True');
-		expect($scope.options.activeFilterDescriptions[1].text).toBe('Active Users');
-		expect($scope.options.activeFilterDescriptions[2].value).toBe('False');
-		expect($scope.options.activeFilterDescriptions[2].text).toBe('In-Active Users');
-	}),
 	it('Should get all 6 users', function () {
 		$scope.init();
 		$httpBackend.flush();
