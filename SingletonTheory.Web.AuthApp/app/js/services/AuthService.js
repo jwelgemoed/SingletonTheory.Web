@@ -9,6 +9,8 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 			, userRoles = routingConfig.userRoles
 			, currentUser = $cookieStore.get('user') || { UserName: '', role: userRoles.public };
 
+	var currentLoggedInUser;
+
 	$cookieStore.remove('user');
 
 	function changeUser(user) {
@@ -16,8 +18,9 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 	};
 
 	function getRole(user, success, error) {
-		$http.get('/rolesapi').success(function (res) {
-			if (userRoles.admin.title == res.Roles[0]) {
+		$http.get('/rolesapi').success(function (response) {
+			currentLoggedInUser = response;
+			if (userRoles.admin.title == response.Roles[0]) {
 				user.role = userRoles.admin;
 			}
 			else if (userRoles.user.title == res.Roles[0]) {
@@ -28,12 +31,22 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 			};
 
 			changeUser(user);
-			success(user);
+			if (success != undefined)
+				success(user);
 		}).error(error);
 	};
 
 	return {
+		getCurrentUser: function () {
+			if (currentLoggedInUser == undefined) {
+				getRole(currentUser, undefined, undefined);
+				return currentLoggedInUser;
+			}
+		},
 		authorize: function (accessLevel, role) {
+			if (currentUser == undefined)
+				getRole({ UserName: '', role: userRoles.public }, undefined, undefined);
+
 			if (role === undefined)
 				role = currentUser.role;
 

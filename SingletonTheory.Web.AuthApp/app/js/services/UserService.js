@@ -4,9 +4,9 @@
 
 userApplicationModule.factory('UserService', function ($http) {
 	return {
-		getAll: function (success, error) {
-			$http.get('/usersapi').success(success).error(error);
-		},
+		//getAll: function (success, error) {
+		//	$http.get('/userapi').success(success).error(error);
+		//},
 		userExist: function (user, success, error) {
 			$http.post('/userexistapi', user).success(success).error(error);
 		},
@@ -22,11 +22,13 @@ userApplicationModule.factory('UserService', function ($http) {
 });
 
 userApplicationModule.factory('UserResource', function ($resource) {
-	return $resource('/usersapi', ///:listController:id/:docController
+	return $resource('/userapi/:Id:UserName', {}, ///:listController:id/:docController
 	{
-		id: "@id",
-		listController: "@listController",
-		docController: "@docController",
-		isArray: true
+		query: { method: 'GET', params: {}, isArray: true }
 	});
 });
+
+//Id: "@id",
+//listController: "@listController",
+//docController: "@docController",
+//isArray: true
