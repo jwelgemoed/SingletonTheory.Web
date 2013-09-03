@@ -37,7 +37,7 @@ describe('User administration', function () {
 		userAddResult = $injector.get('userAddResult');
 
 		//// backend definition common for all tests
-		$httpBackend.when('GET', '/usersapi').respond(userResults.userResults);
+		$httpBackend.when('GET', '/usersapi?docController=undefined&id=undefined&isArray=true&listController=undefined').respond(userResults.userResults);
 		$httpBackend.when('POST', '/userapi').respond(userResults.userAddResult);
 		$httpBackend.when('PUT', '/userapi').respond(userResults.userResults[0]);
 
@@ -102,24 +102,24 @@ describe('UsersCtrl', function () {
 		}
 	}),
 	it('Should add a user', function () {
-		spyOn($scope.users, 'refresh');
+		spyOn($scope, 'refresh');
 		$scope.addUserDialog.user.UserName = userToAdd.userToAdd.UserName,
 		$scope.addUserDialog.user.Password = userToAdd.userToAdd.Password,
 		$scope.addUserDialog.mrole = userToAdd.userToAdd.role,
 		$scope.addUserDialog.Meta.Active = userToAdd.userToAdd.Active,
 		$scope.addUserDialog.save();
 		$httpBackend.flush();
-		expect($scope.users.refresh).toHaveBeenCalled();
+		expect($scope.refresh).toHaveBeenCalled();
 	}),
 	it('Should update a user', function () {
-		spyOn($scope.users, 'refresh');
+		spyOn($scope, 'refresh');
 		var userToUpdate = userResults.userResults[0];
 		$scope.addUserDialog.user = userToUpdate,
 		$scope.addUserDialog.role = userToUpdate.Roles[0],
 		$scope.addUserDialog.Meta.Active = userToUpdate.Meta.Active,
 		$scope.addUserDialog.update();
 		$httpBackend.flush();
-		expect($scope.users.refresh).toHaveBeenCalled();
+		expect($scope.refresh).toHaveBeenCalled();
 	})
 	;
 	/*
