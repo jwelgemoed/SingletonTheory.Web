@@ -39,11 +39,12 @@ userApplicationModule.controller('UsersCtrl',
 		$scope.addUserDialog = addUserDialog;
 		//---------- properties ----------
 		addUserDialog.userTemplate = {
-			Id: '', UserName: '', Password: '', Roles: '', Active: ''
+			Id: '', UserName: '', Password: '', Roles: '', Active: '',Language: ''
 		};
 
 		addUserDialog.Meta = {
-			Active: true
+			Active: true,
+			Language: 'en-US'
 		};
 
 		addUserDialog.options = {
@@ -51,7 +52,8 @@ userApplicationModule.controller('UsersCtrl',
 		};
 
 		addUserDialog.role = addUserDialog.options.role[1];//Set the default
-
+		addUserDialog.userLanguage = 'en-US';
+		
 		addUserDialog.user = angular.copy(addUserDialog.userTemplate);
 		addUserDialog.errors = { userExists: false };
 		addUserDialog.visible = false;
@@ -65,6 +67,7 @@ userApplicationModule.controller('UsersCtrl',
 				addUserDialog.user = angular.copy(user);
 				addUserDialog.role = user.Roles[0];
 				addUserDialog.Meta.Active = user.Meta.Active === 'True';
+				addUserDialog.Meta.Language = user.Meta.Language;
 			} else {
 				addUserDialog.isEdit = !(addUserDialog.isNew = true);
 				addUserDialog.user = angular.copy(addUserDialog.userTemplate);
@@ -88,7 +91,8 @@ userApplicationModule.controller('UsersCtrl',
 				UserName: addUserDialog.user.UserName,
 				Password: addUserDialog.user.Password,
 				role: addUserDialog.role,
-				Active: addUserDialog.Meta.Active
+				Active: addUserDialog.Meta.Active,
+				Language: addUserDialog.Meta.Language
 			},
 			function () {
 				addUserDialog.visible = false;
@@ -104,7 +108,8 @@ userApplicationModule.controller('UsersCtrl',
 			userService.updateUser({
 				Id: addUserDialog.user.Id,
 				role: addUserDialog.role,
-				Active: addUserDialog.Meta.Active
+				Active: addUserDialog.Meta.Active,
+				Language: addUserDialog.Meta.Language
 			},
 			function () {
 				addUserDialog.visible = false;

@@ -23,7 +23,7 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 			if (userRoles.admin.title == response.Roles[0]) {
 				user.role = userRoles.admin;
 			}
-			else if (userRoles.user.title == res.Roles[0]) {
+			else if (userRoles.user.title == response.Roles[0]) {
 				user.role = userRoles.user;
 			}
 			else {
@@ -38,7 +38,7 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 
 	return {
 		getCurrentUser: function () {
-			if (currentLoggedInUser == undefined) {
+			if (currentLoggedInUser != undefined) {
 				getRole(currentUser, undefined, undefined);
 				return currentLoggedInUser;
 			}

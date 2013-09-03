@@ -13,7 +13,10 @@ describe('Login Scenario', function () {
 	afterEach(function () {
 		TestHelpers.logout();
 	});
-
+	it('should apply angular localization correctly', function () {
+		expect(element('#localeTestHiddenField').val()).toBe('123,456,079.12');
+	}
+	);
 	it('should automatically redirect to /login when location hash/fragment is empty', function () {
 		expect(browser().location().url()).toBe('/login');
 	});
