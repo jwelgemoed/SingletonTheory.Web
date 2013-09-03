@@ -12,13 +12,4 @@ userApplicationModule.controller('NavCtrl', ['$scope', '$location', 'AuthService
 				$rootScope.error = "Failed to logout";
 			});
 		};
-	/*
-		$scope.setEnglish = function () {
-			localize.setLanguage('en-US');
-		};
-	
-		$scope.setDutch = function () {
-			localize.setLanguage('nl-nl');
-		};
-	*/
 }]);
