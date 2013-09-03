@@ -22,7 +22,8 @@ mockUserData.value('userResults', {
 	"CreatedDate": "/Date(1376987207535)/",
 	"ModifiedDate": "/Date(1377091957039)/",
 	"Meta": {
-		"Active": "False"
+		"Active": "False",
+		"Language": "en-US"
 	}
 },
 {
@@ -43,7 +44,8 @@ mockUserData.value('userResults', {
 	"CreatedDate": "/Date(1376987208140)/",
 	"ModifiedDate": "/Date(1376987208140)/",
 	"Meta": {
-		"Active": "True"
+		"Active": "True",
+		"Language": "en-US"
 	}
 },
 {
@@ -61,7 +63,8 @@ mockUserData.value('userResults', {
 	"CreatedDate": "/Date(1376987269982)/",
 	"ModifiedDate": "/Date(1376987269982)/",
 	"Meta": {
-		"Active": "True"
+		"Active": "True",
+		"Language": "en-US"
 	}
 },
 {
@@ -79,7 +82,8 @@ mockUserData.value('userResults', {
 	"CreatedDate": "/Date(1376989632541)/",
 	"ModifiedDate": "/Date(1377176731820)/",
 	"Meta": {
-		"Active": "False"
+		"Active": "False",
+		"Language": "en-US"
 	}
 },
 {
@@ -97,7 +101,8 @@ mockUserData.value('userResults', {
 	"CreatedDate": "/Date(1376990565180)/",
 	"ModifiedDate": "/Date(1376990565180)/",
 	"Meta": {
-		"Active": "False"
+		"Active": "False",
+		"Language": "en-US"
 	}
 },
 {
@@ -115,7 +120,8 @@ mockUserData.value('userResults', {
 	"CreatedDate": "/Date(1377007407711)/",
 	"ModifiedDate": "/Date(1377007407711)/",
 	"Meta": {
-		"Active": "True"
+		"Active": "True",
+		"Language": "en-US"
 	}
 }
 	]
@@ -129,7 +135,8 @@ mockUserData.value('userToAdd', {
 	"UserName": "MyUser",
 	"Password": "MockPass",
 	"role":"admin",
-	"Active": true
+	"Active": true,
+	"Language": "en-US"
 }
 	]
 });
@@ -152,7 +159,8 @@ mockUserData.value('userAddResult', {
 	"CreatedDate": "/Date(1377249589244)/",
 	"ModifiedDate": "/Date(1377249589244)/",
 	"Meta": {
-		"Active": "True"
+		"Active": "True",
+		"Language": "en-US"
 	}
 }
 	]

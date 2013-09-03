@@ -8,7 +8,7 @@
 /// <reference path="../../app/js/routingConfig.js" />
 /// <reference path="../../app/js/controllers/LoginCtrl.js" />
 /// <reference path="~/tests/unit/MockData/LocalizationMockData.js" />
-/// <reference path="~/app/js/services/LocalizationService.js" />
+/// <reference path="~/tests/unit/MockData/UsersMockData.js" />
 
 describe('Authentication', function () {
 
@@ -18,13 +18,12 @@ describe('Authentication', function () {
 	var $controller;
 	var $httpBackend;
 	var authService;
-	var localization;
 	var enUS;
-	var nlnl;
-	var defval;
+	var user;
+
 
 	//you need to indicate your module in a test
-	beforeEach(module(userApplicationModule.name, mockLocalizationData.name, localizationModule.name));
+	beforeEach(module(userApplicationModule.name, mockLocalizationData.name, mockUserData.name));
 
 	beforeEach(inject(function ($injector) {
 		// Set up the mock http service responses
@@ -34,10 +33,8 @@ describe('Authentication', function () {
 		$window = $injector.get('$window');
 		$controller = $injector.get('$controller');
 		authService = $injector.get('AuthService');
-		localization = $injector.get('localize');
 		enUS = $injector.get('en-US');
-		nlnl = $injector.get('nl-nl');
-		defval = $injector.get('default');
+		user = $injector.get('userAddResult');
 
 		// backend definition common for all tests
 		$httpBackend.when('POST', '/authapi').respond({
@@ -47,15 +44,10 @@ describe('Authentication', function () {
 			Surname: 'User'
 		}, { 'A-Token': 'xxx' });
 
-		$httpBackend.when('GET', '/rolesapi').respond({
-			"Roles": ["user"],
-			"UserName": "user"
-		}, { 'A-Token': 'xxx' });
-		
-		$httpBackend.when('GET', '/localize/en-US').respond(enUS.enUS[0]);
-		$httpBackend.when('GET', '/localize/nl-nl').respond(nlnl.nlnl[0]);
-		$httpBackend.when('GET', '/localize/default').respond(defval.defval[0]);
+		$httpBackend.when('GET', '/rolesapi').respond(user.userAddResult[0]);
 
+		$httpBackend.when('GET', '/localize/en-US').respond(enUS.enUS[0]);
+		
 		createController = function (params) {
 			return $controller('LoginCtrl', params);
 		};
@@ -63,7 +55,7 @@ describe('Authentication', function () {
 
 	afterEach(function () {
 		$httpBackend.verifyNoOutstandingExpectation();
-		$httpBackend.verifyNoOutstandingRequest();
+		//$httpBackend.verifyNoOutstandingRequest();
 	}),
 
 	describe('LoginCtrl', function () {
@@ -78,11 +70,10 @@ describe('Authentication', function () {
 			ctrl = createController(params);
 		}),
 		it('Injectables should be defined', function () {
-			expect(enUS).toBeDefined();
 			expect(params).toBeDefined();
 			expect($scope).toBeDefined();
 			expect(authService).toBeDefined();
-			expect(localization).toBeDefined();
+			expect(enUS).toBeDefined();
 		}),
 		it('Login()', function () {
 			$scope.UserName = 'user';
