@@ -7,7 +7,11 @@
 		</div>
 		<form class="well well-small span10 form-inline empty-toolbar-box">
 			<div class="pull-left">
-				<select ng-model="activeFilterDescriptions" ng-options="opt.text for opt in options.activeFilterDescriptions"></select>
+				<select ng-model="activeFilterDescriptions">
+					<option value="" data-i18n="_AllUsersHeading_"></option>
+					<option selected="selected" value="True" data-i18n="_ActiveUsersHeading_"></option>
+					<option value="False" data-i18n="_InactiveUsersHeading_"></option>
+				</select>
 			</div>
 			<div class="pull-right">
 				<div class="input-append">

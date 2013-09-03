@@ -5,11 +5,7 @@ userApplicationModule.controller('UsersCtrl',
 		$scope.loading = true;
 		$scope.userRoles = authService.userRoles;
 
-		$scope.options = {
-			activeFilterDescriptions: [{ "value": "", "text": "All Users" }, { "value": "True", "text": "Active Users" }, { "value": "False", "text": "In-Active Users" }]
-		};
-
-		$scope.activeFilterDescriptions = $scope.options.activeFilterDescriptions[1]; //Set the default
+		$scope.activeFilterDescriptions = 'True'; //Set the default
 
 		//********** init **********
 		$scope.init = function () {
@@ -17,7 +13,7 @@ userApplicationModule.controller('UsersCtrl',
 		};
 
 		$scope.activeFilter = function (row) {
-			return !!((row.Meta.Active.toUpperCase().indexOf($scope.activeFilterDescriptions.value.toUpperCase() || '') !== -1));
+			return !!((row.Meta.Active.toUpperCase().indexOf($scope.activeFilterDescriptions.toUpperCase() || '') !== -1));
 		};
 
 		$scope.usersSearchQuery = '';
@@ -31,12 +27,12 @@ userApplicationModule.controller('UsersCtrl',
 		//---------- properties ----------
 		$scope.regExNoNumbers = /^([^0-9]*)$/;
 		//========== load users ==========
-		$scope.refresh = function () {
-			userResource.query({}, function (response) {
+		$scope.refresh = function() {
+			userResource.query({}, function(response) {
 				$scope.users = response;
 				$scope.loading = false;
 			});
-		}
+		};
 
 		//********** addUserDialog **********
 		var addUserDialog = {};
