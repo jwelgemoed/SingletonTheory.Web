@@ -5,6 +5,8 @@ var adminUserInvalidPassword = 'fdsjh';
 var normalUserUserName = 'user';
 var normalUserPassword = '123';
 var normalUserInvalidPassword = 'fdsjh';
+var dutchUserUserName = 'nlgebruiker';
+var dutchUserPassword = '123';
 
 var TestHelpers = {
 login: function (userName, password) {

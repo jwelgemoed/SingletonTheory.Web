@@ -7,6 +7,8 @@
 /// <reference path="../../app/js/services/UserService.js" />
 /// <reference path="../../app/js/routingConfig.js" />
 /// <reference path="../../app/js/controllers/LoginCtrl.js" />
+/// <reference path="~/tests/unit/MockData/LocalizationMockData.js" />
+/// <reference path="~/app/js/services/LocalizationService.js" />
 
 describe('Authentication', function () {
 
@@ -16,9 +18,13 @@ describe('Authentication', function () {
 	var $controller;
 	var $httpBackend;
 	var authService;
+	var localization;
+	var enUS;
+	var nlnl;
+	var defval;
 
 	//you need to indicate your module in a test
-	beforeEach(module(userApplicationModule.name));
+	beforeEach(module(userApplicationModule.name, mockLocalizationData.name, localizationModule.name));
 
 	beforeEach(inject(function ($injector) {
 		// Set up the mock http service responses
@@ -28,6 +34,10 @@ describe('Authentication', function () {
 		$window = $injector.get('$window');
 		$controller = $injector.get('$controller');
 		authService = $injector.get('AuthService');
+		localization = $injector.get('localize');
+		enUS = $injector.get('en-US');
+		nlnl = $injector.get('nl-nl');
+		defval = $injector.get('default');
 
 		// backend definition common for all tests
 		$httpBackend.when('POST', '/authapi').respond({
@@ -41,6 +51,10 @@ describe('Authentication', function () {
 			"Roles": ["user"],
 			"UserName": "user"
 		}, { 'A-Token': 'xxx' });
+		
+		$httpBackend.when('GET', '/localize/en-US').respond(enUS.enUS[0]);
+		$httpBackend.when('GET', '/localize/nl-nl').respond(nlnl.nlnl[0]);
+		$httpBackend.when('GET', '/localize/default').respond(defval.defval[0]);
 
 		createController = function (params) {
 			return $controller('LoginCtrl', params);
@@ -64,9 +78,11 @@ describe('Authentication', function () {
 			ctrl = createController(params);
 		}),
 		it('Injectables should be defined', function () {
+			expect(enUS).toBeDefined();
 			expect(params).toBeDefined();
 			expect($scope).toBeDefined();
 			expect(authService).toBeDefined();
+			expect(localization).toBeDefined();
 		}),
 		it('Login()', function () {
 			$scope.UserName = 'user';
