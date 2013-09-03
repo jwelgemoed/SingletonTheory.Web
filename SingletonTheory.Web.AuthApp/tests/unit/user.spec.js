@@ -83,7 +83,7 @@ describe('UsersCtrl', function () {
 	it('Should get all 6 users', function () {
 		$scope.init();
 		$httpBackend.flush();
-		expect($scope.users.items.length).toBe(6);
+		expect($scope.users.length).toBe(6);
 	}),
 	it('Active filter should return true', function () {
 		expect($scope.activeFilter(userResults.userResults[1])).toBe(true);
