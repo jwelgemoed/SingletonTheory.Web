@@ -122,12 +122,14 @@ userApplicationModule.controller('UsersCtrl',
 
 		//========== userNameExists ==========
 		addUserDialog.validateUser = function (username, callback) {
-			userService.userExist({
-				UserName: username
-			}, function (result) {
-				addUserDialog.errors.userExists = result;
-				if (callback) callback(result);
-			}, function (err) {
+			userResource.query({ UserName: username },
+			function (result) {
+				var userExists = result != undefined;
+				addUserDialog.errors.userExists = userExists;
+				if (callback)
+					callback(userExists);
+			},
+			function (err) {
 				addUserDialog.error = err;
 			});
 		};
