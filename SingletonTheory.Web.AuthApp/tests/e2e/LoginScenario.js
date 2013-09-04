@@ -16,6 +16,7 @@ describe('Login Scenario', function () {
 	it('should apply angular localization correctly', function () {
 		expect(element('#localeTestHiddenField').val()).toBe('123,456,079.12');
 		TestHelpers.login(dutchUserUserName, dutchUserPassword);
+		sleep(1);
 		expect(element('#localeTestHiddenField').val()).toBe('123.456.079,12');
 	}
 	);
