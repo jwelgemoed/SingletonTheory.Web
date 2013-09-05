@@ -37,7 +37,7 @@ describe('User administration', function () {
 		userAddResult = $injector.get('userAddResult');
 
 		//// backend definition common for all tests
-		$httpBackend.when('GET', '/usersapi?docController=undefined&id=undefined&isArray=true&listController=undefined').respond(userResults.userResults);
+		$httpBackend.when('GET', '/userapi').respond(userResults.userResults);
 		$httpBackend.when('POST', '/userapi').respond(userResults.userAddResult);
 		$httpBackend.when('PUT', '/userapi').respond(userResults.userResults[0]);
 
