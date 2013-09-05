@@ -30,11 +30,7 @@ userApplicationModule.controller('UsersCtrl',
 		$scope.refresh = function () {
 			userResource.query({}, function (response) {
 				$scope.users = response;
-				userResource.get({ Id: 77 });
-				userResource.query({ Id: 77 });
 
-				userResource.get({ UserName: 'user' });
-				userResource.query({ UserName: 'user' });
 				$scope.loading = false;
 			});
 		};
