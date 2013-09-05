@@ -30,6 +30,11 @@ userApplicationModule.controller('UsersCtrl',
 		$scope.refresh = function () {
 			userResource.query({}, function (response) {
 				$scope.users = response;
+				userResource.get({ Id: 77 });
+				userResource.query({ Id: 77 });
+
+				userResource.get({ UserName: 'user' });
+				userResource.query({ UserName: 'user' });
 				$scope.loading = false;
 			});
 		};
@@ -86,15 +91,7 @@ userApplicationModule.controller('UsersCtrl',
 
 		//========== save ==========  
 		addUserDialog.save = function () {
-			//userResource.save({
-			//	Id: 0,
-			//	UserName: addUserDialog.user.UserName,
-			//	Password: addUserDialog.user.Password,
-			//	role: addUserDialog.role,
-			//	Active: addUserDialog.Meta.Active,
-			//	Language: addUserDialog.Meta.Language
-			//},
-			userService.addUser({
+			userResource.save({
 				Id: 0,
 				UserName: addUserDialog.user.UserName,
 				Password: addUserDialog.user.Password,
@@ -113,7 +110,7 @@ userApplicationModule.controller('UsersCtrl',
 
 		//========== update ==========
 		addUserDialog.update = function () {
-			userService.updateUser({
+			userResource.save({
 				Id: addUserDialog.user.Id,
 				role: addUserDialog.role,
 				Active: addUserDialog.Meta.Active,

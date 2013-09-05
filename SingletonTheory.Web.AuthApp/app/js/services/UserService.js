@@ -22,9 +22,10 @@ userApplicationModule.factory('UserService', function ($http) {
 });
 
 var userResource = userApplicationModule.factory('UserResource', function ($resource) {
-	return $resource('/userapi/:Id:UserName', {}, ///:listController:id/:docController
+	return $resource('/userapi', {},
 	{
-		query: { method: 'GET', params: {}, isArray: true }
+		query: { method: 'GET', params: {}, isArray: true },
+		get: { method: 'GET', params: { Id: 0 }, isArray: true }
 	});
 });
 
