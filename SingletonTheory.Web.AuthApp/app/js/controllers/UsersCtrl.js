@@ -87,7 +87,7 @@ userApplicationModule.controller('UsersCtrl',
 
 		//========== save ==========  
 		addUserDialog.save = function () {
-			userResource.save({
+			userResource.add({
 				Id: 0,
 				UserName: addUserDialog.user.UserName,
 				Password: addUserDialog.user.Password,
@@ -106,7 +106,7 @@ userApplicationModule.controller('UsersCtrl',
 
 		//========== update ==========
 		addUserDialog.update = function () {
-			userResource.save({
+			userResource.update({
 				Id: addUserDialog.user.Id,
 				role: addUserDialog.role,
 				Active: addUserDialog.Meta.Active,

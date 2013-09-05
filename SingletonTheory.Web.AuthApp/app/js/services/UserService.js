@@ -25,7 +25,9 @@ var userResource = userApplicationModule.factory('UserResource', function ($reso
 	return $resource('/userapi', {},
 	{
 		query: { method: 'GET', params: {}, isArray: true },
-		get: { method: 'GET', params: { Id: 0 }, isArray: true }
+		get: { method: 'GET', params: { Id: 0 }, isArray: true },
+		add: { method: 'POST', params: { }, isArray: true },
+		update: { method: 'PUT', params: {}, isArray: false }		
 	});
 });
 
