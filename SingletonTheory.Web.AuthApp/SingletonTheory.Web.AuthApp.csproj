@@ -63,6 +63,7 @@
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
+    <Content Include="app\js\controllers\UserDetailCtrl.js" />
     <Content Include="app\js\directives\AccessLevelDirective.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
     <Content Include="app\js\directives\BlurDirective.js" />
@@ -91,6 +92,7 @@
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-0.5.0.min.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.5.0.min.js" />
+    <Content Include="app\partials\userdetail.html" />
     <Content Include="config\karma.e2e.conf.js" />
     <Content Include="config\karma.unit.conf.js" />
     <Content Include="app\lib\angular\angular-cookies.js" />

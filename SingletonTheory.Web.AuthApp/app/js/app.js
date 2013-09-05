@@ -24,6 +24,12 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 							controller: 'UsersCtrl',
 							access: access.admin
 						});
+				$routeProvider.when('/users/:Id',
+						{
+							templateUrl: '/partials/userdetail.html',
+							controller: 'UserDetailCtrl',
+							access: access.admin
+						});
 				$routeProvider.when('/404',
 						{
 							templateUrl: '/partials/404.html',

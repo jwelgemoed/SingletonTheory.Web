@@ -1,7 +1,7 @@
 'use strict';
 
 userApplicationModule.controller('UsersCtrl',
-	['$rootScope', '$scope', 'AuthService', 'UserResource', function ($rootScope, $scope, authService, userResource) {
+	['$rootScope', '$scope', '$location', 'AuthService', 'UserResource', function ($rootScope, $scope, $location, authService, userResource) {
 		$scope.loading = true;
 		$scope.userRoles = authService.userRoles;
 
@@ -34,6 +34,17 @@ userApplicationModule.controller('UsersCtrl',
 				$scope.loading = false;
 			});
 		};
+
+		$scope.addNewUser = function () {
+			$location.path('/users/0');
+		};
+
+		$scope.updateUser = function (id) {
+			$location.path('/users/' + id);
+		};
+		
+
+		/*
 
 		//********** addUserDialog **********
 		var addUserDialog = {};
@@ -140,4 +151,6 @@ userApplicationModule.controller('UsersCtrl',
 			var x = invalid || addUserDialog.errors.userExists;
 			return x;
 		};
+		*/
 	}]);
+	
