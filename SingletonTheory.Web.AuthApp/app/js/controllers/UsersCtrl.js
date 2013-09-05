@@ -1,7 +1,7 @@
 'use strict';
 
 userApplicationModule.controller('UsersCtrl',
-	['$rootScope', '$scope', 'UserService', 'AuthService', 'UserResource', function ($rootScope, $scope, userService, authService, userResource) {
+	['$rootScope', '$scope', 'AuthService', 'UserResource', function ($rootScope, $scope, authService, userResource) {
 		$scope.loading = true;
 		$scope.userRoles = authService.userRoles;
 
