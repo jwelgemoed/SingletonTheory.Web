@@ -27,8 +27,8 @@ userApplicationModule.controller('UsersCtrl',
 		//---------- properties ----------
 		$scope.regExNoNumbers = /^([^0-9]*)$/;
 		//========== load users ==========
-		$scope.refresh = function() {
-			userResource.query({}, function(response) {
+		$scope.refresh = function () {
+			userResource.query({}, function (response) {
 				$scope.users = response;
 				$scope.loading = false;
 			});
@@ -39,7 +39,7 @@ userApplicationModule.controller('UsersCtrl',
 		$scope.addUserDialog = addUserDialog;
 		//---------- properties ----------
 		addUserDialog.userTemplate = {
-			Id: '', UserName: '', Password: '', Roles: '', Active: '',Language: ''
+			Id: '', UserName: '', Password: '', Roles: '', Active: '', Language: ''
 		};
 
 		addUserDialog.Meta = {
@@ -53,7 +53,7 @@ userApplicationModule.controller('UsersCtrl',
 
 		addUserDialog.role = addUserDialog.options.role[1];//Set the default
 		addUserDialog.userLanguage = 'en-US';
-		
+
 		addUserDialog.user = angular.copy(addUserDialog.userTemplate);
 		addUserDialog.errors = { userExists: false };
 		addUserDialog.visible = false;
@@ -86,6 +86,14 @@ userApplicationModule.controller('UsersCtrl',
 
 		//========== save ==========  
 		addUserDialog.save = function () {
+			//userResource.save({
+			//	Id: 0,
+			//	UserName: addUserDialog.user.UserName,
+			//	Password: addUserDialog.user.Password,
+			//	role: addUserDialog.role,
+			//	Active: addUserDialog.Meta.Active,
+			//	Language: addUserDialog.Meta.Language
+			//},
 			userService.addUser({
 				Id: 0,
 				UserName: addUserDialog.user.UserName,

@@ -18,7 +18,7 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 	};
 
 	function getRole(user, success, error) {
-		$http.get('/rolesapi').success(function (response) {
+		$http.get('/authapi/currentuser').success(function (response) {
 			currentLoggedInUser = response;
 			if (userRoles.admin.title == response.Roles[0]) {
 				user.role = userRoles.admin;
@@ -49,6 +49,9 @@ userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
 
 			if (role === undefined)
 				role = currentUser.role;
+
+			if (accessLevel == undefined)
+				accessLevel = accessLevels.public;
 
 			var authorized = accessLevel.bitMask & role.bitMask;
 

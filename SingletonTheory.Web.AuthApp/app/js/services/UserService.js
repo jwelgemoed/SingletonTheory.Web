@@ -21,7 +21,7 @@ userApplicationModule.factory('UserService', function ($http) {
 	};
 });
 
-userApplicationModule.factory('UserResource', function ($resource) {
+var userResource = userApplicationModule.factory('UserResource', function ($resource) {
 	return $resource('/userapi/:Id:UserName', {}, ///:listController:id/:docController
 	{
 		query: { method: 'GET', params: {}, isArray: true }
