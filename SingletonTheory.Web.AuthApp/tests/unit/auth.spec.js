@@ -45,7 +45,7 @@ describe('Authentication', function () {
 		}, { 'A-Token': 'xxx' });
 
 		$httpBackend.when('GET', '/rolesapi').respond(user.userAddResult[0]);
-
+		$httpBackend.when('GET', '/authapi/currentuser').respond(user.userAddResult[0]);
 		$httpBackend.when('GET', '/localize/en-US').respond(enUS.enUS[0]);
 		
 		createController = function (params) {

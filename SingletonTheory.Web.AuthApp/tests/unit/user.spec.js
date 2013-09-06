@@ -16,7 +16,7 @@ describe('User administration', function () {
 	var $window;
 	var $controller;
 	var $httpBackend;
-	var userService;
+	var userResource;
 	var userResults;
 	var userToAdd;
 	var userAddResult;
@@ -31,7 +31,7 @@ describe('User administration', function () {
 		$location = $injector.get('$location');
 		$window = $injector.get('$window');
 		$controller = $injector.get('$controller');
-		userService = $injector.get('UserService');
+		userResource = $injector.get('UserResource');
 		userResults = $injector.get('userResults');
 		userToAdd = $injector.get('userToAdd');
 		userAddResult = $injector.get('userAddResult');
@@ -65,7 +65,7 @@ describe('UsersCtrl', function () {
 	it('Injectables should be defined', function () {
 		expect(params).toBeDefined();
 		expect($scope).toBeDefined();
-		expect(userService).toBeDefined();
+		expect(userResource).toBeDefined();
 		expect(userResults).toBeDefined();
 		expect(userToAdd).toBeDefined();
 		expect(userAddResult).toBeDefined();
@@ -90,28 +90,30 @@ describe('UsersCtrl', function () {
 		for (var x = 0; x < 5; x++) {
 			expect($scope.usersSearch(userResults.userResults[x])).toBe(false);
 		}
-	}),
+	})
+		/*,
 	it('Should add a user', function () {
 		spyOn($scope, 'refresh');
-		$scope.addUserDialog.user.UserName = userToAdd.userToAdd.UserName,
-		$scope.addUserDialog.user.Password = userToAdd.userToAdd.Password,
-		$scope.addUserDialog.mrole = userToAdd.userToAdd.role,
-		$scope.addUserDialog.Meta.Active = userToAdd.userToAdd.Active,
-		$scope.addUserDialog.save();
+		$scope.user.UserName = userToAdd.userToAdd.UserName,
+		$scope.user.Password = userToAdd.userToAdd.Password,
+		$scope.mrole = userToAdd.userToAdd.role,
+		$scope.Meta.Active = userToAdd.userToAdd.Active,
+		$scope.save();
 		$httpBackend.flush();
 		expect($scope.refresh).toHaveBeenCalled();
 	}),
 	it('Should update a user', function () {
 		spyOn($scope, 'refresh');
 		var userToUpdate = userResults.userResults[0];
-		$scope.addUserDialog.user = userToUpdate,
-		$scope.addUserDialog.role = userToUpdate.Roles[0],
-		$scope.addUserDialog.Meta.Active = userToUpdate.Meta.Active,
-		$scope.addUserDialog.update();
+		$scope.user = userToUpdate,
+		$scope.role = userToUpdate.Roles[0],
+		$scope.Meta.Active = userToUpdate.Meta.Active,
+		$scope.update();
 		$httpBackend.flush();
 		expect($scope.refresh).toHaveBeenCalled();
 	})
 	;
+	*/
 	/*
 	it('Login()', function () {
 			$scope.UserName = 'user';
