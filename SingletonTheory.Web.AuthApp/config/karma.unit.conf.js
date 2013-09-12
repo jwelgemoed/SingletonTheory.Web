@@ -32,6 +32,7 @@ module.exports = function (config) {
 			'../app/js/directives/LocalizationAttributeDirective.js',
 			'../app/js/controllers/LoginCtrl.js',
 			'../app/js/controllers/UsersCtrl.js',
+			'../app/js/controllers/UserDetailCtrl.js',
 			'../app/js/filters/LocalizationFilter.js',
 			'../app/js/modules/DynamicLocale.js',
 			'../tests/unit/MockData/*.js',

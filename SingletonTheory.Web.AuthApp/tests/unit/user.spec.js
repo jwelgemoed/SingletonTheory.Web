@@ -91,7 +91,7 @@ describe('UsersCtrl', function () {
 			expect($scope.usersSearch(userResults.userResults[x])).toBe(false);
 		}
 	})
-		/*,
+		,
 	it('Should add a user', function () {
 		spyOn($scope, 'refresh');
 		$scope.user.UserName = userToAdd.userToAdd.UserName,
@@ -113,7 +113,7 @@ describe('UsersCtrl', function () {
 		expect($scope.refresh).toHaveBeenCalled();
 	})
 	;
-	*/
+	
 	/*
 	it('Login()', function () {
 			$scope.UserName = 'user';
