@@ -1,19 +1,22 @@
 ﻿'use strict';
 
-userApplicationModule.directive('userAvailable', ['UserService', function (userService) {
+userApplicationModule.directive('userAvailable', ['UserResource', function (userResource) {
 	return {
 		require: 'ngModel',
 		link: function (scope, elem, attr, ctrl) {
 			ctrl.$parsers.unshift(function (viewValue) {
-				userService.userExist({
-					UserName: viewValue
-				}, function (result) {
-					ctrl.$setValidity('userAvailable', result);
-					return viewValue;
-				}, function (error) {
-					console.log(error);
-					return viewValue;
-				});
+				if (viewValue.trim().length > 0) {
+					userResource.query({ UserName: viewValue },
+						function(result) {
+							ctrl.$setValidity('userAvailable', false);
+							return viewValue;
+						},
+						function(error) {
+							ctrl.$setValidity('userAvailable', true);
+							return viewValue;
+						});
+				}
+				return viewValue;
 			});
 		}
 	};
