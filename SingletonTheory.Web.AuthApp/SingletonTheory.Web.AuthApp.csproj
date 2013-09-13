@@ -74,6 +74,7 @@
     <Content Include="app\js\directives\ValidationDirective.js" />
     <Content Include="app\js\filters\LocalizationFilter.js" />
     <Content Include="app\js\modules\DynamicLocale.js" />
+    <Content Include="app\js\services\AuthAdminService.js" />
     <Content Include="app\js\services\AuthService.js" />
     <Content Include="app\js\controllers\UsersCtrl.js" />
     <Content Include="app\js\controllers\NavCtrl.js" />
