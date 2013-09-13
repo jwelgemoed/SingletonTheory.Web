@@ -6,7 +6,7 @@ mockLocalizationData.value('en-US', {
 			{
 				"Id": "521f13e244b433437415e57f",
 				"Locale": "en-US",
-				"LocalizationDictionary": [
+				"LocalizationItems": [
 					{
 						"Key": "_TestTitle_",
 						"Value": "This comes from the English US file.",
@@ -23,7 +23,7 @@ mockLocalizationData.value('nl-nl', {
 		{
 			"Id": "521f13e244b433437415e57f",
 			"Locale": "nl-nl",
-			"LocalizationDictionary": [
+			"LocalizationItems": [
 				{
 					"Key": "_TestTitle_",
 					"Value": "Deze komen van de Nederlandse bestand.",
@@ -40,7 +40,7 @@ mockLocalizationData.value('default', {
 		{
 			"Id": "521f13e244b433437415e57f",
 			"Locale": "default",
-			"LocalizationDictionary": [
+			"LocalizationItems": [
 				{
 					"Key": "_TestTitle_",
 					"Value": "This comes from the default file.",
