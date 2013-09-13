@@ -3,7 +3,7 @@
 /// <reference path="~/app/js/app.js" />
 
 var authAdminRoleResource = userApplicationModule.factory('AuthAdminRoleResource', function ($resource) {
-	return $resource('/auth/admin/role', {},
+	return $resource('/authapi/admin/role', {},
 	{
 		query: { method: 'GET', params: {}, isArray: true },
 		get: { method: 'GET', params: { Id: 0 }, isArray: true },
@@ -13,7 +13,7 @@ var authAdminRoleResource = userApplicationModule.factory('AuthAdminRoleResource
 });
 
 var authAdminGroupLvl2Resource = userApplicationModule.factory('AuthAdminGroupLvl2Resource', function ($resource) {
-	return $resource('/auth/admin/groupLvl2', {},
+	return $resource('/authapi/admin/groupLvl2', {},
 	{
 		query: { method: 'GET', params: {}, isArray: true },
 		get: { method: 'GET', params: { Id: 0 }, isArray: true },
@@ -23,7 +23,7 @@ var authAdminGroupLvl2Resource = userApplicationModule.factory('AuthAdminGroupLv
 });
 
 var authAdminGroupLvl1Resource = userApplicationModule.factory('AuthAdminGroupLvl1Resource', function ($resource) {
-	return $resource('/auth/admin/groupLvl1', {},
+	return $resource('/authapi/admin/groupLvl1', {},
 	{
 		query: { method: 'GET', params: {}, isArray: true },
 		get: { method: 'GET', params: { Id: 0 }, isArray: true },
@@ -33,7 +33,7 @@ var authAdminGroupLvl1Resource = userApplicationModule.factory('AuthAdminGroupLv
 });
 
 var authAdminPermissionResource = userApplicationModule.factory('AuthAdminPermissionResource', function ($resource) {
-	return $resource('/auth/admin/permission', {},
+	return $resource('/authapi/admin/permission', {},
 	{
 		query: { method: 'GET', params: {}, isArray: true },
 		get: { method: 'GET', params: { Id: 0 }, isArray: true },
