@@ -1,29 +1,40 @@
 ﻿<div class="page-header">
 	<h1>Authorization Admin</h1>
 </div>
-<div class="dropdown" >
-	<button class="btn btn-info dropdown-toggle" type="button"  >{{element}} <i class="icon-chevron-down icon-white"></i></button>
+<div class="dropdown">
+	<button class="btn btn-info dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
 	<ul class="dropdown-menu">
-		<li >
+		<li>
 			<a ng-click="selectElement('Role')">Role</a>
 		</li>
-		<li >
+		<li>
 			<a ng-click="selectElement('Permission Group Level 1')">Permission Group Level 1</a>
 		</li>
-		<li >
+		<li>
 			<a ng-click="selectElement('Permission Group Level 2')">Permission Group Level 2</a>
 		</li>
-		<li >
+		<li>
 			<a ng-click="selectElement('Permission')">Permission</a>
 		</li>
 	</ul>
 </div>
-<br/>
+<br />
 <div class="container-fluid">
 	<div class="row-fluid sortme">
 		<div class="span4 well well-small element">
-			<h3>Item #1</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur</p>
+			<h3>{{element}}</h3>
+			<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Element</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="elementEntry in elementDictionary">
+						<td>{{ elementEntry.Name }}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="span4 well well-small element">
 			<h3>Item #2</h3>
