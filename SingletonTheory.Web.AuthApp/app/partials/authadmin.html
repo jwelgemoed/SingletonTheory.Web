@@ -1,7 +1,7 @@
 ﻿	<div class="row-fluid sortme" ng-init="init()">
 		<div class="span4 well well-small element" >
 			<div class="dropdown">
-				<button class="btn btn-info dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
+				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
 				<ul class="dropdown-menu">
 					<li>
 						<a ng-click="selectElement('Role')">Role</a>
@@ -18,6 +18,12 @@
 				</ul>
 			</div>
 			<br/>
+			<div >
+				<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>&nbsp;
+				<div collapse="!isCollapsed">
+					<div class="well well-large">Some content</div> 
+				</div>
+			</div>
 			<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
 				<tbody>
 					<tr ng-repeat="elementEntry in elementDictionary">
