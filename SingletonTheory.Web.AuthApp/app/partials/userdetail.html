@@ -4,7 +4,6 @@
 		<h3 ng-show="isEdit" data-i18n="_EditUserHeading_"></h3>
 	</div>
 
-
 	<div id="userAddEditPopupBody" class="modal-body">
 		<form class="well well-small form-inline" name="addUserForm">
 			<div class="controls">
@@ -23,13 +22,13 @@
 				<div class="control-group">
 					<label for="role" class="control-label" data-i18n="_RoleHeading_"></label>
 					<div class="controls">
-						<select ng-model="role" ng-options="opt for opt in options.role"></select>
+						<select ng-model="role" onselect="updateRole()" ng-options="opt for opt in options.role"></select>
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="Meta.Language" class="control-label" data-i18n="_LanguageHeading_"></label>
+					<label for="Language" class="control-label" data-i18n="_LanguageHeading_"></label>
 					<div class="controls">
-						<select id="userLanguageSelect" ng-model="Meta.Language">
+						<select id="userLanguageSelect" ng-model="user.Language">
 							<option value="en-US" data-i18n="_EnglishHeading_"></option>
 							<option value="nl-nl" data-i18n="_DutchHeading_"></option>
 						</select>
@@ -37,10 +36,10 @@
 				</div>
 				<div class="control-group" ng-show="isEdit">
 					<label for="activeInput" class="checkbox">
-						<input id="activeInput" type="checkbox" ng-model="Meta.Active" /><span data-i18n="_ActiveHeading_"></span>
+						<input id="activeInput" type="checkbox" ng-model="user.Active" />
+						<span data-i18n="_ActiveHeading_"></span>
 					</label>
 				</div>
-
 				<div ng-show="addUserForm.$invalid" class="alert alert-error">
 					<strong>Please correct the following errors:</strong>
 					<ul>

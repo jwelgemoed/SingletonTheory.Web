@@ -12,7 +12,7 @@ var localizationModule = angular.module('localization', []);
 localizationModule
 	// localization service responsible for retrieving resource files from the server and
 	// managing the translation dictionary
-	.factory('localize', ['$http', '$rootScope', '$window', '$filter', 'dynamicLocale', function ($http, $rootScope, $window, $filter,dynamicLocale) {
+	.factory('localize', ['$http', '$rootScope', '$window', '$filter', 'dynamicLocale', function ($http, $rootScope, $window, $filter, dynamicLocale) {
 		var localize = {
 			// use the $window service to get the language of the user's browser
 			language: $window.navigator.userLanguage || $window.navigator.language,
@@ -22,7 +22,7 @@ localizationModule
 			resourceFileLoaded: false,
 
 			// success handler for all server communication
-			successCallback: function(data) {
+			successCallback: function (data) {
 				// store the returned array in the dictionary
 				localize.dictionary = data.LocalizationItems;
 				// set the flag that the resource are loaded
@@ -32,15 +32,15 @@ localizationModule
 			},
 
 			// allows setting of language on the fly
-			setLanguage: function(value) {
+			setLanguage: function (value) {
 				localize.language = value;
 				localize.initLocalizedResources();
 			},
 
 			// loads the language resource file from the server
-			initLocalizedResources: function() {
+			initLocalizedResources: function () {
 				// request the resource file
-				$http.get('/localize/' + localize.language).success(localize.successCallback).error(function() {
+				$http.get('/localize/' + localize.language).success(localize.successCallback).error(function () {
 					// request the default resource file
 					$http.get('/localize/default').success(localize.successCallback).error(error);
 				});
@@ -48,7 +48,7 @@ localizationModule
 			},
 
 			// checks the dictionary for a localized resource string
-			getLocalizedString: function(value) {
+			getLocalizedString: function (value) {
 				// default the result to an empty string
 				var result = '';
 
@@ -56,13 +56,14 @@ localizationModule
 				if ((localize.dictionary !== []) && (localize.dictionary.length > 0)) {
 					// use the filter service to only return those entries which match the value
 					// and only take the first result
-					var entry = $filter('filter')(localize.dictionary, function(element) {
+					var entry = $filter('filter')(localize.dictionary, function (element) {
 						return element.Key === value;
 					}
 					)[0];
 
 					// set the result
-					result = entry.Value;
+					if (entry != undefined)
+						result = entry.Value;
 				}
 				// return the value to the call
 				if (result == undefined || result == '')
@@ -77,4 +78,3 @@ localizationModule
 		// return the local instance when called
 		return localize;
 	}]);
-	

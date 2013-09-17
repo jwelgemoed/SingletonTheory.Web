@@ -1,11 +1,11 @@
 'use strict';
 
 userApplicationModule.controller('UsersCtrl',
-	['$rootScope', '$scope', '$location', 'AuthService', 'UserResource', function ($rootScope, $scope, $location, authService, userResource) {
+	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', function ($rootScope, $scope, $location, authService, usersResource) {
 		$scope.loading = true;
 		$scope.userRoles = authService.userRoles;
 
-		$scope.activeFilterDescriptions = 'True'; //Set the default
+		$scope.activeFilterDescriptions = 'true'; //Set the default
 
 		//********** init **********
 		$scope.init = function () {
@@ -13,7 +13,11 @@ userApplicationModule.controller('UsersCtrl',
 		};
 
 		$scope.activeFilter = function (row) {
-			return !!((row.Meta.Active.toUpperCase().indexOf($scope.activeFilterDescriptions.toUpperCase() || '') !== -1));
+			if ($scope.activeFilterDescriptions == '')
+				return true;
+
+			var value = JSON.parse($scope.activeFilterDescriptions);
+			return !!(row.Active == value);
 		};
 
 		$scope.usersSearchQuery = '';
@@ -21,14 +25,14 @@ userApplicationModule.controller('UsersCtrl',
 			return !!((row.Id.toString().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
 						 row.UserName.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
 						 row.Roles[0].toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
-						 row.Meta.Active.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1));
+						 row.Active.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1));
 		};
 
 		//---------- properties ----------
 		$scope.regExNoNumbers = /^([^0-9]*)$/;
 		//========== load users ==========
 		$scope.refresh = function () {
-			userResource.query({}, function (response) {
+			usersResource.get({}, function (response) {
 				$scope.users = response;
 
 				$scope.loading = false;
@@ -42,115 +46,5 @@ userApplicationModule.controller('UsersCtrl',
 		$scope.updateUser = function (id) {
 			$location.path('/users/' + id);
 		};
-		
-
-		/*
-
-		//********** addUserDialog **********
-		var addUserDialog = {};
-		$scope.addUserDialog = addUserDialog;
-		//---------- properties ----------
-		addUserDialog.userTemplate = {
-			Id: '', UserName: '', Password: '', Roles: '', Active: '', Language: ''
-		};
-
-		addUserDialog.Meta = {
-			Active: true,
-			Language: 'en-US'
-		};
-
-		addUserDialog.options = {
-			role: ['admin', 'user']
-		};
-
-		addUserDialog.role = addUserDialog.options.role[1];//Set the default
-		addUserDialog.userLanguage = 'en-US';
-
-		addUserDialog.user = angular.copy(addUserDialog.userTemplate);
-		addUserDialog.errors = { userExists: false };
-		addUserDialog.visible = false;
-		//========== show ==========
-		addUserDialog.show = function (user, callback) {
-			addUserDialog.errors.service = null;
-
-			if (arguments.length === 1) {
-				addUserDialog.isNew = !(addUserDialog.isEdit = true);
-				addUserDialog.originalUser = user;
-				addUserDialog.user = angular.copy(user);
-				addUserDialog.role = user.Roles[0];
-				addUserDialog.Meta.Active = user.Meta.Active === 'True';
-				addUserDialog.Meta.Language = user.Meta.Language;
-			} else {
-				addUserDialog.isEdit = !(addUserDialog.isNew = true);
-				addUserDialog.user = angular.copy(addUserDialog.userTemplate);
-				addUserDialog.Meta.Active = true;
-			}
-
-			addUserDialog.visible = true;
-			if (callback) callback();
-		};
-
-		//========== hide ==========
-		addUserDialog.hide = function () {
-			addUserDialog.errors.problem = false;
-			addUserDialog.visible = false;
-		};
-
-		//========== save ==========  
-		addUserDialog.save = function () {
-			userResource.add({
-				Id: 0,
-				UserName: addUserDialog.user.UserName,
-				Password: addUserDialog.user.Password,
-				role: addUserDialog.role,
-				Active: addUserDialog.Meta.Active,
-				Language: addUserDialog.Meta.Language
-			},
-			function () {
-				addUserDialog.visible = false;
-				$scope.refresh();
-			},
-			function (err) {
-				addUserDialog.error = err;
-			});
-		};
-
-		//========== update ==========
-		addUserDialog.update = function () {
-			userResource.update({
-				Id: addUserDialog.user.Id,
-				role: addUserDialog.role,
-				Active: addUserDialog.Meta.Active,
-				Language: addUserDialog.Meta.Language
-			},
-			function () {
-				addUserDialog.visible = false;
-				$scope.refresh();
-			},
-			function (err) {
-				addUserDialog.error = err;
-			});
-		};
-
-		//========== userNameExists ==========
-		addUserDialog.validateUser = function (username, callback) {
-			userResource.query({ UserName: username },
-			function (result) {
-				var userExists = result != undefined;
-				addUserDialog.errors.userExists = userExists;
-				if (callback)
-					callback(userExists);
-			},
-			function (err) {
-				addUserDialog.error = err;
-			});
-		};
-
-		//========== validateUserForm ==========
-		addUserDialog.validateUserForm = function (invalid) {
-			var x = invalid || addUserDialog.errors.userExists;
-			return x;
-		};
-		*/
 	}]);
 	

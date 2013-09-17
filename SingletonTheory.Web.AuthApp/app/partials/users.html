@@ -9,8 +9,8 @@
 			<div class="pull-left">
 				<select ng-model="activeFilterDescriptions">
 					<option value="" data-i18n="_AllUsersHeading_"></option>
-					<option selected="selected" value="True" data-i18n="_ActiveUsersHeading_"></option>
-					<option value="False" data-i18n="_InactiveUsersHeading_"></option>
+					<option selected="selected" value="true" data-i18n="_ActiveUsersHeading_"></option>
+					<option value="false" data-i18n="_InactiveUsersHeading_"></option>
 				</select>
 			</div>
 			<div class="pull-right">
@@ -44,9 +44,9 @@
 				<td>
 					<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.Roles[0] }}</span>
 				</td>
-				<td>{{ user.Meta.Active }}
+				<td>{{ user.Active }}
 				</td>
-				<td>{{ user.Meta.Language }}</td>
+				<td>{{ user.Language }}</td>
 				<td>
 					<button class="btn btn-mini" ng-click="updateUser(user.Id)"><i class="icon-edit"></i><span data-i18n="_EditHeading_"></span></button>
 				</td>

@@ -3,89 +3,61 @@
 userApplicationModule.controller('UserDetailCtrl',
 	['$rootScope', '$scope', '$routeParams', '$location', 'AuthService', 'UserResource', function ($rootScope, $scope, $routeParams, $location, authService, userResource) {
 
-		$scope.isEdit = false;
-		$scope.isNew = false;
-
-		$scope.userRoles = authService.userRoles;
-
-		$scope.activeFilterDescriptions = 'True';
-
-		$scope.userTemplate = {
-			Id: '', UserName: '', Password: '', Roles: '', Active: '', Language: ''
-		};
-
-		$scope.Meta = {
-			Active: true,
-			Language: 'en-US'
-		};
-
+		$scope.Language = 'en-US';
+		$scope.errors = { userExists: false };
 		$scope.options = {
 			role: ['admin', 'user']
 		};
-
 		$scope.role = $scope.options.role[1];
-		$scope.userLanguage = 'en-US';
-		$scope.user = angular.copy($scope.userTemplate);
-		$scope.errors = { userExists: false };
 
 		$scope.init = function (callback) {
-			//	$scope.errors.service = null;
 			$scope.isNew = !!($routeParams.Id == 0);
 			$scope.isEdit = !!($routeParams.Id != 0);
 
-			if ($scope.isEdit) {
-				$scope.originalUser = $scope.user;
-				$scope.user = userResource.get({ Id: $routeParams.Id }, function (response) {
-					$scope.user = angular.copy(response[0]);
-					$scope.role = $scope.user.Roles[0];
-					$scope.Meta.Active = $scope.user.Meta.Active === 'True';
-					$scope.Meta.Language = $scope.user.Meta.Language;
-					$scope.userLanguage = $scope.user.Meta.Language;
-				}
-			);
-			} else {
-				$scope.user = angular.copy($scope.userTemplate);
-				$scope.Meta.Active = true;
+			if ($scope.isNew) {
+				$scope.user = new userResource();
+				$scope.user.Active = true;
 			}
+			else {
+				userResource.get({ Id: $routeParams.Id }, function (response) {
+					$scope.user = response;
+					$scope.role = $scope.user.Roles[0];
+				});
+			}
+
 			if (callback) callback();
 		};
 
+		$scope.updateRole = function () {
+			$scope.user.Roles = [];
+			$scope.user.Roles.push($scope.role);
+		}
+
 		$scope.save = function () {
-			userResource.add({
-				Id: 0,
-				UserName: $scope.user.UserName,
-				Password: $scope.user.Password,
-				role: $scope.role,
-				Active: $scope.Meta.Active,
-				Language: $scope.Meta.Language
-			},
-			function () {
+			if ($scope.user.Active == '')
+				$scope.user.Active = true;
+
+			$scope.user.$add(function () {
 				$location.path('/users');
 			},
-			function (err) {
-				$scope.error = err;
+			function (error) {
+				$scope.error = error;
 			});
 		};
 
 		$scope.update = function () {
-			userResource.update({
-				Id: $scope.user.Id,
-				role: $scope.role,
-				Active: $scope.Meta.Active,
-				Language: $scope.Meta.Language
-			},
-			function () {
+			$scope.user.$update(function () {
 				$location.path('/users');
 			},
-			function (err) {
-				$scope.error = err;
+			function (error) {
+				$scope.error = error;
 			});
 		};
 
 		$scope.cancel = function () {
 			$location.path('/users');
 		};
-		
+
 		$scope.validateUser = function (username, callback) {
 			userResource.query({ UserName: username },
 			function (result) {
@@ -104,5 +76,4 @@ userApplicationModule.controller('UserDetailCtrl',
 			var x = invalid || $scope.errors.userExists;
 			return x;
 		};
-
 	}]);
