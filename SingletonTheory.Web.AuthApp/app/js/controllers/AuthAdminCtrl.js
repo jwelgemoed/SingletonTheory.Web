@@ -6,9 +6,19 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.element = "Role";
 
+		$scope.subElementContainer = [];
+
+		$scope.allSubElements = [];
+
+		$scope.subElementRemainder = [];
+		
 		$scope.error = '';
 
 		$scope.elementDictionary = [];
+
+		$scope.init = function () {
+			$scope.selectElement($scope.element);
+		};
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;

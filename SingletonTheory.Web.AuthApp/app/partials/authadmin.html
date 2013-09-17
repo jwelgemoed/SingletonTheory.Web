@@ -1,34 +1,24 @@
-﻿<div class="page-header">
-	<h1>Authorization Admin</h1>
-</div>
-<div class="dropdown">
-	<button class="btn btn-info dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
-	<ul class="dropdown-menu">
-		<li>
-			<a ng-click="selectElement('Role')">Role</a>
-		</li>
-		<li>
-			<a ng-click="selectElement('Permission Group Level 1')">Permission Group Level 1</a>
-		</li>
-		<li>
-			<a ng-click="selectElement('Permission Group Level 2')">Permission Group Level 2</a>
-		</li>
-		<li>
-			<a ng-click="selectElement('Permission')">Permission</a>
-		</li>
-	</ul>
-</div>
-<br />
-<div class="container-fluid">
-	<div class="row-fluid sortme">
-		<div class="span4 well well-small element">
-			<h3>{{element}}</h3>
+﻿	<div class="row-fluid sortme" ng-init="init()">
+		<div class="span4 well well-small element" >
+			<div class="dropdown">
+				<button class="btn btn-info dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
+				<ul class="dropdown-menu">
+					<li>
+						<a ng-click="selectElement('Role')">Role</a>
+					</li>
+					<li>
+						<a ng-click="selectElement('Permission Group Level 1')">Permission Group Level 1</a>
+					</li>
+					<li>
+						<a ng-click="selectElement('Permission Group Level 2')">Permission Group Level 2</a>
+					</li>
+					<li>
+						<a ng-click="selectElement('Permission')">Permission</a>
+					</li>
+				</ul>
+			</div>
+			<br/>
 			<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
-				<thead>
-					<tr>
-						<th>Element</th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr ng-repeat="elementEntry in elementDictionary">
 						<td>{{ elementEntry.Name }}</td>
@@ -45,5 +35,5 @@
 			<p>Lorem ipsum dolor sit amet, consectetur</p>
 		</div>
 	</div>
-</div>
+
 

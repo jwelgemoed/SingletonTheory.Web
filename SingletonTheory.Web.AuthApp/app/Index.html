@@ -8,7 +8,14 @@
 	<!-- Allows crawlers to crawl the site -->
 	<meta name="fragment" content="!" />
 	<base href="index.html" />
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	<!-- keeping for now till new file includes are confirmed fully functional.
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+		-->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-cookies.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.js"></script>
+	<script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css" rel="stylesheet">
 	<!-- This is needed because Facebook login redirects add #_=_ at the end of the URL-->
 	<script type="text/javascript">
@@ -64,11 +71,14 @@
 		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
 	</div>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-cookies.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.js"></script>
-	<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.min.js"></script>
-	<script src="/lib/ui-bootstrap/ui-bootstrap-0.5.0.min.js"></script>
+
+	<!-- keeping for now till new file includes are confirmed fully functional.
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-cookies.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.js"></script>
+		<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.min.js"></script>
+		-->
+
 	<script src="/js/routingConfig.js"></script>
 	<script src="/js/modules/DynamicLocale.js"></script>
 	<script src="/js/app.js"></script>
