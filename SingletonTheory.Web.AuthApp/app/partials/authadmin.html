@@ -7,13 +7,13 @@
 						<a ng-click="selectElement('Role')">Role</a>
 					</li>
 					<li>
-						<a ng-click="selectElement('Permission Group Level 1')">Permission Group Level 1</a>
+						<a ng-click="selectElement('Domain Permissions')">Domain Permissions</a>
 					</li>
 					<li>
-						<a ng-click="selectElement('Permission Group Level 2')">Permission Group Level 2</a>
+						<a ng-click="selectElement('Functional Permissions')">Functional Permissions</a>
 					</li>
 					<li>
-						<a ng-click="selectElement('Permission')">Permission</a>
+						<a ng-click="selectElement('Permissions')">Permissions</a>
 					</li>
 				</ul>
 			</div>
@@ -24,21 +24,35 @@
 					<div class="well well-large">Some content</div> 
 				</div>
 			</div>
-			<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
+			<table id="elementRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
 				<tbody>
-					<tr ng-repeat="elementEntry in elementDictionary">
-						<td>{{ elementEntry.Name }}</td>
+					<tr ng-repeat="elementEntry in elementDictionary" ng-click="getElementSubLists()">
+						<td tooltip-placement="right" tooltip="{{elementEntry.Description}}">{{ elementEntry.Name }}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="span4 well well-small element">
-			<h3>Item #2</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur</p>
+			<span>{{AssignedHeader}}</span>
+			<br/><br/>
+			<table id="assignedRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
+				<tbody>
+					<tr ng-repeat="assigned in subElements.Assigned">
+						<td tooltip-placement="right" tooltip="{{assigned.Description}}">{{ assigned.Name }}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="span4 well well-small element">
-			<h3>Item #3</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur</p>
+			<span>{{UnAssignedHeader}}</span>
+			<br/><br/>
+			<table id="unAssignedRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
+				<tbody>
+					<tr ng-repeat="unAssigned in subElements.UnAssigned">
+						<td tooltip-placement="right" tooltip="{{unAssigned.Description}}">{{ unAssigned.Name }}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
