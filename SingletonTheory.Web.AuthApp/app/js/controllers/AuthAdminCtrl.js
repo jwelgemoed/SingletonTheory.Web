@@ -13,9 +13,9 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.selectedElement = '';
 
-		$scope.selectedAssigned = '';
+		$scope.selectedAssigned = [];
 
-		$scope.selectedUnAssigned = '';
+		$scope.selectedUnAssigned = [];
 
 		$scope.error = '';
 
@@ -31,12 +31,56 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.selectElement($scope.element);
 		};
 
+		function selectDeselect(elementArray, elementToSelect) {
+			if ($scope.checkArrayForElement(elementArray,elementToSelect)) {
+				removeElementFromArray(elementArray, elementToSelect);
+			} else {
+				elementArray.push(elementToSelect);
+			}
+		}
+
 		$scope.selectAssigned = function () {
-			$scope.selectedAssigned = this.assigned;
+			selectDeselect($scope.selectedAssigned, this.assigned);
 		};
 		
 		$scope.selectUnAssigned = function () {
-			$scope.selectedUnAssigned = this.unAssigned;
+			selectDeselect($scope.selectedUnAssigned, this.unAssigned);
+		};
+
+		$scope.checkArrayForElement = function (elementArray, elementToFind) {
+			var found = false;
+			for (var i = elementArray.length - 1; i >= 0; i--) {
+				if (elementArray[i].Id === elementToFind.Id) {
+					found = true;
+				}
+			}
+			return found;
+		};
+
+		$scope.assign = function (assignFlag) {
+			var i = 0;
+			if (assignFlag == 'assign') {
+				for (i = 0 ; i <= $scope.selectedUnAssigned.length - 1; i++) {
+					$scope.subElements.Assigned.push($scope.selectedUnAssigned[i]);
+					removeElementFromArray($scope.subElements.UnAssigned, $scope.selectedUnAssigned[i]);
+				}
+				$scope.selectedUnAssigned = [];
+			}
+			if (assignFlag == 'unAssign') {
+				for (i = 0; i <= $scope.selectedAssigned.length - 1; i++) {
+					$scope.subElements.UnAssigned.push($scope.selectedAssigned[i]);
+					removeElementFromArray($scope.subElements.Assigned, $scope.selectedAssigned[i]);
+				}
+				$scope.selectedAssigned = [];
+			}
+		};
+
+		function removeElementFromArray(elementArray, elementToRemove) {
+			for (var i = elementArray.length - 1; i >= 0; i--) {
+				if (elementArray[i].Id === elementToRemove.Id) {
+					elementArray.splice(i, 1);
+				}
+			}
 		};
 
 		$scope.selectElement = function (elementName) {
@@ -52,8 +96,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				setElementSubLists(this.elementEntry.Id);
 				$scope.selectedElement = this.elementEntry;
 				$scope.hideSublevels = false;
-				$scope.selectedAssigned = '';
-				$scope.selectedUnAssigned = '';
+				$scope.selectedAssigned = [];
+				$scope.selectedUnAssigned = [];
 			}
 		};
 
