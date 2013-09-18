@@ -3,13 +3,19 @@
 userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRoleResource', 'AuthAdminGroupLvl2Resource',
 	'AuthAdminGroupLvl1Resource', 'AuthAdminPermissionResource', 'authAdminRoleDomainPermissionsResource', 'authAdminDomainPermissionFunctionalPermissionsResource',
 	'authAdmiFunctionalPermissionPermissionsResource',
-	function ($rootScope, $scope, AuthAdminRoleResource, AuthAdminGroupLvl2Resource, AuthAdminGroupLvl1Resource,
-	AuthAdminPermissionResource, authAdminRoleDomainPermissionsResource, authAdminDomainPermissionFunctionalPermissionsResource,
-	authAdmiFunctionalPermissionPermissionsResource) {
+	function($rootScope, $scope, AuthAdminRoleResource, AuthAdminGroupLvl2Resource, AuthAdminGroupLvl1Resource,
+		AuthAdminPermissionResource, authAdminRoleDomainPermissionsResource, authAdminDomainPermissionFunctionalPermissionsResource,
+		authAdmiFunctionalPermissionPermissionsResource) {
 
 		$scope.element = 'Role';
 
 		$scope.subElements = [];
+
+		$scope.selectedElement = '';
+
+		$scope.selectedAssigned = '';
+
+		$scope.selectedUnAssigned = '';
 
 		$scope.error = '';
 
@@ -19,18 +25,36 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.UnAssignedHeader = 'Available Domain Permissions';
 
-		$scope.init = function () {
+		$scope.hideSublevels = true;
+
+		$scope.init = function() {
 			$scope.selectElement($scope.element);
+		};
+
+		$scope.selectAssigned = function () {
+			$scope.selectedAssigned = this.assigned;
+		};
+		
+		$scope.selectUnAssigned = function () {
+			$scope.selectedUnAssigned = this.unAssigned;
 		};
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
 			$scope.subElements = '';
+			$scope.selectedElement = '';
+			$scope.hideSublevels = true;
 			getElementData();
 		};
 
 		$scope.getElementSubLists = function () {
-			setElementSubLists(this.elementEntry.Id);
+			if ($scope.element != 'Permissions') {
+				setElementSubLists(this.elementEntry.Id);
+				$scope.selectedElement = this.elementEntry;
+				$scope.hideSublevels = false;
+				$scope.selectedAssigned = '';
+				$scope.selectedUnAssigned = '';
+			}
 		};
 
 		function setElementSubLists(id) {
@@ -90,8 +114,6 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					break;
 			}
 		};
-
-
 
 	}]);
 

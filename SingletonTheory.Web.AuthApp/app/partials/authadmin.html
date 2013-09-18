@@ -1,59 +1,62 @@
-﻿	<div class="row-fluid sortme" ng-init="init()">
-		<div class="span4 well well-small element" >
-			<div class="dropdown">
-				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
-				<ul class="dropdown-menu">
-					<li>
-						<a ng-click="selectElement('Role')">Role</a>
-					</li>
-					<li>
-						<a ng-click="selectElement('Domain Permissions')">Domain Permissions</a>
-					</li>
-					<li>
-						<a ng-click="selectElement('Functional Permissions')">Functional Permissions</a>
-					</li>
-					<li>
-						<a ng-click="selectElement('Permissions')">Permissions</a>
-					</li>
-				</ul>
-			</div>
-			<br/>
-			<div >
-				<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>&nbsp;
+﻿<div class="row-fluid sortme" ng-init="init()">
+	<div class="span4 well well-small element">
+		<div class="dropdown">
+			<button class="btn btn-info btn-block dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
+			<ul class="dropdown-menu">
+				<li>
+					<a ng-click="selectElement('Role')">Role</a>
+				</li>
+				<li>
+					<a ng-click="selectElement('Domain Permissions')">Domain Permissions</a>
+				</li>
+				<li>
+					<a ng-click="selectElement('Functional Permissions')">Functional Permissions</a>
+				</li>
+				<li>
+					<a ng-click="selectElement('Permissions')">Permissions</a>
+				</li>
+			</ul>
+		</div>
+		<br />
+		<div>
+			<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
+			&nbsp;
 				<div collapse="!isCollapsed">
-					<div class="well well-large">Some content</div> 
+					<div class="well well-large">Some content</div>
 				</div>
-			</div>
-			<table id="elementRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
-				<tbody>
-					<tr ng-repeat="elementEntry in elementDictionary" ng-click="getElementSubLists()">
-						<td tooltip-placement="right" tooltip="{{elementEntry.Description}}">{{ elementEntry.Name }}</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
-		<div class="span4 well well-small element">
-			<span>{{AssignedHeader}}</span>
-			<br/><br/>
-			<table id="assignedRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
-				<tbody>
-					<tr ng-repeat="assigned in subElements.Assigned">
-						<td tooltip-placement="right" tooltip="{{assigned.Description}}">{{ assigned.Name }}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="span4 well well-small element">
-			<span>{{UnAssignedHeader}}</span>
-			<br/><br/>
-			<table id="unAssignedRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
-				<tbody>
-					<tr ng-repeat="unAssigned in subElements.UnAssigned">
-						<td tooltip-placement="right" tooltip="{{unAssigned.Description}}">{{ unAssigned.Name }}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<table id="elementRepeater" data-ng-hide="loading" class="table table-striped table-condensed">
+			<tbody>
+				<tr ng-repeat="elementEntry in elementDictionary" ng-click="getElementSubLists()">
+					<td tooltip-placement="right" tooltip="{{elementEntry.Description}}" ng-class="{true:'st-selectedRow',false:''}[elementEntry.Id == selectedElement.Id]">{{ elementEntry.Name }}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
+	<div class="span4 well well-small element" data-ng-hide="hideSublevels">
+	<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
+		<button class="btn btn-default btn-block" type="button">Unassign Selected</button>
+		<br />
+		<table id="assignedRepeater" class="table table-striped table-condensed">
+			<tbody>
+				<tr ng-repeat="assigned in subElements.Assigned" ng-click="selectAssigned()">
+					<td tooltip-placement="right" tooltip="{{assigned.Description}}" ng-class="{true:'st-selectedRow',false:''}[assigned.Id == selectedAssigned.Id]">{{ assigned.Name }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="span4 well well-small element" data-ng-hide="hideSublevels">
+			<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
+		<button class="btn btn-default btn-block" type="button">Assign Selected</button>
+		<br />
+		<table id="unAssignedRepeater" class="table table-striped table-condensed">
+			<tbody>
+				<tr ng-repeat="unAssigned in subElements.UnAssigned" ng-click="selectUnAssigned()">
+					<td tooltip-placement="right" tooltip="{{unAssigned.Description}}" ng-class="{true:'st-selectedRow',false:''}[unAssigned.Id == selectedUnAssigned.Id]">>{{ unAssigned.Name }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 
 
