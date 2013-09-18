@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRoleResource', 'AuthAdminGroupLvl2Resource',
-	'AuthAdminGroupLvl1Resource', 'AuthAdminPermissionResource', 'authAdminRoleDomainPermissionsResource', 'authAdminDomainPermissionFunctionalPermissionsResource',
-	'authAdmiFunctionalPermissionPermissionsResource',
-	function($rootScope, $scope, AuthAdminRoleResource, AuthAdminGroupLvl2Resource, AuthAdminGroupLvl1Resource,
-		AuthAdminPermissionResource, authAdminRoleDomainPermissionsResource, authAdminDomainPermissionFunctionalPermissionsResource,
-		authAdmiFunctionalPermissionPermissionsResource) {
+userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource',
+	'AuthAdminFunctionalPermissionsResource', 'AuthAdminPermissionsResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
+	'AuthAdmiFunctionalPermissionPermissionsResource',
+	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminDomainPermissionsResource, AuthAdminFunctionalPermissionsResource,
+		AuthAdminPermissionsResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
+		AuthAdmiFunctionalPermissionPermissionsResource) {
 
 		$scope.element = 'Role';
 
@@ -112,7 +112,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 				case 'Functional Permissions':
-					authAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
+					AuthAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
 						$scope.subElements = result;
 						$scope.AssignedHeader = 'Assigned Permissions';
 						$scope.UnAssignedHeader = 'Available Permissions';
@@ -120,7 +120,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 				case 'Domain Permissions':
-					authAdminDomainPermissionFunctionalPermissionsResource.get({ Id: id }, function (result) {
+					AuthAdminDomainPermissionFunctionalPermissionsResource.get({ Id: id }, function (result) {
 						$scope.subElements = result;
 						$scope.AssignedHeader = 'Assigned Functional Permissions';
 						$scope.UnAssignedHeader = 'Available Functional Permissions';
@@ -133,31 +133,30 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		function getElementData () {
 			switch ($scope.element) {
 				case 'Role':
-					AuthAdminRoleResource.query({}, function (result) {
+					AuthAdminRolesResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Functional Permissions':
-					AuthAdminGroupLvl1Resource.query({}, function (result) {
+					AuthAdminFunctionalPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Domain Permissions':
-					AuthAdminGroupLvl2Resource.query({}, function (result) {
+					AuthAdminDomainPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Permissions':
-					AuthAdminPermissionResource.query({}, function (result) {
+					AuthAdminPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 			}
 		};
-
 	}]);
 
