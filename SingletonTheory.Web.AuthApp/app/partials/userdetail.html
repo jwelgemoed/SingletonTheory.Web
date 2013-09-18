@@ -22,7 +22,7 @@
 				<div class="control-group">
 					<label for="role" class="control-label" data-i18n="_RoleHeading_"></label>
 					<div class="controls">
-						<select ng-model="role" onselect="updateRole()" ng-options="opt for opt in options.role"></select>
+						<select ng-model="user.Roles[0]" onselect="updateRole()" ng-options="opt for opt in options.role"></select>
 					</div>
 				</div>
 				<div class="control-group">

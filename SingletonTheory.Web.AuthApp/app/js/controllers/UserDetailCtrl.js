@@ -8,7 +8,6 @@ userApplicationModule.controller('UserDetailCtrl',
 		$scope.options = {
 			role: ['admin', 'user']
 		};
-		$scope.role = $scope.options.role[1];
 
 		$scope.init = function (callback) {
 			$scope.isNew = !!($routeParams.Id == 0);
@@ -17,6 +16,8 @@ userApplicationModule.controller('UserDetailCtrl',
 			if ($scope.isNew) {
 				$scope.user = new userResource();
 				$scope.user.Active = true;
+				$scope.user.Roles = [];
+				$scope.user.Roles.push($scope.options.role[1]);
 			}
 			else {
 				userResource.get({ Id: $routeParams.Id }, function (response) {

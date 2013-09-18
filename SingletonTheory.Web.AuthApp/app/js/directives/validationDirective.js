@@ -6,7 +6,7 @@ userApplicationModule.directive('userAvailable', ['UsersResource', function (use
 		link: function (scope, elem, attr, ctrl) {
 			ctrl.$parsers.unshift(function (viewValue) {
 				if (viewValue.trim().length > 0) {
-					usersResource.query({ UserNames: [ viewValue] },
+					usersResource.query({ UserNames: [ viewValue ] },
 						function (result) {
 							if (result.length == 0) {
 								ctrl.$setValidity('userAvailable', true);

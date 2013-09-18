@@ -25,7 +25,7 @@ userApplicationModule.controller('UsersCtrl',
 			return !!((row.Id.toString().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
 						 row.UserName.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
 						 row.Roles[0].toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
-						 row.Active.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1));
+						 row.Active == $scope.usersSearchQuery.toUpperCase() || 'true'));
 		};
 
 		//---------- properties ----------
