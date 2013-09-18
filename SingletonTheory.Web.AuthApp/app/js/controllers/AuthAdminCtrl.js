@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRoleResource', 'AuthAdminGroupLvl2Resource',
-	'AuthAdminGroupLvl1Resource', 'AuthAdminPermissionResource', 'authAdminRoleDomainPermissionsResource', 'authAdminDomainPermissionFunctionalPermissionsResource',
-	'authAdmiFunctionalPermissionPermissionsResource',
-	function($rootScope, $scope, AuthAdminRoleResource, AuthAdminGroupLvl2Resource, AuthAdminGroupLvl1Resource,
-		AuthAdminPermissionResource, authAdminRoleDomainPermissionsResource, authAdminDomainPermissionFunctionalPermissionsResource,
-		authAdmiFunctionalPermissionPermissionsResource) {
+userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource',
+	'AuthAdminFunctionalPermissionsResource', 'AuthAdminPermissionsResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
+	'AuthAdmiFunctionalPermissionPermissionsResource',
+	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminDomainPermissionsResource, AuthAdminFunctionalPermissionsResource,
+		AuthAdminPermissionsResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
+		AuthAdmiFunctionalPermissionPermissionsResource) {
 
 		$scope.element = 'Role';
 
@@ -13,9 +13,9 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.selectedElement = '';
 
-		$scope.selectedAssigned = '';
+		$scope.selectedAssigned = [];
 
-		$scope.selectedUnAssigned = '';
+		$scope.selectedUnAssigned = [];
 
 		$scope.error = '';
 
@@ -31,12 +31,56 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.selectElement($scope.element);
 		};
 
+		function selectDeselect(elementArray, elementToSelect) {
+			if ($scope.checkArrayForElement(elementArray,elementToSelect)) {
+				removeElementFromArray(elementArray, elementToSelect);
+			} else {
+				elementArray.push(elementToSelect);
+			}
+		}
+
 		$scope.selectAssigned = function () {
-			$scope.selectedAssigned = this.assigned;
+			selectDeselect($scope.selectedAssigned, this.assigned);
 		};
 		
 		$scope.selectUnAssigned = function () {
-			$scope.selectedUnAssigned = this.unAssigned;
+			selectDeselect($scope.selectedUnAssigned, this.unAssigned);
+		};
+
+		$scope.checkArrayForElement = function (elementArray, elementToFind) {
+			var found = false;
+			for (var i = elementArray.length - 1; i >= 0; i--) {
+				if (elementArray[i].Id === elementToFind.Id) {
+					found = true;
+				}
+			}
+			return found;
+		};
+
+		$scope.assign = function (assignFlag) {
+			var i = 0;
+			if (assignFlag == 'assign') {
+				for (i = 0 ; i <= $scope.selectedUnAssigned.length - 1; i++) {
+					$scope.subElements.Assigned.push($scope.selectedUnAssigned[i]);
+					removeElementFromArray($scope.subElements.UnAssigned, $scope.selectedUnAssigned[i]);
+				}
+				$scope.selectedUnAssigned = [];
+			}
+			if (assignFlag == 'unAssign') {
+				for (i = 0; i <= $scope.selectedAssigned.length - 1; i++) {
+					$scope.subElements.UnAssigned.push($scope.selectedAssigned[i]);
+					removeElementFromArray($scope.subElements.Assigned, $scope.selectedAssigned[i]);
+				}
+				$scope.selectedAssigned = [];
+			}
+		};
+
+		function removeElementFromArray(elementArray, elementToRemove) {
+			for (var i = elementArray.length - 1; i >= 0; i--) {
+				if (elementArray[i].Id === elementToRemove.Id) {
+					elementArray.splice(i, 1);
+				}
+			}
 		};
 
 		$scope.selectElement = function (elementName) {
@@ -52,8 +96,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				setElementSubLists(this.elementEntry.Id);
 				$scope.selectedElement = this.elementEntry;
 				$scope.hideSublevels = false;
-				$scope.selectedAssigned = '';
-				$scope.selectedUnAssigned = '';
+				$scope.selectedAssigned = [];
+				$scope.selectedUnAssigned = [];
 			}
 		};
 
@@ -68,7 +112,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 				case 'Functional Permissions':
-					authAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
+					AuthAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
 						$scope.subElements = result;
 						$scope.AssignedHeader = 'Assigned Permissions';
 						$scope.UnAssignedHeader = 'Available Permissions';
@@ -76,7 +120,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 				case 'Domain Permissions':
-					authAdminDomainPermissionFunctionalPermissionsResource.get({ Id: id }, function (result) {
+					AuthAdminDomainPermissionFunctionalPermissionsResource.get({ Id: id }, function (result) {
 						$scope.subElements = result;
 						$scope.AssignedHeader = 'Assigned Functional Permissions';
 						$scope.UnAssignedHeader = 'Available Functional Permissions';
@@ -89,31 +133,30 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		function getElementData () {
 			switch ($scope.element) {
 				case 'Role':
-					AuthAdminRoleResource.query({}, function (result) {
+					AuthAdminRolesResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Functional Permissions':
-					AuthAdminGroupLvl1Resource.query({}, function (result) {
+					AuthAdminFunctionalPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Domain Permissions':
-					AuthAdminGroupLvl2Resource.query({}, function (result) {
+					AuthAdminDomainPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Permissions':
-					AuthAdminPermissionResource.query({}, function (result) {
+					AuthAdminPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 			}
 		};
-
 	}]);
 
