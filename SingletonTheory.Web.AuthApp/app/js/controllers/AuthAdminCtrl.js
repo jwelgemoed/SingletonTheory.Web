@@ -1,10 +1,12 @@
 ﻿'use strict';
 
-userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminRoleResource',  'AuthAdminDomainPermissionsResource',
-	'AuthAdminFunctionalPermissionsResource', 'AuthAdminPermissionsResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
+userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminRoleResource', 'AuthAdminDomainPermissionsResource',
+	'AuthAdminDomainPermissionResource', 'AuthAdminFunctionalPermissionsResource', 'AuthAdminFunctionalPermissionResource', 'AuthAdminPermissionsResource',
+	'AuthAdminPermissionResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
 	'AuthAdmiFunctionalPermissionPermissionsResource',
-	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminRoleResource, AuthAdminDomainPermissionsResource, AuthAdminFunctionalPermissionsResource,
-		AuthAdminPermissionsResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
+	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminRoleResource, AuthAdminDomainPermissionsResource,
+		AuthAdminDomainPermissionResource, AuthAdminFunctionalPermissionsResource, AuthAdminFunctionalPermissionResource, AuthAdminPermissionsResource,
+		AuthAdminPermissionResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
 		AuthAdmiFunctionalPermissionPermissionsResource) {
 
 		$scope.element = 'Role';
@@ -139,19 +141,19 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					}, function (err) { $scope.error = err; }
 					);
 					break;
-				case 'Functional Permissions':
-					AuthAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
-						$scope.subElements = result;
-						$scope.AssignedHeader = 'Assigned Permissions';
-						$scope.UnAssignedHeader = 'Available Permissions';
-					}, function (err) { $scope.error = err; }
-					);
-					break;
 				case 'Domain Permissions':
 					AuthAdminDomainPermissionFunctionalPermissionsResource.get({ Id: id }, function (result) {
 						$scope.subElements = result;
 						$scope.AssignedHeader = 'Assigned Functional Permissions';
 						$scope.UnAssignedHeader = 'Available Functional Permissions';
+					}, function (err) { $scope.error = err; }
+					);
+					break;
+				case 'Functional Permissions':
+					AuthAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
+						$scope.subElements = result;
+						$scope.AssignedHeader = 'Assigned Permissions';
+						$scope.UnAssignedHeader = 'Available Permissions';
 					}, function (err) { $scope.error = err; }
 					);
 					break;
@@ -167,21 +169,24 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					}, function (err) { $scope.error = err; }
 					);
 					break;
-				case 'Functional Permissions':
-					AuthAdminFunctionalPermissionsResource.query({}, function (result) {
-						$scope.elementDictionary = result;
-					}, function (err) { $scope.error = err; }
-					);
-					break;
 				case 'Domain Permissions':
 					AuthAdminDomainPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
+						$scope.elementResource = new AuthAdminDomainPermissionResource();
+					}, function (err) { $scope.error = err; }
+					);
+					break;
+				case 'Functional Permissions':
+					AuthAdminFunctionalPermissionsResource.query({}, function (result) {
+						$scope.elementDictionary = result;
+						$scope.elementResource = new AuthAdminFunctionalPermissionResource();
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case 'Permissions':
 					AuthAdminPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
+						$scope.elementResource = new AuthAdminPermissionResource();
 					}, function (err) { $scope.error = err; }
 					);
 					break;
