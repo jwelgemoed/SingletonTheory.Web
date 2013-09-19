@@ -11,7 +11,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.subElements = [];
 
-		$scope.selectedElement = '';
+		$scope.selectedElement = [];
 
 		$scope.selectedAssigned = [];
 
@@ -26,6 +26,22 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.UnAssignedHeader = 'Available Domain Permissions';
 
 		$scope.hideSublevels = true;
+		
+		$scope.elementGridOptions = {
+			data: 'elementDictionary',
+			columnDefs: [{ field: 'Label', displayName: 'Name' }],
+			selectedItems: $scope.selectedElement,
+			multiSelect: false,
+			afterSelectionChange: function(data) {
+				if ($scope.element != 'Permissions' && $scope.selectedElement.length > 0) {
+					setElementSubLists($scope.selectedElement[0].Id);
+					//$scope.selectedElement = this.elementEntry;
+					$scope.hideSublevels = false;
+				//	$scope.selectedAssigned = [];
+				//	$scope.selectedUnAssigned = [];
+				}
+			}
+		};
 
 		$scope.init = function() {
 			$scope.selectElement($scope.element);
@@ -82,29 +98,21 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				}
 			}
 		};
+		
+	
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
 			$scope.subElements = '';
-			$scope.selectedElement = '';
 			$scope.hideSublevels = true;
 			getElementData();
 		};
 
-		$scope.getElementSubLists = function () {
-			if ($scope.element != 'Permissions') {
-				setElementSubLists(this.elementEntry.Id);
-				$scope.selectedElement = this.elementEntry;
-				$scope.hideSublevels = false;
-				$scope.selectedAssigned = [];
-				$scope.selectedUnAssigned = [];
-			}
-		};
 
 		function setElementSubLists(id) {
 			switch ($scope.element) {
 				case 'Role':
-					authAdminRoleDomainPermissionsResource.get({ Id: id }, function (result) {
+					AuthAdminRoleDomainPermissionsResource.get({ Id: id }, function (result) {
 						$scope.subElements = result;
 						$scope.AssignedHeader = 'Assigned Domain Permissions';
 						$scope.UnAssignedHeader = 'Available Domain Permissions';

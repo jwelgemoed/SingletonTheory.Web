@@ -11,6 +11,7 @@
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 		-->
 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/lib/angular/ng-grid/ng-grid.css" />
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/app.css" />
 	<!-- This is needed because Facebook login redirects add #_=_ at the end of the URL-->
@@ -66,12 +67,14 @@
 		<div id="ng-view" data-ng-view="ng-view"></div>
 		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-cookies.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.js"></script>
 	<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
 	<script src="/lib/ui-bootstrap/angular-bootstrap-prettify.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+	<script src="/lib/angular/ng-grid/ng-grid.js"></script>
 
 	<!-- keeping for now till new file includes are confirmed fully functional.
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
