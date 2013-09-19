@@ -100,18 +100,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			getElementData();
 		};
 
-		$scope.descriptionVisibility = function () {
+		$scope.isBasePermission = function () {
 			switch($scope.element) {
-				case 'Role':
-				case 'Domain Permissions':
-					return false;
-				default:
-					return true;
-			}
-		};
-		
-		$scope.LabelVisibility = function () {
-			switch ($scope.element) {
 				case 'Role':
 				case 'Domain Permissions':
 					return false;
