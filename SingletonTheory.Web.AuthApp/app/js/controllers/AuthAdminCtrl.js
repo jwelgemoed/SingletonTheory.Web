@@ -30,10 +30,12 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.UnAssignedHeader = 'Available Domain Permissions';
 
 		$scope.hideSublevels = true;
+		
+		$scope.editableInPopup = '<button type="button" class="btn btn-default"><i class="icon-edit icon-black"></i></button> ';
 
 		$scope.elementGridOptions = {
 			data: 'elementDictionary',
-			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
+			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }, { displayName: '', cellTemplate: $scope.editableInPopup, width:40 }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
 			afterSelectionChange: function(data) {
@@ -57,6 +59,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			selectedItems: $scope.selectedUnAssigned,
 			multiSelect: true
 		};
+
+		
 
 		$scope.init = function() {
 			$scope.selectElement($scope.element);
