@@ -30,26 +30,12 @@
 	<div class="span4 well well-small element" data-ng-hide="hideSublevels">
 	<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')">Unassign Selected</button>
-		<br />
-		<table id="assignedRepeater" class="table table-striped table-condensed">
-			<tbody>
-				<tr ng-repeat="assigned in subElements.Assigned" ng-click="selectAssigned()">
-					<td tooltip-placement="right" tooltip="{{assigned.Description}}" ng-class="{true:'st-selectedRow',false:''}[checkArrayForElement(selectedAssigned,assigned)]">{{ assigned.Label }}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 	</div>
 	<div class="span4 well well-small element" data-ng-hide="hideSublevels">
 			<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')">Assign Selected</button>
-		<br />
-		<table id="unAssignedRepeater" class="table table-striped table-condensed">
-			<tbody>
-				<tr ng-repeat="unAssigned in subElements.UnAssigned" ng-click="selectUnAssigned()">
-					<td tooltip-placement="right" tooltip="{{unAssigned.Description}}" ng-class="{true:'st-selectedRow',false:''}[checkArrayForElement(selectedUnAssigned,unAssigned)]">{{ unAssigned.Label }}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
 	</div>
 </div>
 

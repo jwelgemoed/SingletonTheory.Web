@@ -35,42 +35,27 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			afterSelectionChange: function(data) {
 				if ($scope.element != 'Permissions' && $scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Id);
-					//$scope.selectedElement = this.elementEntry;
 					$scope.hideSublevels = false;
-				//	$scope.selectedAssigned = [];
-				//	$scope.selectedUnAssigned = [];
 				}
 			}
+		};
+		
+		$scope.assignedGridOptions = {
+			data: 'subElements.Assigned',
+			columnDefs: [{ field: 'Label', displayName: 'Name' }],
+			selectedItems: $scope.selectedAssigned,
+			multiSelect: true
+		};
+		
+		$scope.unAssignedGridOptions = {
+			data: 'subElements.UnAssigned',
+			columnDefs: [{ field: 'Label', displayName: 'Name' }],
+			selectedItems: $scope.selectedUnAssigned,
+			multiSelect: true
 		};
 
 		$scope.init = function() {
 			$scope.selectElement($scope.element);
-		};
-
-		function selectDeselect(elementArray, elementToSelect) {
-			if ($scope.checkArrayForElement(elementArray,elementToSelect)) {
-				removeElementFromArray(elementArray, elementToSelect);
-			} else {
-				elementArray.push(elementToSelect);
-			}
-		}
-
-		$scope.selectAssigned = function () {
-			selectDeselect($scope.selectedAssigned, this.assigned);
-		};
-		
-		$scope.selectUnAssigned = function () {
-			selectDeselect($scope.selectedUnAssigned, this.unAssigned);
-		};
-
-		$scope.checkArrayForElement = function (elementArray, elementToFind) {
-			var found = false;
-			for (var i = elementArray.length - 1; i >= 0; i--) {
-				if (elementArray[i].Id === elementToFind.Id) {
-					found = true;
-				}
-			}
-			return found;
 		};
 
 		$scope.assign = function (assignFlag) {
@@ -98,12 +83,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				}
 			}
 		};
-		
-	
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
-			$scope.subElements = '';
+			$scope.subElements = [];
 			$scope.hideSublevels = true;
 			getElementData();
 		};
