@@ -16,7 +16,7 @@
 				<div class="control-group" ng-show="isNew">
 					<label for="Password" class="control-label" data-i18n="_PasswordHeading_"></label>
 					<div class="controls">
-						<input  id="passwordInput" type="password" data-ng-model="user.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" required="required" data-ng-minlength="5" data-ng-maxlength="60" />
+						<input  id="passwordInput" type="password" data-ng-model="user.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" ng-required="passwordIsRequired" data-ng-minlength="5" data-ng-maxlength="60" />
 					</div>
 				</div>
 				<div class="control-group">

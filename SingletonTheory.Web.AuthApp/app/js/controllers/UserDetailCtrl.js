@@ -14,6 +14,8 @@ userApplicationModule.controller('UserDetailCtrl',
 			$scope.isEdit = !!($routeParams.Id != 0);
 
 			if ($scope.isNew) {
+				$scope.passwordIsRequired = true;
+
 				$scope.user = new userResource();
 				$scope.user.Active = true;
 				$scope.user.Roles = [];
@@ -21,6 +23,8 @@ userApplicationModule.controller('UserDetailCtrl',
 			}
 			else {
 				userResource.get({ Id: $routeParams.Id }, function (response) {
+					$scope.passwordIsRequired = false;
+
 					$scope.user = response;
 					$scope.role = $scope.user.Roles[0];
 				});
