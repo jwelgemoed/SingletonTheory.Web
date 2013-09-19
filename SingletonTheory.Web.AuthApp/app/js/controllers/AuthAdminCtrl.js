@@ -1,13 +1,15 @@
 ﻿'use strict';
 
-userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource',
+userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminRoleResource',  'AuthAdminDomainPermissionsResource',
 	'AuthAdminFunctionalPermissionsResource', 'AuthAdminPermissionsResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
 	'AuthAdmiFunctionalPermissionPermissionsResource',
-	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminDomainPermissionsResource, AuthAdminFunctionalPermissionsResource,
+	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminRoleResource, AuthAdminDomainPermissionsResource, AuthAdminFunctionalPermissionsResource,
 		AuthAdminPermissionsResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
 		AuthAdmiFunctionalPermissionPermissionsResource) {
 
 		$scope.element = 'Role';
+
+		$scope.isCollapsed = false;
 
 		$scope.subElements = [];
 
@@ -26,10 +28,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.UnAssignedHeader = 'Available Domain Permissions';
 
 		$scope.hideSublevels = true;
-		
+
 		$scope.elementGridOptions = {
 			data: 'elementDictionary',
-			columnDefs: [{ field: 'Label', displayName: 'Name' }],
+			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
 			afterSelectionChange: function(data) {
@@ -42,14 +44,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		
 		$scope.assignedGridOptions = {
 			data: 'subElements.Assigned',
-			columnDefs: [{ field: 'Label', displayName: 'Name' }],
+			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedAssigned,
 			multiSelect: true
 		};
 		
 		$scope.unAssignedGridOptions = {
 			data: 'subElements.UnAssigned',
-			columnDefs: [{ field: 'Label', displayName: 'Name' }],
+			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedUnAssigned,
 			multiSelect: true
 		};
@@ -65,14 +67,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					$scope.subElements.Assigned.push($scope.selectedUnAssigned[i]);
 					removeElementFromArray($scope.subElements.UnAssigned, $scope.selectedUnAssigned[i]);
 				}
-				$scope.selectedUnAssigned = [];
+				$scope.selectedUnAssigned.length = 0;
 			}
 			if (assignFlag == 'unAssign') {
 				for (i = 0; i <= $scope.selectedAssigned.length - 1; i++) {
 					$scope.subElements.UnAssigned.push($scope.selectedAssigned[i]);
 					removeElementFromArray($scope.subElements.Assigned, $scope.selectedAssigned[i]);
 				}
-				$scope.selectedAssigned = [];
+				$scope.selectedAssigned.length = 0;
 			}
 		};
 
@@ -86,11 +88,46 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
-			$scope.subElements = [];
+			if ($scope.subElements.Assigned != undefined) {
+				$scope.subElements.Assigned.length = 0;
+			}
+			if ($scope.subElements.UnAssigned != undefined) {
+				$scope.subElements.UnAssigned.length = 0;
+			}
 			$scope.hideSublevels = true;
 			getElementData();
 		};
 
+		$scope.descriptionVisibility = function () {
+			switch($scope.element) {
+				case 'Role':
+				case 'Domain Permissions':
+					return false;
+				default:
+					return true;
+			}
+		};
+		
+		$scope.LabelVisibility = function () {
+			switch ($scope.element) {
+				case 'Role':
+				case 'Domain Permissions':
+					return false;
+				default:
+					return true;
+			}
+		};
+
+		$scope.save = function () {
+			$scope.elementResource.$add(function () {
+				$scope.toggleCollapse();
+				getElementData();
+			});
+		};
+
+		$scope.toggleCollapse = function () {
+			$scope.isCollapsed = !$scope.isCollapsed;
+		};
 
 		function setElementSubLists(id) {
 			switch ($scope.element) {
@@ -121,11 +158,12 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			}
 		};
 
-		function getElementData () {
+		function getElementData() {
 			switch ($scope.element) {
 				case 'Role':
 					AuthAdminRolesResource.query({}, function (result) {
 						$scope.elementDictionary = result;
+						$scope.elementResource = new AuthAdminRoleResource();
 					}, function (err) { $scope.error = err; }
 					);
 					break;
