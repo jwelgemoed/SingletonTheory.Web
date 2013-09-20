@@ -2,20 +2,20 @@
 	<div class="row-fluid sortme" ng-init="init()">
 		<div class="span4 well well-small element" resize-to-window ng-style="styleToWindow()">
 			<div class="dropdown">
-				<span class="label label-default btn-block st-centered">Element</span>
-				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{element}} <i class="icon-chevron-down icon-white"></i></button>
+				<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
+				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayElement}} <i class="icon-chevron-down icon-white"></i></button>
 				<ul class="dropdown-menu">
 					<li>
-						<a ng-click="selectElement('Role')">Role</a>
+						<a ng-click="selectElement('_RoleHeading_')" data-i18n="_RoleHeading_"></a>
 					</li>
 					<li>
-						<a ng-click="selectElement('Domain Permissions')">Domain Permissions</a>
+						<a ng-click="selectElement('_DomainPermissionHeading_')" data-i18n="_DomainPermissionHeading_"></a>
 					</li>
 					<li>
-						<a ng-click="selectElement('Functional Permissions')">Functional Permissions</a>
+						<a ng-click="selectElement('_FunctionalPermissionHeading_')" data-i18n="_FunctionalPermissionHeading_"></a>
 					</li>
 					<li>
-						<a ng-click="selectElement('Permissions')">Permissions</a>
+						<a ng-click="selectElement('_PermissionHeading_')" data-i18n="_PermissionHeading_"></a>
 					</li>
 				</ul>
 			</div>

@@ -15,7 +15,7 @@ userApplicationModule.controller('LoginCtrl',
 				function (res) {
 					$location.path('/');
 					var loggedInUser = authService.getCurrentUser();
-					localize.setLanguage(loggedInUser.Meta.Language);
+					localize.setLanguage(loggedInUser.Language);
 				},
 				function (err) {
 					$rootScope.error = "Failed to login";
