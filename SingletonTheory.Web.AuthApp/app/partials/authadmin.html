@@ -26,19 +26,19 @@
 					<form class="well well-small form-inline" name="elementForm">
 						<div class="controls">
 							<div class="control-group" ng-hide="!isBasePermission()">
-								<label for="Name" class="control-label">Name (min. 5 characters)</label>
+								<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
 								<div class="controls">
 									<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
 								</div>
 							</div>
 							<div class="control-group" ng-hide="isBasePermission()">
-								<label for="Label" class="control-label">Label (min. 5 characters)</label>
+								<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
 								<div class="controls">
 									<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
 								</div>
 							</div>
 							<div class="control-group" ng-hide="isBasePermission()">
-								<label for="Name" class="control-label">Description</label>
+								<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
 								<div class="controls">
 									<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" data-ng-minlength="5" data-ng-maxlength="260" />
 								</div>
@@ -54,12 +54,12 @@
 		</div>
 		<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to-window ng-style="styleToWindow()">
 			<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
-			<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')">Unassign Selected</button>
+			<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
 			<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 		</div>
 		<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to-window ng-style="styleToWindow()">
 			<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
-			<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')">Assign Selected</button>
+			<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
 			<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
 		</div>
 	</div>

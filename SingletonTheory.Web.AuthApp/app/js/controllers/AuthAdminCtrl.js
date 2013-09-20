@@ -27,17 +27,19 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.elementDictionary = [];
 
-		$scope.AssignedHeader = 'Assigned Domain Permissions';
-
-		$scope.UnAssignedHeader = 'Available Domain Permissions';
+		$scope.AssignedHeader = localize.getLocalizedString('_AssignedDomainPermissionHeading_');
+		
+		$scope.UnAssignedHeader = localize.getLocalizedString('_AvailableDomainPermissionHeading_');
 
 		$scope.hideSublevels = true;
 
 		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
+		var sortHeading = localize.getLocalizedString('_SortHeading_'); 
+
 		$scope.elementGridOptions = {
 			data: 'elementDictionary',
-			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
+			columnDefs: [{ field: 'Label', displayName: sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
 			plugins: [new ngGridFlexibleHeightPlugin()],
@@ -51,7 +53,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		
 		$scope.assignedGridOptions = {
 			data: 'subElementResource.Assigned',
-			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
+			columnDefs: [{ field: 'Label', displayName: sortHeading }],
 			selectedItems: $scope.selectedAssigned,
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
@@ -59,7 +61,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.unAssignedGridOptions = {
 			data: 'subElementResource.UnAssigned',
-			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
+			columnDefs: [{ field: 'Label', displayName: sortHeading }],
 			selectedItems: $scope.selectedUnAssigned,
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
@@ -186,16 +188,16 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.subElementResource.$get({ Id: id }, function (result) {
 				switch ($scope.element) {
 					case '_RoleHeading_':
-						$scope.AssignedHeader = 'Assigned Domain Permissions';
-						$scope.UnAssignedHeader = 'Available Domain Permissions';
+						$scope.AssignedHeader = localize.getLocalizedString('_AssignedDomainPermissionHeading_'); 
+						$scope.UnAssignedHeader = localize.getLocalizedString('_AvailableDomainPermissionHeading_');
 						break;
 					case '_DomainPermissionHeading_':
-						$scope.AssignedHeader = 'Assigned Functional Permissions';
-						$scope.UnAssignedHeader = 'Available Functional Permissions';
+						$scope.AssignedHeader = localize.getLocalizedString('_AssignedFunctionalPermissionHeading_');
+						$scope.UnAssignedHeader = localize.getLocalizedString('_AvailableFunctionalPermissionHeading_');
 						break;
 					case '_FunctionalPermissionHeading_':
-						$scope.AssignedHeader = 'Assigned Permissions';
-						$scope.UnAssignedHeader = 'Available Permissions';
+						$scope.AssignedHeader = localize.getLocalizedString('_AssignedPermissionHeading_');
+						$scope.UnAssignedHeader = localize.getLocalizedString('_AvailablePermissionHeading_');
 						break;
 				}
 			}, function (err) { $scope.error = err; }
