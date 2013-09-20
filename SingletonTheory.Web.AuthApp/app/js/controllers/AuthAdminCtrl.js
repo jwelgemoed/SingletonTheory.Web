@@ -93,7 +93,6 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			}
 			if ($scope.subElementResource != undefined) {
 				$scope.subElementResource.$update({ Id: updateId }, function (result) {
-					alert('I seem to have updated');
 				}, function (err) { $scope.error = err; }
 					);
 			}
