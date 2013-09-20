@@ -13,8 +13,6 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.isCollapsed = false;
 
-		$scope.subElements = [];
-
 		$scope.selectedElement = [];
 
 		$scope.selectedAssigned = [];
@@ -47,14 +45,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		};
 
 		$scope.assignedGridOptions = {
-			data: 'subElements.Assigned',
+			data: 'subElementResource.Assigned',
 			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedAssigned,
 			multiSelect: true
 		};
 
 		$scope.unAssignedGridOptions = {
-			data: 'subElements.UnAssigned',
+			data: 'subElementResource.UnAssigned',
 			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedUnAssigned,
 			multiSelect: true
@@ -80,19 +78,40 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.isCollapsed = true;
 		};
 
+		$scope.saveSubElements = function () {
+			var updateId = 0;
+			switch ($scope.element) {
+				case 'Role':
+					updateId = $scope.subElementResource.RoleId;
+					break;
+				case 'Domain Permissions':
+					updateId = $scope.subElementResource.DomainPermissionId;
+					break;
+				case 'Functional Permissions':
+					updateId = $scope.subElementResource.FunctionalPermissionId;
+					break;
+			}
+			if ($scope.subElementResource != undefined) {
+				$scope.subElementResource.$update({ Id: updateId }, function (result) {
+					alert('I seem to have updated');
+				}, function (err) { $scope.error = err; }
+					);
+			}
+		};
+
 		$scope.assign = function (assignFlag) {
 			var i = 0;
 			if (assignFlag == 'assign') {
 				for (i = 0 ; i <= $scope.selectedUnAssigned.length - 1; i++) {
-					$scope.subElements.Assigned.push($scope.selectedUnAssigned[i]);
-					removeElementFromArray($scope.subElements.UnAssigned, $scope.selectedUnAssigned[i]);
+					$scope.subElementResource.Assigned.push($scope.selectedUnAssigned[i]);
+					removeElementFromArray($scope.subElementResource.UnAssigned, $scope.selectedUnAssigned[i]);
 				}
 				$scope.selectedUnAssigned.length = 0;
 			}
 			if (assignFlag == 'unAssign') {
 				for (i = 0; i <= $scope.selectedAssigned.length - 1; i++) {
-					$scope.subElements.UnAssigned.push($scope.selectedAssigned[i]);
-					removeElementFromArray($scope.subElements.Assigned, $scope.selectedAssigned[i]);
+					$scope.subElementResource.UnAssigned.push($scope.selectedAssigned[i]);
+					removeElementFromArray($scope.subElementResource.Assigned, $scope.selectedAssigned[i]);
 				}
 				$scope.selectedAssigned.length = 0;
 			}
@@ -108,12 +127,6 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
-			if ($scope.subElements.Assigned != undefined) {
-				$scope.subElements.Assigned.length = 0;
-			}
-			if ($scope.subElements.UnAssigned != undefined) {
-				$scope.subElements.UnAssigned.length = 0;
-			}
 			$scope.hideSublevels = true;
 			getElementData();
 		};
@@ -130,7 +143,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.saveElement = function () {
 			if ($scope.elementResource.Id == undefined) {
-				$scope.elementResource.$add(function() {
+				$scope.elementResource.$add(function () {
 					$scope.toggleCollapse();
 					getElementData();
 				});
@@ -152,30 +165,41 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		};
 
 		function setElementSubLists(id) {
-			switch ($scope.element) {
-				case 'Role':
-					AuthAdminRoleDomainPermissionsResource.get({ Id: id }, function (result) {
-						$scope.subElements = result;
+			if ($scope.element === 'Permissions') {
+				return;
+			}
+			$scope.subElementResource.$get({ Id: id }, function (result) {
+				switch ($scope.element) {
+					case 'Role':
 						$scope.AssignedHeader = 'Assigned Domain Permissions';
 						$scope.UnAssignedHeader = 'Available Domain Permissions';
-					}, function (err) { $scope.error = err; }
-					);
-					break;
-				case 'Domain Permissions':
-					AuthAdminDomainPermissionFunctionalPermissionsResource.get({ Id: id }, function (result) {
-						$scope.subElements = result;
+						break;
+					case 'Domain Permissions':
 						$scope.AssignedHeader = 'Assigned Functional Permissions';
 						$scope.UnAssignedHeader = 'Available Functional Permissions';
-					}, function (err) { $scope.error = err; }
-					);
-					break;
-				case 'Functional Permissions':
-					AuthAdmiFunctionalPermissionPermissionsResource.get({ Id: id }, function (result) {
-						$scope.subElements = result;
+						break;
+					case 'Functional Permissions':
 						$scope.AssignedHeader = 'Assigned Permissions';
 						$scope.UnAssignedHeader = 'Available Permissions';
-					}, function (err) { $scope.error = err; }
+						break;
+				}
+			}, function (err) { $scope.error = err; }
 					);
+		};
+
+		function setNewSubElementResource() {
+			switch ($scope.element) {
+				case 'Role':
+					$scope.subElementResource = new AuthAdminRoleDomainPermissionsResource();
+					break;
+				case 'Domain Permissions':
+					$scope.subElementResource = new AuthAdminDomainPermissionFunctionalPermissionsResource();
+					break;
+				case 'Functional Permissions':
+					$scope.subElementResource = new AuthAdmiFunctionalPermissionPermissionsResource();
+					break;
+				case 'Permissions':
+					$scope.subElementResource = undefined;
 					break;
 			}
 		};
@@ -183,22 +207,23 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		function setNewResource() {
 			switch ($scope.element) {
 				case 'Role':
-						$scope.elementResource = new AuthAdminRoleResource();
+					$scope.elementResource = new AuthAdminRoleResource();
 					break;
 				case 'Domain Permissions':
-						$scope.elementResource = new AuthAdminDomainPermissionResource();
+					$scope.elementResource = new AuthAdminDomainPermissionResource();
 					break;
 				case 'Functional Permissions':
-						$scope.elementResource = new AuthAdminFunctionalPermissionResource();
+					$scope.elementResource = new AuthAdminFunctionalPermissionResource();
 					break;
 				case 'Permissions':
-						$scope.elementResource = new AuthAdminPermissionResource();
+					$scope.elementResource = new AuthAdminPermissionResource();
 					break;
 			}
 		};
 
 		function getElementData() {
 			setNewResource();
+			setNewSubElementResource();
 			switch ($scope.element) {
 				case 'Role':
 					AuthAdminRolesResource.query({}, function (result) {

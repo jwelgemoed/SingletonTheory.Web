@@ -23,7 +23,8 @@ var authAdminRolesResource = userApplicationModule.factory('AuthAdminRolesResour
 var authAdminRoleDomainPermissionsResource = userApplicationModule.factory('AuthAdminRoleDomainPermissionsResource', function ($resource) {
 	return $resource('/authapi/admin/role/:Id/domainpermissions', {},
 	{
-		get: { method: 'GET', params: {}, isArray: false }
+		get: { method: 'GET', params: {}, isArray: false },
+		update: {method: 'PUT', params: {}, isArray:false }
 	});
 });
 
@@ -48,7 +49,8 @@ var authAdminDomainPermissionsResource = userApplicationModule.factory('AuthAdmi
 var authAdminDomainPermissionFunctionalPermissionsResource = userApplicationModule.factory('AuthAdminDomainPermissionFunctionalPermissionsResource', function ($resource) {
 	return $resource('/authapi/admin/domainpermission/:Id/functionalpermissions', {},
 	{
-		get: { method: 'GET', params: {}, isArray: false }
+		get: { method: 'GET', params: {}, isArray: false },
+		update: { method: 'PUT', params: {}, isArray: false }
 	});
 });
 
@@ -73,7 +75,8 @@ var authAdminFunctionalPermissionsResource = userApplicationModule.factory('Auth
 var authAdmiFunctionalPermissionPermissionsResource = userApplicationModule.factory('AuthAdmiFunctionalPermissionPermissionsResource', function ($resource) {
 	return $resource('/authapi/admin/functionalpermission/:Id/permissions', {},
 	{
-		get: { method: 'GET', params: {}, isArray: false }
+		get: { method: 'GET', params: {}, isArray: false },
+		update: { method: 'PUT', params: {}, isArray: false }
 	});
 });
 
