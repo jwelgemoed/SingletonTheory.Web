@@ -80,3 +80,4 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 				}
 			});
 		}]);
+

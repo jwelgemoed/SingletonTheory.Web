@@ -9,6 +9,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		AuthAdminPermissionResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
 		AuthAdmiFunctionalPermissionPermissionsResource) {
 
+		$scope.madeSubListChanges = true;
+
 		$scope.element = 'Role';
 
 		$scope.isCollapsed = false;
@@ -36,6 +38,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
+			plugins: [new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
 				if ($scope.element != 'Permissions' && $scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Id);
@@ -48,6 +51,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			data: 'subElementResource.Assigned',
 			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedAssigned,
+			plugins: [new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
 		};
 
@@ -55,6 +59,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			data: 'subElementResource.UnAssigned',
 			columnDefs: [{ field: 'Label', displayName: 'Click to sort' }],
 			selectedItems: $scope.selectedUnAssigned,
+			plugins: [new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
 		};
 
@@ -93,6 +98,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			}
 			if ($scope.subElementResource != undefined) {
 				$scope.subElementResource.$update({ Id: updateId }, function (result) {
+					$scope.madeSubListChanges = true;
 				}, function (err) { $scope.error = err; }
 					);
 			}
@@ -102,6 +108,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			var i = 0;
 			if (assignFlag == 'assign') {
 				for (i = 0 ; i <= $scope.selectedUnAssigned.length - 1; i++) {
+					$scope.madeSubListChanges = false;
 					$scope.subElementResource.Assigned.push($scope.selectedUnAssigned[i]);
 					removeElementFromArray($scope.subElementResource.UnAssigned, $scope.selectedUnAssigned[i]);
 				}
@@ -109,6 +116,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			}
 			if (assignFlag == 'unAssign') {
 				for (i = 0; i <= $scope.selectedAssigned.length - 1; i++) {
+					$scope.madeSubListChanges = false;
 					$scope.subElementResource.UnAssigned.push($scope.selectedAssigned[i]);
 					removeElementFromArray($scope.subElementResource.Assigned, $scope.selectedAssigned[i]);
 				}
@@ -163,7 +171,12 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
 
+		$scope.cancelSubElementEdit = function () {
+			setElementSubLists($scope.selectedElement[0].Id);
+		};
+
 		function setElementSubLists(id) {
+			$scope.madeSubListChanges = true;
 			if ($scope.element === 'Permissions') {
 				return;
 			}
