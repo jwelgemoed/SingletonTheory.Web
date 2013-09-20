@@ -18,6 +18,7 @@ userApplicationModule.controller('UserDetailCtrl',
 
 				$scope.user = new userResource();
 				$scope.user.Active = true;
+				$scope.user.Language = $scope.Language;
 				$scope.user.Roles = [];
 				$scope.user.Roles.push($scope.options.role[1]);
 			}
@@ -33,10 +34,10 @@ userApplicationModule.controller('UserDetailCtrl',
 			if (callback) callback();
 		};
 
-		$scope.updateRole = function () {
+		$scope.updateRole = function() {
 			$scope.user.Roles = [];
 			$scope.user.Roles.push($scope.role);
-		}
+		};
 
 		$scope.save = function () {
 			if ($scope.user.Active == '')

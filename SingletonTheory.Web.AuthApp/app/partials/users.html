@@ -3,7 +3,7 @@
 	<!--  Toolbar Section  -->
 	<div class="row-fluid filter">
 		<div class="well well-small span2 form-inline">
-			<button id="addUserButton" class="btn btn-small" ng-click="addNewUser()"><i class="icon-plus"></i><span data-i18n="_AddHeading_"></span></button>
+			<button id="addUserButton" class="btn btn-default" ng-click="addNewUser()"><i class="icon-plus-sign icon-white"></i></button>
 		</div>
 		<form class="well well-small span10 form-inline empty-toolbar-box">
 			<div class="pull-left">
@@ -48,7 +48,7 @@
 				</td>
 				<td>{{ user.Language }}</td>
 				<td>
-					<button class="btn btn-mini" ng-click="updateUser(user.Id)"><i class="icon-edit"></i><span data-i18n="_EditHeading_"></span></button>
+					<button class="btn btn-mini" ng-click="updateUser(user.Id)"><i class="icon-edit"></i></button>
 				</td>
 			</tr>
 		</tbody>

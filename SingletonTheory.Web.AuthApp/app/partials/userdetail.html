@@ -4,7 +4,7 @@
 		<h3 ng-show="isEdit" data-i18n="_EditUserHeading_"></h3>
 	</div>
 
-	<div id="userAddEditPopupBody" class="modal-body">
+	<div id="userAddEditPopupBody" >
 		<form class="well well-small form-inline" name="addUserForm">
 			<div class="controls">
 				<div class="control-group">
@@ -54,14 +54,14 @@
 					</ul>
 				</div>
 				<div class="modal-footer">
-					<button class="btn" ng-click="cancel()" data-i18n="_CancelHeading_"></button>
-					<button id="saveNewUserButton" class="btn btn-primary" ng-show="isNew"
-						ng-click="save()"
-						ng-disabled="addUserForm.$invalid" data-i18n="_SaveHeading_">
+					<button id="saveNewUserButton" class="btn btn-default" ng-show="isNew"
+					        ng-click="save()"
+					        ng-disabled="addUserForm.$invalid" data-i18n="_SaveHeading_">
 					</button>
-					<button id="saveEditedUserButton" class="btn btn-primary" ng-show="isEdit"
-						ng-click="update()" data-i18n="_UpdateHeading_">
+					<button id="saveEditedUserButton" class="btn btn-default" ng-show="isEdit"
+					        ng-click="update()" data-i18n="_UpdateHeading_">
 					</button>
+					<button class="btn btn-warning" ng-click="cancel()" data-i18n="_CancelHeading_"></button>
 				</div>
 			</div>
 		</form>
