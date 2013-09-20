@@ -28,7 +28,7 @@
 	<table id="usersRepeater" data-ng-hide="loading" class="table table-striped">
 		<thead>
 			<tr>
-				<th data-i18n="_IdentityHeading_"></th>
+				<!--<th data-i18n="_IdentityHeading_"></th>-->
 				<th data-i18n="_UserNameHeading_"></th>
 				<th data-i18n="_RoleHeading_"></th>
 				<th data-i18n="_ActiveHeading_"></th>
@@ -38,7 +38,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="user in users | filter:activeFilter | filter:usersSearch | orderBy:sorting.field:sorting.reverse">
-				<td>{{ user.Id }}</td>
+				<!--<td>{{ user.Id }}</td>-->
 				<td>{{ user.UserName }}
 				</td>
 				<td>
