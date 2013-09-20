@@ -22,10 +22,10 @@ userApplicationModule.controller('UsersCtrl',
 
 		$scope.usersSearchQuery = '';
 		$scope.usersSearch = function (row) {
-			return !!((row.Id.toString().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
+			return !!((
 						 row.UserName.toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
 						 row.Roles[0].toUpperCase().indexOf($scope.usersSearchQuery.toUpperCase() || '') !== -1 ||
-						 row.Active == $scope.usersSearchQuery.toUpperCase() || 'true'));
+						 row.Active == $scope.usersSearchQuery.toUpperCase()));
 		};
 
 		//---------- properties ----------
