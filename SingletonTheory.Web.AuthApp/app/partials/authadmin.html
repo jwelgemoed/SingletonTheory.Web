@@ -50,24 +50,26 @@
 					</form>
 				</div>
 			</div>
-			<div class="gridStyle" ng-grid="elementGridOptions" ></div>
+			<div class="gridStyle" ng-grid="elementGridOptions"></div>
 		</div>
-		<div class="span4 well well-small element" data-ng-hide="hideSublevels"  resize-to-window ng-style="styleToWindow()">
+		<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to-window ng-style="styleToWindow()">
 			<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
 			<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')">Unassign Selected</button>
-			<div class="gridStyle"  ng-grid="assignedGridOptions"></div>
+			<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 		</div>
-		<div class="span4 well well-small element" data-ng-hide="hideSublevels"  resize-to-window ng-style="styleToWindow()">
+		<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to-window ng-style="styleToWindow()">
 			<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
 			<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')">Assign Selected</button>
-			<div class="gridStyle"  ng-grid="unAssignedGridOptions"></div>
+			<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
 		</div>
 	</div>
 	<div class="pull-right" data-ng-hide="hideSublevels">
 		<button class="btn btn-default" ng-disabled="madeSubListChanges" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
 		<button type="button" class="btn btn-warning" ng-click="cancelSubElementEdit()" data-i18n="_CancelHeading_"></button>
 	</div>
-		<div class="well well-small">&nbsp;</div>
+	<br/>
+	<br/>
+	<div class="well well-small">&nbsp;</div>
 </div>
 
 
