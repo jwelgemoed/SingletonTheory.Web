@@ -46,6 +46,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			afterSelectionChange: function (data) {
 				if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Id);
+					//Todo: remove this
+					setElementSubLists($scope.selectedElement[0].Id);
 					$scope.hideSublevels = false;
 				}
 			}
@@ -141,6 +143,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.displayElement = localize.getLocalizedString(elementName);
 			$scope.hideSublevels = true;
 			getElementData();
+			//Todo: remove this
+			getElementData();
 		};
 
 		$scope.isBasePermission = function () {
@@ -158,10 +162,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				$scope.elementResource.$add(function () {
 					$scope.toggleCollapse();
 					getElementData();
+					//Todo: remove this
+					getElementData();
 				});
 			} else {
 				$scope.elementResource.$update(function () {
 					$scope.toggleCollapse();
+					getElementData();
+					//Todo: remove this
 					getElementData();
 				});
 			}
@@ -177,6 +185,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		};
 
 		$scope.cancelSubElementEdit = function () {
+			setElementSubLists($scope.selectedElement[0].Id);
+			//Todo: remove this
 			setElementSubLists($scope.selectedElement[0].Id);
 		};
 
