@@ -16,6 +16,43 @@
 	};
 });
 
+userApplicationModule.directive('resizeTo', function ($window) {
+	return function (scope, element, attrs) {
+		var parentElementHeight = 0;
+		switch (attrs.resizeType) {
+			case 'element':
+				parentElementHeight = $(attrs.resizeTo).height();
+				break;
+			case 'class':
+				parentElementHeight = $('.' +attrs.resizeTo).height();
+				break;
+			case 'elementId':
+				parentElementHeight = $('#' + attrs.resizeTo).height();
+				break;
+		}
+		var windowElement = angular.element($window);
+		var pixelAdjustment = parseInt(attrs.resizeReduction);
+		scope.getWindowDimensions = function () {
+			switch (attrs.resizeType) {
+				case 'element':
+					parentElementHeight = $(attrs.resizeTo).height();
+					break;
+				case 'class':
+					parentElementHeight = $('.' + attrs.resizeTo).height();
+					break;
+				case 'elementId':
+					parentElementHeight = $('#' + attrs.resizeTo).height();
+					break;
+			}
+			return { 'h': windowElement.height() };
+		};
+		scope.$watch(scope.getWindowDimensions, function () {
+			element.height(parentElementHeight - pixelAdjustment);
+		}, true);
+	};
+});
+
+/*
 userApplicationModule.directive('resizeToBody', function ($window) {
 	return function (scope, element, attrs) {
 		var bodyHeight = $('body').height();
@@ -30,4 +67,4 @@ userApplicationModule.directive('resizeToBody', function ($window) {
 		}, true);
 	};
 });
-
+*/

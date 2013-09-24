@@ -1,5 +1,5 @@
-﻿<div class="row-fluid sortme" ng-init="init()" >
-	<div class="span4 well well-small element" resize-to-body="50" >
+﻿<div class="row-fluid sortme" ng-init="init()" resize-to="body" resize-type="element" resize-reduction="0" >
+	<div class="span4 well well-small element" resize-to="body" resize-type="element" resize-reduction="50"  >
 		<div class="dropdown">
 			<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
 			<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayElement}} <i class="icon-chevron-down icon-white"></i></button>
@@ -51,12 +51,12 @@
 		</div>
 		<div class="gridStyle" ng-grid="elementGridOptions"></div>
 	</div>
-	<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to-body="50">
+	<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
 		<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
 		<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 	</div>
-	<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to-body="50">
+	<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
 		<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
 		<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
