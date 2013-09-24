@@ -9,11 +9,14 @@
 	<base href="index.html" />
 	<!-- keeping for now till new file includes are confirmed fully functional.
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+		
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.css" rel="stylesheet" />
 		-->
-	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.css" rel="stylesheet" />
+	<link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/lib/angular/ng-grid/ng-grid.css" />
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/app.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<!-- This is needed because Facebook login redirects add #_=_ at the end of the URL-->
 	<script type="text/javascript">
 		if (window.location.href.indexOf('#_=_') > 0) {
@@ -21,9 +24,9 @@
 		}
 	</script>
 </head>
-<body data-ng-cloak>
+<body id="contentBody" ng-cloak resize-body>
 	<input id="localeTestHiddenField" type="hidden" value="{{123456079.12|number}}" />
-	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar">
+	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar  navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<ul class="nav">
@@ -57,17 +60,23 @@
 				</ul>
 				<div id="userInfo" data-access-level="accessLevels.user" class="pull-right">
 					<span data-i18n="_UserWelcomeMessage_"></span>&nbsp;
-						<strong>{{ user.UserName }}&nbsp;</strong>
+					<strong>{{ user.UserName }}&nbsp;</strong>
 					<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div id="ng-view" data-ng-view="ng-view"></div>
+	<div class="container-fluid">
+		<div id="ng-view" data-ng-view="ng-view" resize-to-body="0" ></div>
 		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<div id="footerCtrl" class="navbar-fixed-bottom footer ">
+		<div class="pull-right">
+			&copy; 2013 <span>Singleton Theory</span>
+		</div>
+	</div>
+	
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-cookies.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.js"></script>
