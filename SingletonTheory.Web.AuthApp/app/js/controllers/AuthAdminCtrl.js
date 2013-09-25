@@ -42,7 +42,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			columnDefs: [{ field: 'Label', displayName: sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
-			plugins: [new ngGridFlexibleHeightPlugin()],
+			plugins: [new ngGridLayoutPlugin(), new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
 				if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Id);

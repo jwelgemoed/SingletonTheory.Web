@@ -91,6 +91,7 @@
     <Content Include="app\lib\angular\i18n\angular-locale_nl-be.js" />
     <Content Include="app\lib\angular\i18n\angular-locale_nl-nl.js" />
     <Content Include="app\lib\angular\i18n\angular-locale_nl.js" />
+    <Content Include="app\lib\angular\ng-grid\ng-grid-layout.js" />
     <Content Include="app\lib\angular\ng-grid\ng-grid.css" />
     <Content Include="app\lib\angular\ng-grid\ng-grid.js" />
     <Content Include="app\lib\angular\ng-grid\ngGridFlexibleHeightPlugin.js" />
