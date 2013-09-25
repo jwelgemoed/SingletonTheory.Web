@@ -1,6 +1,6 @@
 'use strict';
 
-var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule','ngGrid']);
+var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule', 'ngGrid', 'services.breadcrumbs']);
 
 userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
