@@ -79,10 +79,10 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div id="ng-view" data-ng-view="ng-view"></div>
-		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
-	</div>
+	<!--<div id ="contentCanvas" class="container-fluid  mini-layout fluid" resize-to="body" resize-type="element" resize-reduction="20" style=" padding:10px;" >-->
+	<div id="contentCanvas" data-ng-view="ng-view" class="container-fluid  mini-layout fluid" resize-to="body" resize-type="element" resize-reduction="20" style="padding: 10px;"></div>
+	<!--<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>-->
+	<!--</div>-->
 	<div id="footerCtrl" class="navbar-fixed-bottom footer ">
 		<div class="pull-right">
 			&copy; 2013 <span>Singleton Theory</span>
