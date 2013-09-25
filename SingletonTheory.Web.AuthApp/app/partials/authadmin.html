@@ -1,4 +1,4 @@
-﻿<div class="row-fluid sortme" ng-init="init()" resize-to="body" resize-type="element" resize-reduction="0" >
+﻿<div class="row-fluid sortme" ng-init="init()"  >
 	<div id="elementContainer" class="span4 well well-small element scrollVertical" resize-to="body" resize-type="element" resize-reduction="50"  >
 		<div class="dropdown">
 			<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
@@ -54,7 +54,7 @@
 	<div id ="assignedContainer" class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
 		<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
-		<div class="gridStyle" ng-grid="assignedGridOptions"></div>
+	<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 	</div>
 	<div id ="unAssignedContainer" class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
 		<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
