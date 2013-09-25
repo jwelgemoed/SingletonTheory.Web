@@ -22,23 +22,17 @@
 	</script>
 </head>
 <body data-ng-cloak>
-	<input id="localeTestHiddenField" type="hidden" value="{{123456079.12|number}}" />
-	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar">
+	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluid">
-				<ul class="nav">
-					<li data-access-level="accessLevels.anon" active-nav>
-						<a href="/login" data-i18n="_LogInHeading_"></a>
-					</li>
-				</ul>
+			<div class="container">
+				<a href="http://singletontheory.github.io/" class="brand">Singleton Theory</a>
 				<ul class="nav">
 					<li data-access-level="accessLevels.user" active-nav>
 						<a data-i18n="_HomeAnchor_" href="/"></a>
 					</li>
-				</ul>
-				<ul class="nav">
 					<li id="adminActionsMenu" data-access-level="accessLevels.admin" active-nav>
-						<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle" data-i18n="_AdminActionsAnchor_"><b class="caret"></b>
+						<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle" data-i18n="_AdminActionsAnchor_">
+							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li data-access-level="accessLevels.admin" active-nav>
@@ -50,7 +44,10 @@
 						</ul>
 					</li>
 				</ul>
-				<ul class="nav">
+				<ul class="nav pull-right">
+					<li data-access-level="accessLevels.anon" active-nav>
+						<a href="/login" data-i18n="_LogInHeading_"></a>
+					</li>
 					<li id="logoutButtonContainer" data-access-level="accessLevels.user">
 						<a id="logoutButton" href="" data-ng-click="logout()" data-i18n="_LogOutAnchor_"></a>
 					</li>
@@ -62,11 +59,39 @@
 				</div>
 			</div>
 		</div>
+		<div>
+			<ul class="breadcrumb">
+				<li ng-repeat="breadcrumb in breadcrumbs.getAll()">
+					<span class="divider">/</span>
+					<ng-switch on="$last">
+						<span ng-switch-when="true">{{breadcrumb.name}}</span>
+						<span ng-switch-default>
+							<a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a>
+						</span>
+					</ng-switch>
+				</li>
+			</ul>
+		</div>
 	</div>
-	<div class="container">
-		<div id="ng-view" data-ng-view="ng-view"></div>
-		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
+	<div class="wrapper">
+		<div id="main" class="container-fluid">
+			<div id="ng-view" data-ng-view="ng-view" class="container-fluid"></div>
+			<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
+		</div>
 	</div>
+	<footer class="footer">
+		<div class="navbar navbar-fixed-bottom">
+			<div class="navbar-inner">
+				<div class="container">
+					<ul class="nav pull-right">
+						<li><a href="">Get help</a></li>
+						<li><a href="">FAQ</a></li>
+						<li><a href="">Support</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-cookies.js"></script>
@@ -87,9 +112,9 @@
 	<script src="/js/routingConfig.js"></script>
 	<script src="/js/modules/DynamicLocale.js"></script>
 	<script src="/js/app.js"></script>
-
 	<script src="/js/services/AuthService.js"></script>
 	<script src="/js/services/UserService.js"></script>
+	<script src="js/services/BreadcrumbService.js"></script>
 	<script src="/js/controllers/UsersCtrl.js"></script>
 	<script src="/js/controllers/UserDetailCtrl.js"></script>
 	<script src="/js/controllers/HomeCtrl.js"></script>
