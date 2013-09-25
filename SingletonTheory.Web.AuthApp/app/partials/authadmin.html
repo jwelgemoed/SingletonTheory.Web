@@ -1,5 +1,5 @@
 ﻿<div class="row-fluid sortme" ng-init="init()" resize-to="body" resize-type="element" resize-reduction="0" >
-	<div class="span4 well well-small element" resize-to="body" resize-type="element" resize-reduction="50"  >
+	<div id="elementContainer" class="span4 well well-small element scrollVertical" resize-to="body" resize-type="element" resize-reduction="50"  >
 		<div class="dropdown">
 			<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
 			<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayElement}} <i class="icon-chevron-down icon-white"></i></button>
@@ -21,45 +21,45 @@
 		<div>
 			<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
 			&nbsp;
-				<div collapse="!isCollapsed">
-					<form class="well well-small form-inline" name="elementForm">
-						<div class="controls">
-							<div class="control-group" ng-hide="!isBasePermission()">
-								<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
-								<div class="controls">
-									<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
-								</div>
+			<div collapse="!isCollapsed">
+				<form class="well well-small form-inline" name="elementForm">
+					<div class="controls">
+						<div class="control-group" ng-hide="!isBasePermission()">
+							<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
+							<div class="controls">
+								<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
 							</div>
-							<div class="control-group" ng-hide="isBasePermission()">
-								<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
-								<div class="controls">
-									<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
-								</div>
-							</div>
-							<div class="control-group" ng-hide="isBasePermission()">
-								<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
-								<div class="controls">
-									<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" data-ng-minlength="5" data-ng-maxlength="260" />
-								</div>
-							</div>
-							<br />
-							<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
-							<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
 						</div>
-					</form>
-				</div>
+						<div class="control-group" ng-hide="isBasePermission()">
+							<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
+							<div class="controls">
+								<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
+							</div>
+						</div>
+						<div class="control-group" ng-hide="isBasePermission()">
+							<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
+							<div class="controls">
+								<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" data-ng-minlength="5" data-ng-maxlength="260" />
+							</div>
+						</div>
+						<br />
+						<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
+						<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+					</div>
+				</form>
+			</div>
 		</div>
-		<div class="gridStyle" ng-grid="elementGridOptions"></div>
+		<div class="gridStyle" ng-grid="elementGridOptions" ></div>
 	</div>
-	<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
+	<div id ="assignedContainer" class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
 		<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
 		<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 	</div>
-	<div class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
+	<div id ="unAssignedContainer" class="span4 well well-small element" data-ng-hide="hideSublevels" resize-to="body" resize-type="element" resize-reduction="50">
 		<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
 		<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
-		<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
+		<div class="gridStyle" ng-grid="unAssignedGridOptions" ></div>
 	</div>
 	<div data-ng-hide="hideSublevels" class="pull-right">
 		<button class="btn btn-default" ng-disabled="madeSubListChanges" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
