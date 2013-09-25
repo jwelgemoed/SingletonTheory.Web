@@ -47,7 +47,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Id);
 					//Todo: remove this
-					setElementSubLists($scope.selectedElement[0].Id);
+					//setElementSubLists($scope.selectedElement[0].Id);
 					$scope.hideSublevels = false;
 				}
 			}
@@ -144,7 +144,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.hideSublevels = true;
 			getElementData();
 			//Todo: remove this
-			getElementData();
+			//getElementData();
 		};
 
 		$scope.isBasePermission = function () {
@@ -163,14 +163,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					$scope.toggleCollapse();
 					getElementData();
 					//Todo: remove this
-					getElementData();
+					//getElementData();
 				});
 			} else {
 				$scope.elementResource.$update(function () {
 					$scope.toggleCollapse();
 					getElementData();
 					//Todo: remove this
-					getElementData();
+					//getElementData();
 				});
 			}
 		};
@@ -187,7 +187,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.cancelSubElementEdit = function () {
 			setElementSubLists($scope.selectedElement[0].Id);
 			//Todo: remove this
-			setElementSubLists($scope.selectedElement[0].Id);
+			//setElementSubLists($scope.selectedElement[0].Id);
 		};
 
 		function setElementSubLists(id) {
