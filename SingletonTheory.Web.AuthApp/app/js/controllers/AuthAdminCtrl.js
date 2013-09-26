@@ -35,14 +35,18 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
-		var sortHeading = localize.getLocalizedString('_SortHeading_'); 
+		var sortHeading = localize.getLocalizedString('_SortHeading_');
+
+		var layoutPluginElement = new ngGridLayoutPlugin();
+		var layoutPluginAssigned = new ngGridLayoutPlugin();
+		var layoutPluginUnAssigned = new ngGridLayoutPlugin();
 
 		$scope.elementGridOptions = {
 			data: 'elementDictionary',
 			columnDefs: [{ field: 'Label', displayName: sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
-			plugins: [new ngGridLayoutPlugin(), new ngGridFlexibleHeightPlugin()],
+			plugins: [layoutPluginElement, new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
 				if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Id);
@@ -57,7 +61,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			data: 'subElementResource.Assigned',
 			columnDefs: [{ field: 'Label', displayName: sortHeading }],
 			selectedItems: $scope.selectedAssigned,
-			plugins: [new ngGridFlexibleHeightPlugin()],
+			plugins: [layoutPluginAssigned, new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
 		};
 
@@ -65,8 +69,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			data: 'subElementResource.UnAssigned',
 			columnDefs: [{ field: 'Label', displayName: sortHeading }],
 			selectedItems: $scope.selectedUnAssigned,
-			plugins: [new ngGridFlexibleHeightPlugin()],
+			plugins: [layoutPluginUnAssigned, new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
+		};
+
+		$scope.updateGrids = function () {
+			layoutPluginElement.updateGridLayout();
+			layoutPluginAssigned.updateGridLayout();
+			layoutPluginUnAssigned.updateGridLayout();
 		};
 
 		$scope.init = function () {

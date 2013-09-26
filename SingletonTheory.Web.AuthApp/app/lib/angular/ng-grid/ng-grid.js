@@ -1471,9 +1471,9 @@ var ngGrid = function ($scope, options, sortService, domUtilityService, $filter,
         if (asterisksArray.length > 0) {
             self.config.maintainColumnRatios = self.config.maintainColumnRatios !== false;
             var remainingWidth = self.rootDim.outerWidth - totalWidth;
-            if (self.maxCanvasHt > $scope.viewportDimHeight()) {
-                remainingWidth -= domUtilityService.ScrollW;
-            }
+            //if (self.maxCanvasHt > $scope.viewportDimHeight()) {
+            //    remainingWidth -= domUtilityService.ScrollW;
+            //}
             var asteriskVal = Math.floor(remainingWidth / asteriskNum);
             angular.forEach(asterisksArray, function(colDef, i) {
                 var ngColumn = $scope.columns[indexMap[colDef.index]];

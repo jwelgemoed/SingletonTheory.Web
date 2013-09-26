@@ -79,10 +79,10 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div id="ng-view" data-ng-view="ng-view"></div>
-		<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>
-	</div>
+	<!--<div id ="contentCanvas" class="container-fluid  mini-layout fluid" resize-to="body" resize-type="element" resize-reduction="20" style=" padding:10px;" >-->
+	<div id="contentCanvas" data-ng-view="ng-view" class="container-fluid  mini-layout fluid" resize-to="body" resize-type="element" resize-reduction="20" style="padding: 10px;"></div>
+	<!--<div id="errorContainer" data-ng-bind="error" data-ng-show="error" class="alert alert-error"></div>-->
+	<!--</div>-->
 	<div id="footerCtrl" class="navbar-fixed-bottom footer ">
 		<div class="pull-right">
 			&copy; 2013 <span>Singleton Theory</span>
@@ -99,18 +99,9 @@
 	<script src="/lib/angular/ng-grid/ng-grid.js"></script>
 	<script src="/lib/angular/ng-grid/ng-grid-layout.js"></script>
 	<script src="/lib/angular/ng-grid/ngGridFlexibleHeightPlugin.js"></script>
-
-	<!-- keeping for now till new file includes are confirmed fully functional.
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-cookies.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.js"></script>
-		<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.min.js"></script>
-		-->
-
 	<script src="/js/routingConfig.js"></script>
 	<script src="/js/modules/DynamicLocale.js"></script>
 	<script src="/js/app.js"></script>
-
 	<script src="/js/services/AuthService.js"></script>
 	<script src="/js/services/UserService.js"></script>
 	<script src="/js/services/BreadcrumbService.js"></script>
