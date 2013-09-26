@@ -35,7 +35,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
-		var sortHeading = localize.getLocalizedString('_SortHeading_'); 
+		var sortHeading = localize.getLocalizedString('_SortHeading_');
 
 		$scope.elementGridOptions = {
 			data: 'elementDictionary',
@@ -44,15 +44,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			multiSelect: false,
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
-				if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
-					setElementSubLists($scope.selectedElement[0].Id);
-					//Todo: remove this
-					setElementSubLists($scope.selectedElement[0].Id);
-					$scope.hideSublevels = false;
-				}
+				fireSubSelection();
 			}
 		};
-		
+
 		$scope.assignedGridOptions = {
 			data: 'subElementResource.Assigned',
 			columnDefs: [{ field: 'Label', displayName: sortHeading }],
@@ -130,20 +125,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			}
 		};
 
-		function removeElementFromArray(elementArray, elementToRemove) {
-			for (var i = elementArray.length - 1; i >= 0; i--) {
-				if (elementArray[i].Id === elementToRemove.Id) {
-					elementArray.splice(i, 1);
-				}
-			}
-		};
-
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
 			$scope.displayElement = localize.getLocalizedString(elementName);
 			$scope.hideSublevels = true;
-			getElementData();
-			//Todo: remove this
 			getElementData();
 		};
 
@@ -162,14 +147,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				$scope.elementResource.$add(function () {
 					$scope.toggleCollapse();
 					getElementData();
-					//Todo: remove this
-					getElementData();
 				});
 			} else {
 				$scope.elementResource.$update(function () {
 					$scope.toggleCollapse();
-					getElementData();
-					//Todo: remove this
 					getElementData();
 				});
 			}
@@ -186,8 +167,14 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.cancelSubElementEdit = function () {
 			setElementSubLists($scope.selectedElement[0].Id);
-			//Todo: remove this
-			setElementSubLists($scope.selectedElement[0].Id);
+		};
+		
+		function removeElementFromArray(elementArray, elementToRemove) {
+			for (var i = elementArray.length - 1; i >= 0; i--) {
+				if (elementArray[i].Id === elementToRemove.Id) {
+					elementArray.splice(i, 1);
+				}
+			}
 		};
 
 		function setElementSubLists(id) {
@@ -212,7 +199,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				}
 			}, function (err) { $scope.error = err; }
 					);
-		};
+		}
 
 		function setNewSubElementResource() {
 			switch ($scope.element) {
@@ -229,7 +216,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					$scope.subElementResource = undefined;
 					break;
 			}
-		};
+		}
 
 		function setNewResource() {
 			switch ($scope.element) {
@@ -246,7 +233,21 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					$scope.elementResource = new AuthAdminPermissionResource();
 					break;
 			}
+		}
+		
+		function fireSubSelection() {
+			if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
+				setElementSubLists($scope.selectedElement[0].Id);
+				$scope.hideSublevels = false;
+			}
 		};
+
+		function selectFirst(resultSet) {
+			if (resultSet.length > 0) {
+				$scope.elementGridOptions.selectedItems[0] = resultSet[0];
+				fireSubSelection();
+			}
+		}
 
 		function getElementData() {
 			setNewResource();
@@ -255,18 +256,21 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				case '_RoleHeading_':
 					AuthAdminRolesResource.query({}, function (result) {
 						$scope.elementDictionary = result;
+						selectFirst(result);
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case '_DomainPermissionHeading_':
 					AuthAdminDomainPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
+						selectFirst(result);
 					}, function (err) { $scope.error = err; }
 					);
 					break;
 				case '_FunctionalPermissionHeading_':
 					AuthAdminFunctionalPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
+						selectFirst(result);
 					}, function (err) { $scope.error = err; }
 					);
 					break;
@@ -277,6 +281,6 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 			}
-		};
+		}
 	}]);
 

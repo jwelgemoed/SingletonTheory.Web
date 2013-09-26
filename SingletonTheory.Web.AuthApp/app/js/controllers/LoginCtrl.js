@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('LoginCtrl',
-	['$rootScope', '$scope', '$location', '$window', 'AuthService', 'localize', function ($rootScope, $scope, $location, $window, authService, localize) {
+	['$rootScope', '$scope', '$location', '$window', 'AuthService', function ($rootScope, $scope, $location, $window, authService) {
 
 		$scope.login =
 			function () {
@@ -14,8 +14,6 @@ userApplicationModule.controller('LoginCtrl',
 				},
 				function (res) {
 					$location.path('/');
-					var loggedInUser = authService.getCurrentUser();
-					localize.setLanguage(loggedInUser.Language);
 				},
 				function (err) {
 					$rootScope.error = "Failed to login";
