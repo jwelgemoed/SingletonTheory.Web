@@ -3,81 +3,92 @@
 
 'use strict';
 
-userApplicationModule.factory('AuthService', function ($http, $cookieStore) {
+userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootScope', 'localize', function ($http, $cookieStore, $rootScope, localize) {
 
-	var accessLevels = routingConfig.accessLevels
-			, userRoles = routingConfig.userRoles
-			, currentUser = $cookieStore.get('user') || { UserName: '', role: userRoles.public };
+	var accessLevels = routingConfig.accessLevels, userRoles = routingConfig.userRoles;
+	var currentUser;
+	var defaultUser = { UserName: 'Guest', Language: 'nl-nl', Roles: ['public'] };
 
-	var currentLoggedInUser;
+	function setCurrentUser(success, error) {
+		//if (currentUser === defaultUser || )
+		//	return;
 
-	$cookieStore.remove('user');
-
-	function changeUser(user) {
-		_.extend(currentUser, user);
-	};
-
-	function getRole(user, success, error) {
 		$http.get('/authapi/currentuser').success(function (response) {
-			currentLoggedInUser = response;
-			if (userRoles.admin.title == response.Roles[0]) {
-				user.role = userRoles.admin;
-			}
-			else if (userRoles.user.title == response.Roles[0]) {
-				user.role = userRoles.user;
+			if (response == '') {
+				currentUser = defaultUser
 			}
 			else {
-				user.role = userRoles.public;
-			};
+				currentUser = response;
+			}
 
-			changeUser(user);
+			localize.setLanguage(currentUser.Language);
+			$rootScope.$broadcast('currentUser');
+
 			if (success != undefined)
-				success(user);
+				success();
+
 		}).error(error);
 	};
 
+	function getRole(userRole) {
+		if (userRoles.admin.title == userRole) {
+			return userRoles.admin;
+		}
+		else if (userRoles.user.title == userRole) {
+			return userRoles.user;
+		}
+		else {
+			return userRoles.public;
+		};
+	}
+
+	function doAuthorize(success, error, accessLevel) {
+		var role = getRole(currentUser.Roles[0]);
+
+		if (accessLevel == undefined)
+			accessLevel = accessLevels.public;
+
+		var authorized = accessLevel.bitMask & role.bitMask;
+		if (authorized) {
+			success();
+		}
+		else {
+			error();
+		}
+	}
+
 	return {
+		isValidUser: function () {
+			return currentUser != undefined && currentUser != '' && currentUser.UserName != '';
+		},
 		getCurrentUser: function () {
-			if (currentLoggedInUser != undefined) {
-				getRole(currentUser, undefined, undefined);
-				return currentLoggedInUser;
+			return currentUser;
+		},
+		authorize: function (success, error, accessLevel, role) {
+			if (!this.isValidUser()) {
+				setCurrentUser(function () {
+					doAuthorize(success, error, accessLevel, role);
+				}, error);
+			}
+			else {
+				doAuthorize(success, error, accessLevel, role);
 			}
 		},
-		authorize: function (accessLevel, role) {
-			if (currentUser == undefined)
-				getRole({ UserName: '', role: userRoles.public }, undefined, undefined);
-
-			if (role === undefined)
-				role = currentUser.role;
-
-			if (accessLevel == undefined)
-				accessLevel = accessLevels.public;
-
-			var authorized = accessLevel.bitMask & role.bitMask;
-
-			return authorized;
-		},
 		isLoggedIn: function (user) {
-			if (user === undefined)
-				user = currentUser;
-			return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
+			return user.Roles[0] == userRoles.user.title || user.Roles[0] == userRoles.admin.title;
 		},
 		login: function (user, success, error) {
 			$http.post('/authapi', user).success(function (user) {
-				getRole(user, success, error);
+				setCurrentUser(success, error);
 			}).error(error);
 		},
 		logout: function (success, error) {
 			$http.post('/authapi/logout').success(function () {
-				changeUser({
-					UserName: '',
-					role: userRoles.public
-				});
+				currentUser = null;
 				success();
 			}).error(error);
 		},
 		accessLevels: accessLevels,
-		userRoles: userRoles,
-		user: currentUser
+		userRoles: userRoles
 	};
-});
+}]);

@@ -69,15 +69,20 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 	}];
 
 	$httpProvider.responseInterceptors.push(interceptor);
-}])
+}]).run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, authService) {
+	$rootScope.$on("$routeChangeStart", function (event, next, current) {
+		$rootScope.error = null;
+		authService.authorize(function () {
+			var currentPath = $location.path();
+			if (currentPath != '') {
+				$location.path(currentPath);
+			} else {
+				$location.path('/');
+			}
 
-		.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, authService) {
-			$rootScope.$on("$routeChangeStart", function (event, next, current) {
-				$rootScope.error = null;
-				if (!authService.authorize(next.access)) {
-					if (authService.isLoggedIn()) $location.path('/');
-					else $location.path('/login');
-				}
-			});
-		}]);
+		}, function () {
+			$location.path('/login');
+		}, next.access);
+	});
+}]);
 
