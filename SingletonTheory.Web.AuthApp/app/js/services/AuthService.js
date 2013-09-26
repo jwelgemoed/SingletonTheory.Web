@@ -10,9 +10,6 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	var defaultUser = { UserName: 'Guest', Language: 'nl-nl', Roles: ['public'] };
 
 	function setCurrentUser(success, error) {
-		//if (currentUser === defaultUser || )
-		//	return;
-
 		$http.get('/authapi/currentuser').success(function (response) {
 			if (response == '') {
 				currentUser = defaultUser

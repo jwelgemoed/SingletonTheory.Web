@@ -64,11 +64,18 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.editElement = function (row) {
 			$scope.isNew = false;
 			$scope.isEdit = true;
-			
-		//	$scope.elementResource = new userResource();
-			$scope.elementResource = row.entity;
 			$scope.passwordIsRequired = false;
-			$scope.role = $scope.elementResource.Roles[0];
+
+			$scope.elementResource = new userResource();
+			
+			userResource.get({ Id: row.entity.Id }, function (response) {
+
+				$scope.elementResource = response;
+				$scope.role = $scope.elementResource.Roles[0];
+			},
+			function (error) {
+				$scope.error = error;
+			});
 
 			$scope.isCollapsed = true;
 		};
@@ -87,7 +94,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		};
 
 		$scope.updateElement = function () {
-			
+
 			$scope.elementResource.$update(function () {
 				$scope.toggleCollapse();
 				$scope.refresh();
@@ -105,8 +112,5 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.toggleCollapse = function () {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
-
-
-
 	}]);
 
