@@ -1,55 +1,57 @@
 ﻿<div class="row-fluid sortme" ng-init="init()">
-	<div id="elementContainer" class="span4 well well-small element scrollVertical" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
-		<div class="dropdown">
-			<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
-			<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayElement}} <i class="icon-chevron-down icon-white"></i></button>
-			<ul class="dropdown-menu">
-				<li>
-					<a ng-click="selectElement('_RoleHeading_')" data-i18n="_RoleHeading_"></a>
-				</li>
-				<li>
-					<a ng-click="selectElement('_DomainPermissionHeading_')" data-i18n="_DomainPermissionHeading_"></a>
-				</li>
-				<li>
-					<a ng-click="selectElement('_FunctionalPermissionHeading_')" data-i18n="_FunctionalPermissionHeading_"></a>
-				</li>
-				<li>
-					<a ng-click="selectElement('_PermissionHeading_')" data-i18n="_PermissionHeading_"></a>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
-			&nbsp;
-			<div collapse="!isCollapsed">
-				<form class="well well-small form-inline" name="elementForm">
-					<div class="controls">
-						<div class="control-group" ng-hide="!isBasePermission()">
-							<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
-							<div class="controls">
-								<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
-							</div>
-						</div>
-						<div class="control-group" ng-hide="isBasePermission()">
-							<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
-							<div class="controls">
-								<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
-							</div>
-						</div>
-						<div class="control-group" ng-hide="isBasePermission()">
-							<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
-							<div class="controls">
-								<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" data-ng-minlength="5" data-ng-maxlength="260" />
-							</div>
-						</div>
-						<br />
-						<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
-						<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
-					</div>
-				</form>
+	<div id="infoContainer" class="span4 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div id="elementContainer" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div class="dropdown">
+				<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
+				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayElement}} <i class="icon-chevron-down icon-white"></i></button>
+				<ul class="dropdown-menu">
+					<li>
+						<a ng-click="selectElement('_RoleHeading_')" data-i18n="_RoleHeading_"></a>
+					</li>
+					<li>
+						<a ng-click="selectElement('_DomainPermissionHeading_')" data-i18n="_DomainPermissionHeading_"></a>
+					</li>
+					<li>
+						<a ng-click="selectElement('_FunctionalPermissionHeading_')" data-i18n="_FunctionalPermissionHeading_"></a>
+					</li>
+					<li>
+						<a ng-click="selectElement('_PermissionHeading_')" data-i18n="_PermissionHeading_"></a>
+					</li>
+				</ul>
 			</div>
+			<div>
+				<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
+				&nbsp;
+					<div collapse="!isCollapsed">
+						<form class="well well-small form-inline" name="elementForm">
+							<div class="controls">
+								<div class="control-group" ng-hide="!isBasePermission()">
+									<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
+									<div class="controls">
+										<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
+									</div>
+								</div>
+								<div class="control-group" ng-hide="isBasePermission()">
+									<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
+									<div class="controls">
+										<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
+									</div>
+								</div>
+								<div class="control-group" ng-hide="isBasePermission()">
+									<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
+									<div class="controls">
+										<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" data-ng-minlength="5" data-ng-maxlength="260" />
+									</div>
+								</div>
+								<br />
+								<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
+								<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+							</div>
+						</form>
+					</div>
+			</div>
+			<div class="gridStyle" ng-grid="elementGridOptions"></div>
 		</div>
-		<div class="gridStyle" ng-grid="elementGridOptions"></div>
 	</div>
 	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div class="row-fluid sortme">
