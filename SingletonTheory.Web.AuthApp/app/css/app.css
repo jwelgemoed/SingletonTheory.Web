@@ -108,6 +108,10 @@ body
 	overflow-y: auto;
 }
 
+.darken {
+	background-color: #D3D3D3 !important;
+}
+
 .gridStyle
 {
 	/*border: 1px solid rgb(212,212,212);*/
