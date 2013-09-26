@@ -1,9 +1,10 @@
-﻿<div class="row-fluid sortme" ng-init="init()" resize-to="body" resize-type="element" resize-reduction="0">
-	<div class="span4 well well-small element" resize-to="body" resize-type="element" resize-reduction="50">
+﻿<div class="row-fluid sortme" ng-init="init()">
+	<div id="elementContainer" class="span4 well well-small element scrollVertical" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div>
+			<span class="label label-default btn-block st-centered" data-i18n="_AdministrateUsersHeading_"></span>
 
-		<span class="label label-default btn-block st-centered" data-i18n="_AdministrateUsersHeading_"></span>
-		<button class="btn btn-default" ng-click="addElement()"><i class="icon-plus-sign icon-white"></i></button>
-		&nbsp;
+			<button class="btn btn-default" ng-click="addElement()"><i class="icon-plus-sign icon-white"></i></button>
+			&nbsp;
 			<div collapse="!isCollapsed">
 				<form class="well well-small form-inline" name="elementForm">
 					<div class="controls">
@@ -16,7 +17,7 @@
 						<div class="control-group" ng-show="isNew">
 							<label for="Password" class="control-label" data-i18n="_PasswordHeading_"></label>
 							<div class="controls">
-								<input id="passwordInput" type="password" data-ng-model="user.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" ng-required="passwordIsRequired" data-ng-minlength="5" data-ng-maxlength="60" />
+								<input id="passwordInput" type="password" data-ng-model="elementResource.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" ng-required="passwordIsRequired" data-ng-minlength="5" data-ng-maxlength="60" />
 							</div>
 						</div>
 						<div class="control-group">
@@ -41,17 +42,23 @@
 							</label>
 						</div>
 						<br />
-						<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
+						<button id="saveNewUserButton" class="btn btn-default" ng-show="isNew"
+							ng-click="addNewElement()"
+							data-i18n="_SaveHeading_">
+						</button>
+						<button id="saveEditedUserButton" class="btn btn-default" ng-show="isEdit"
+							ng-disabled="elementForm.$invalid" ng-click="updateElement()" data-i18n="_UpdateHeading_">
+						</button>
 						<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
 					</div>
 				</form>
 			</div>
+		</div>
+	<div class="gridStyle" ng-grid="elementGridOptions"></div>
 
-		<div class="gridStyle" ng-grid="userGridOptions"></div>
-
-	</div>
-	<div class="span7" style="background-color: grey !important">
-		<!--Body content-->
-	</div>
+</div>
+<div class="span7" style="background-color: grey !important">
+	<!--Body content-->
+</div>
 </div>
 
