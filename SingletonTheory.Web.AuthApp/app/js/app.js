@@ -18,12 +18,12 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 				controller: 'LoginCtrl',
 				access: access.anon
 			});
-	$routeProvider.when('/users',
-			{
-				templateUrl: '/partials/users.html',
-				controller: 'UsersCtrl',
-				access: access.admin
-			});
+	//$routeProvider.when('/users',
+	//		{
+	//			templateUrl: '/partials/users.html',
+	//			controller: 'UsersCtrl',
+	//			access: access.admin
+	//		});
 	$routeProvider.when('/useradmin',
 		{
 			templateUrl: '/partials/useradmin.html',
@@ -36,12 +36,12 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 				controller: 'AuthAdminCtrl',
 				access: access.admin
 			});
-	$routeProvider.when('/users/:Id',
-			{
-				templateUrl: '/partials/userdetail.html',
-				controller: 'UserDetailCtrl',
-				access: access.admin
-			});
+	//$routeProvider.when('/users/:Id',
+	//		{
+	//			templateUrl: '/partials/userdetail.html',
+	//			controller: 'UserDetailCtrl',
+	//			access: access.admin
+	//		});
 	$routeProvider.when('/404',
 			{
 				templateUrl: '/partials/404.html',
