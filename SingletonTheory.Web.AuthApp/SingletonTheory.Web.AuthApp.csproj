@@ -131,6 +131,7 @@
     <Content Include="app\lib\angular\angular.js" />
     <Content Include="app\lib\angular\angular.min.js" />
     <Content Include="app\lib\angular\version.txt" />
+    <Content Include="templates\partials\TwoRegionInfoEditLayout.html" />
     <Content Include="tests\e2e\LoginScenario.js" />
     <Content Include="tests\e2e\runner.html" />
     <Content Include="tests\e2e\extensions\angular.scenario.custom.js" />
