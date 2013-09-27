@@ -16,11 +16,11 @@ userApplicationModule.directive('resizeTo', function ($window) {
 				
 				scope.$watch(scope.getParentChanged, function (newValue, oldValue) {
 					if (attrs.resizeTo == 'navbars') {
-						paddingTop = $('#navCtrl').height() + 'px';
-						paddingBottom = $('#footerCtrl').height() + 'px';
-						element.css('padding-top', paddingTop);
-						element.css('padding-bottom', paddingBottom);
-						element.height($(window).height() - $('#navCtrl').height() - $('#footerCtrl').height() - 5);
+						paddingTop = element.css('padding-top');
+						paddingTop = parseInt(paddingTop, 10);
+						paddingBottom = element.css('padding-bottom');
+						paddingBottom = parseInt(paddingBottom, 10);
+						element.height($(window).height() - paddingTop - paddingBottom - 5);
 					} else {
 						switch (attrs.resizeType) {
 							case 'element':

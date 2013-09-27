@@ -28,19 +28,22 @@
 								<div class="control-group" ng-hide="!isBasePermission()">
 									<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
 									<div class="controls">
-										<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
+										<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" pattern=".{5,60}" />
+										<i ng-show="elementForm.isValid()" class="icon-exclamation-sign icon-white"></i>
 									</div>
 								</div>
 								<div class="control-group" ng-hide="isBasePermission()">
 									<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
 									<div class="controls">
-										<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" data-ng-minlength="5" data-ng-maxlength="60" />
+										<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" pattern=".{5,60}" />
+										<i ng-show="elementForm.isValid()" class="icon-exclamation-sign icon-white"></i>
 									</div>
 								</div>
 								<div class="control-group" ng-hide="isBasePermission()">
 									<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
 									<div class="controls">
-										<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" data-ng-minlength="5" data-ng-maxlength="260" />
+										<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" pattern=".{5,250}" />
+										<i ng-show="elementForm.isValid()" class="icon-exclamation-sign icon-white"></i>
 									</div>
 								</div>
 								<br />
