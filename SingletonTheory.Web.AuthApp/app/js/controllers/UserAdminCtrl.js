@@ -4,7 +4,6 @@ userApplicationModule.controller('UserAdminCtrl',
 	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize) {
 		$scope.loading = true;
 		$scope.isCollapsed = false;
-
 		$scope.userRoles = authService.userRoles;
 
 		$scope.activeFilterDescriptions = 'true'; //Set the default
@@ -14,7 +13,13 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.options = {
 			role: ['admin', 'user']
 		};
-
+		
+		//Filters
+		$scope.filterOptions = {
+			filterText: '',
+			useExternalFilter: false
+	};
+		
 		//********** init **********
 		$scope.init = function () {
 			$scope.refresh();
@@ -35,6 +40,8 @@ userApplicationModule.controller('UserAdminCtrl',
 
 		$scope.elementGridOptions = {
 			data: 'users',
+			filterOptions: $scope.filterOptions,
+			showFilter: true,
 			columnDefs: [{ field: 'UserName', displayName: localize.getLocalizedString('_UserNameHeading_') },
 				{ field: 'Roles[0]', displayName: localize.getLocalizedString('_RoleHeading_') },
 				 { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
