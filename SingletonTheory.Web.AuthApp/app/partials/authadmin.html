@@ -23,7 +23,7 @@
 				<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
 				&nbsp;
 					<div collapse="!isCollapsed">
-						<form class="well well-small form-inline" name="elementForm">
+						<form class="well well-small form-inline" name="elementForm" novalidate>
 							<div class="controls">
 								<div class="control-group" ng-hide="!isBasePermission()">
 									<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
@@ -43,7 +43,7 @@
 									<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
 									<div class="controls">
 										<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" pattern=".{5,250}" />
-										<i ng-show="elementForm.isValid()" class="icon-exclamation-sign icon-white"></i>
+										<i ng-show="elementForm.$invalid" class="icon-exclamation-sign icon-white"></i>
 									</div>
 								</div>
 								<br />

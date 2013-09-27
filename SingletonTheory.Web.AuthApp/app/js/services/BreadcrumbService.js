@@ -1,5 +1,5 @@
-angular.module('services.breadcrumbs', []);
-angular.module('services.breadcrumbs').factory('breadcrumbs', ['$rootScope', '$location', function ($rootScope, $location) {
+angular.module('st-breadcrumbs', []);
+angular.module('st-breadcrumbs').factory('BreadcrumbService', ['$rootScope', '$location', function ($rootScope, $location) {
 
 	var breadcrumbs = [];
 	var breadcrumbsService = {};
