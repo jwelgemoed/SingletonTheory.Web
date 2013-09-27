@@ -11,13 +11,13 @@
 					<form class="well well-small form-inline" name="elementForm">
 						<div class="controls">
 							<div class="control-group">
-								<label for="username" class="control-label" data-i18n="_UserNameHeading_"></label>
+								<label for="userNameInput" class="control-label" data-i18n="_UserNameHeading_"></label>
 								<div class="controls">
 									<input id="userNameInput" type="text" data-i18n-attr="_UserNameMessage_|placeholder" data-ng-model="elementResource.UserName" name="UserName" data-ng-minlength="1" data-ng-maxlength="20" required="required" user-available ng-readonly="isEdit" />
 								</div>
 							</div>
 							<div class="control-group" ng-show="isNew">
-								<label for="Password" class="control-label" data-i18n="_PasswordHeading_"></label>
+								<label for="passwordInput" class="control-label" data-i18n="_PasswordHeading_"></label>
 								<div class="controls">
 									<input id="passwordInput" type="password" data-ng-model="elementResource.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" ng-required="passwordIsRequired" data-ng-minlength="5" data-ng-maxlength="60" />
 								</div>
@@ -25,11 +25,11 @@
 							<div class="control-group">
 								<label for="role" class="control-label" data-i18n="_RoleHeading_"></label>
 								<div class="controls">
-									<select ng-model="elementResource.Roles[0]" onselect="updateRole()" ng-options="opt for opt in options.role"></select>
+									<select id="role" data-ng-model="userRole" data-ng-options="opt.Id as opt.Label for opt in roles"></select>
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="Language" class="control-label" data-i18n="_LanguageHeading_"></label>
+								<label for="userLanguageSelect" class="control-label" data-i18n="_LanguageHeading_"></label>
 								<div class="controls">
 									<select id="userLanguageSelect" ng-model="elementResource.Language">
 										<option value="en-US" data-i18n="_EnglishHeading_"></option>
