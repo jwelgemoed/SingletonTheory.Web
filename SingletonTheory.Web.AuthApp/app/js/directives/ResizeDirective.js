@@ -16,8 +16,12 @@ userApplicationModule.directive('resizeTo', function ($window) {
 				
 				scope.$watch(scope.getParentChanged, function (newValue, oldValue) {
 					if (attrs.resizeTo == 'navbars') {
-						paddingTop = element.css('padding-top');
+						// body padding-top read from navcontrol
+						paddingTop = $('#navCtrl').height() + 'px';
+						element.css('padding-top', paddingTop);
 						paddingTop = parseInt(paddingTop, 10);
+
+						// body padding-bottom read from css value
 						paddingBottom = element.css('padding-bottom');
 						paddingBottom = parseInt(paddingBottom, 10);
 						element.height($(window).height() - paddingTop - paddingBottom - 5);

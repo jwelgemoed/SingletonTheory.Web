@@ -8,10 +8,10 @@ userApplicationModule.controller('NavCtrl', ['$scope', '$location', '$rootScope'
 	$scope.exceptionMessage = 'Some exception has happened!';
 	$scope.showException = true;
 
-	$rootScope.$watch('exceptionMessage', function () {
-		$scope.exceptionMessage = $rootScope.exceptionMessage.message;
-		$scope.showException = !!($scope.exceptionMessage == undefined);
-	});
+	//$rootScope.$watch('exceptionMessage', function () {
+	//	$scope.exceptionMessage = $rootScope.exceptionMessage.message;
+	//	$scope.showException = !!($scope.exceptionMessage == undefined);
+	//});
 
 	$scope.$on('currentUser', function () {
 		$scope.user = authService.getCurrentUser();
