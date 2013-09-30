@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('NavCtrl', ['$scope', '$location', '$rootScope', 'AuthService', 'BreadcrumbService', function ($scope, $location, $rootScope, authService, breadcrumbService) {
-	$scope.userRoles = authService.userRoles;
+	//$scope.userRoles = authService.userRoles;
 	$scope.accessLevels = authService.accessLevels;
 	$scope.breadcrumbs = breadcrumbService;
 	$scope.appName = 'Singleton Theory';
@@ -17,10 +17,10 @@ userApplicationModule.controller('NavCtrl', ['$scope', '$location', '$rootScope'
 		$scope.user = authService.getCurrentUser();
 	});
 
-	$scope.removeNotification = function () {
+	$scope.removeNotification = function() {
 		$scope.exceptionMessage = '';
 		$scope.showException = false;
-	}
+	};
 
 	$scope.logout = function () {
 		authService.logout(function () {

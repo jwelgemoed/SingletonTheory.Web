@@ -43,6 +43,7 @@
 				<div ng-show="addUserForm.$invalid" class="alert alert-error">
 					<strong>Please correct the following errors:</strong>
 					<ul>
+						"localise(addUserForm.UserName.$error)"
 						<!--<li ng-show="addUserDialog.errors.userExists">Username already exists.</li>-->
 						<li ng-show="addUserForm.UserName.$error.userAvailable">Username already exists</li>
 						<li ng-show="addUserForm.UserName.$error.required">Username is required</li>

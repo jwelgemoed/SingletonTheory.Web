@@ -42,7 +42,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.loadRoles = function () {
 			authAdminRolesResource.get({}, function (response) {
 				$scope.roles = response;
-				$scope.userRole = $scope.roles[1].Label;
+				$scope.userRole = $scope.roles[1].Id;
 			});
 		};
 
@@ -112,7 +112,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		};
 
 		$scope.updateElement = function () {
-
+			$scope.elementResource.Roles[0] = $scope.userRole;
 			$scope.elementResource.$update(function () {
 				$scope.toggleCollapse();
 				$scope.refresh();
