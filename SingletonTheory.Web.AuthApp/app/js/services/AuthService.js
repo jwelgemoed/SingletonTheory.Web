@@ -12,7 +12,7 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	function setCurrentUser(success, error) {
 		$http.get('/authapi/currentuser').success(function (response) {
 			if (response == '') {
-				currentUser = defaultUser
+				currentUser = defaultUser;
 			}
 			else {
 				currentUser = response;
@@ -64,11 +64,11 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 		authorize: function (success, error, accessLevel, role) {
 			if (!this.isValidUser()) {
 				setCurrentUser(function () {
-					doAuthorize(success, error, accessLevel, role);
+					//doAuthorize(success, error, accessLevel, role);
 				}, error);
 			}
 			else {
-				doAuthorize(success, error, accessLevel, role);
+				//doAuthorize(success, error, accessLevel, role);
 			}
 		},
 		isLoggedIn: function (user) {
