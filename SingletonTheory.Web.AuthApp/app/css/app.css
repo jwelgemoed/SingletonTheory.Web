@@ -4,11 +4,14 @@
 
 body {
 	font-size: 1em;
-	padding-top: 77px;
 	padding-bottom: 22px;
 }
 
 .breadcrumb {
+ margin-bottom: 0px !important;
+}
+
+.alert {
  margin-bottom: 0px !important;
 }
 
@@ -71,7 +74,6 @@ body {
 	}
 
 	body {
-		padding-top: 77px;
 		padding-bottom: 22px;
 	}
 }
