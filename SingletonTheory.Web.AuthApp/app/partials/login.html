@@ -5,33 +5,27 @@
 		<li>user/123</li>
 		<li>nlgebruiker/123</li>
 	</ul>
-	<form ng-submit="login()" name="loginForm" class="form-horizontal">
-		<div class="control-group">
-			<label for="UserName" class="control-label" data-i18n="_UserNameHeading_"></label>
-			<div class="controls">
-				<input type="text" data-ng-model="UserName" data-i18n-attr="_UserNameHeading_|placeholder" name="username" required="required"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="Password" class="control-label" data-i18n="_PasswordHeading_">Password</label>
-			<div class="controls">
-				<input type="Password" data-ng-model="Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" required="required"/>
-			</div>
-		</div>
+	<form ng-submit="login()" name="loginForm" class="form-horizontal" novalidate>
+		<st-input label-name="_UserNameHeading_" label-class="control-label">
+			<input type="text" data-ng-model="user.UserName" data-i18n-attr="_UserNameHeading_|placeholder" name="username" required="required"/>
+		</st-input>
+		<st-input label-name="_PasswordHeading_" label-class="control-label">
+			<input type="Password" data-ng-model="user.Password" data-i18n-attr="_PasswordHeading_|placeholder" name="password" required="required" />
+		</st-input>
 		<div class="control-group">
 			<div class="controls">
-				<label for="RememberMeInput" class="checkbox" >
-					<input id="RememberMeInput" type="checkbox" data-ng-model="RememberMe" name="rememberme" /><span data-i18n="_RememberMeHeading_"></span>
+				<label for="RememberMeInput" class="checkbox">
+					<input id="RememberMeInput" type="checkbox" data-ng-model="user.Rememberme" name="rememberme" /><span data-i18n="_RememberMeHeading_"></span>
 				</label>
 			</div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<button id="loginButton" type="submit" class="btn" data-i18n="_LogInHeading_" ></button>
+				<button id="loginButton" type="submit" class="btn" data-i18n="_LogInHeading_"></button>
 			</div>
 		</div>
 	</form>
-	<hr/>
+	<hr />
 	<!--TODO: <p>... or use one of them fancy social logins:</p>
 	<div class="btn-group">
 		<a href="" data-ng-click="loginOauth('facebook')" class="btn">

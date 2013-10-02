@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-userApplicationModule.directive('stInput', ['$compile', function ($compile) {
+userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', function ($compile, $filter, localize) {
 	return {
 		restrict: 'E',
 		transclude: true,
@@ -17,28 +17,45 @@ userApplicationModule.directive('stInput', ['$compile', function ($compile) {
 			var inputName = element.find(':input').attr('name');
 			var errorExpression = [formController.$name, inputName, '$invalid'].join('.');
 			var errorListExpression = [formController.$name, inputName, '$error'].join('.');
+			var rawErrors;
+			var labelClass = '';
 
 			element.find('div[ng-transclude]').append($compile('<i ng-show="isError" tooltip-append-to-body="true" tooltip-placement="right" tooltip-animation="true" tooltip-html-unsafe="{{errorList}}"  tooltip-trigger="mouseenter" class="icon-exclamation-sign icon-white"></i>')(scope));
 
 			scope.for = id;
 
-			labelHtml = '<label for="' + inputName + '" data-i18n="' + attrs.labelName + '"></label>';
+			if (attrs.labelClass !== undefined) {
+				labelClass = 'class="' + attrs.labelClass + '"';
+			}
+
+			labelHtml = '<label for="' + inputName + '" ' + labelClass + ' data-i18n="' + attrs.labelName + '"></label>';
 
 			element.prepend($compile(labelHtml)(scope));
 
-			scope.$parent.$watch(attrs.ngHide, function (hideValue) {
-				if (hideValue) {
-					element.hide();
-				} else {
-					element.show();
-				}
-			});
+			if (attrs.ngHide !== undefined) {
+				scope.$parent.$watch(attrs.ngHide, function (hideValue) {
+					if (hideValue) {
+						element.hide();
+					} else {
+						element.show();
+					}
+				});
+			}
 
 			scope.$parent.$watch(errorExpression, function (isError) {
 				scope.isError = isError;
 			});
 
+			scope.$on('localizeResourcesUpdates', function () {
+				updateTooltip(rawErrors);
+			});
+
 			scope.$parent.$watch(errorListExpression, function (errorList) {
+				updateTooltip(errorList);
+				rawErrors = errorList;
+			}, true);
+
+			var updateTooltip = function (errorList) {
 				var validationString = '';
 				var colourStyle = '';
 				var properties = Object.keys(errorList);
@@ -50,20 +67,22 @@ userApplicationModule.directive('stInput', ['$compile', function ($compile) {
 					}
 					switch (properties[i]) {
 						case 'required':
-							validationString += '<span ' + colourStyle + '">This field is required</span><br/>';
+							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_requiredFieldDescription_') + '</span><br/>';
 							break;
 						case 'minlength':
 							var minLength = element.find(':input').attr('ng-minlength');
-							validationString += '<span ' + colourStyle + '">This field has a minimum length of ' + minLength + '</span><br/>';
+							var minLengthDescription = $filter('stringFormat')(localize.getLocalizedString('_minLengthDescription_'), [minLength]);
+							validationString += '<span ' + colourStyle + '">' + minLengthDescription + '</span><br/>';
 							break;
 						case 'maxlength':
 							var maxLength = element.find(':input').attr('ng-maxlength');
-							validationString += '<span ' + colourStyle + '">This field has a maximum length of ' + maxLength + '</span><br/>';
+							var maxLengthDescription = $filter('stringFormat')(localize.getLocalizedString('_maxLengthDescription_'), [maxLength]);
+							validationString += '<span ' + colourStyle + '">' + maxLengthDescription + '</span><br/>';
 							break;
 					}
 				}
 				scope.errorList = validationString;
-			}, true);
+			};
 		}
 	};
 }]);
