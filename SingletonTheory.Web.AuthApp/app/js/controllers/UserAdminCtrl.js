@@ -3,18 +3,22 @@
 userApplicationModule.controller('UserAdminCtrl',
 	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource) {
 
+		//info
 		$scope.loading = true;
 		$scope.isCollapsed = false;
+		$scope.activeFilterDescriptions = 'true'; //Set the default
+		$scope.Language = 'nl-nl';
+		$scope.userRole = '1';
+		
+		
+		//Content area
 		$scope.isDPCollapsed = false;
 		$scope.contentData = [];
 		$scope.domainPermissions = [];
 		$scope.domainPermissionsAvailable = [];
+		$scope.usedDomainPermissionIds = [];
 		
-		$scope.activeFilterDescriptions = 'true'; //Set the default
-
-		$scope.Language = 'nl-nl';
-		$scope.userRole = '1';
-
+		// ************************ INFO AREA ************************************************************************
 		//Filters
 		$scope.filterOptions = {
 			filterText: '',
@@ -26,15 +30,12 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.refresh();
 			$scope.loadRoles();
 		};
-
-		//---------- properties ----------
-		$scope.regExNoNumbers = /^([^0-9]*)$/;
-		//========== load users ==========
+		
+		//========== refresh ==========
 		$scope.refresh = function () {
 			usersResource.get({}, function (response) {
 				$scope.users = response;
-
-				$scope.GetDomainPermissions();
+				$scope.loadDomainPermissions();
 				$scope.loading = false;
 			});
 		};
@@ -46,7 +47,16 @@ userApplicationModule.controller('UserAdminCtrl',
 				$scope.userRole = $scope.roles[1].Id;
 			});
 		};
-
+		
+		//========== load domain permissions ==========
+		$scope.loadDomainPermissions = function () {
+			authAdminDomainPermissionsResource.get({}, function (response) {
+				$scope.domainPermissions = response;
+				$scope.domainPermissionSelectedId = $scope.domainPermissions[0].Id;
+			});
+		};
+		
+		// ******** info area grid *************************
 		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editUser(row)"><i class="icon-edit icon-black"></i></button> ';
 
 		$scope.userGridOptions = {
@@ -66,24 +76,9 @@ userApplicationModule.controller('UserAdminCtrl',
 
 				userResource.get({ Id: data.entity.Id }, function (response) {
 					$scope.selectedUser = response;
-					var usedDomainPermissionIds = [];
-					$scope.contentData.length = 0;
-					
+
 					//Set content grid data
-					for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
-						var dp = { DomainPermissionId: $scope.selectedUser.DomainPermissions[i].DomainPermissionId, Label: getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId), StartDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate), EndDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate) };
-						$scope.contentData.push(dp);
-						usedDomainPermissionIds.push($scope.selectedUser.DomainPermissions[i].DomainPermissionId);
-					}
-					
-					//Set available domain permisions for combo
-					$scope.domainPermissionsAvailable.length = 0;
-					for (var j = 0; j < $scope.domainPermissions.length - 1; j++) {
-						var id = $scope.domainPermissions[j].Id;
-						if (!contains(usedDomainPermissionIds, id)) {
-							$scope.domainPermissionsAvailable.push($scope.domainPermissions[j]);
-						}
-					}
+					setContentGridData();
 				},
 				function (error) {
 					$scope.error = error;
@@ -91,15 +86,16 @@ userApplicationModule.controller('UserAdminCtrl',
 			}
 		};
 
-		var contains = function(a, obj) {
-			for (var i = 0; i < a.length; i++) {
-				if (a[i] === obj) {
-					return true;
-				}
+		var setContentGridData = function () {
+			$scope.usedDomainPermissionIds.length = 0;
+			$scope.contentData.length = 0;
+			for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
+				var dp = { DomainPermissionId: $scope.selectedUser.DomainPermissions[i].DomainPermissionId, Label: getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId), StartDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate), EndDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate) };
+				$scope.contentData.push(dp);
+				$scope.usedDomainPermissionIds.push($scope.selectedUser.DomainPermissions[i].DomainPermissionId);
 			}
-			return false;
 		};
-		
+			
 		var getDomainPermissionLabel = function(domainPermissionId) {
 			for (var i = 0; i < $scope.domainPermissions.length; i++) {
 				if ($scope.domainPermissions[i].Id == domainPermissionId) {
@@ -108,7 +104,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			}
 			return "NotSet";
 		};
-		// ----------------------------------------------------------------------------
+		
 		// User edit area
 
 		$scope.addUser = function () {
@@ -146,7 +142,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.isCollapsed = true;
 		};
 
-		$scope.addNewUser = function () {
+		$scope.saveNewUser = function () {
 			if ($scope.elementResource.Active == '')
 				$scope.elementResource.Active = true;
 
@@ -159,7 +155,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			});
 		};
 
-		$scope.updateUser = function () {
+		$scope.saveUser = function () {
 			$scope.elementResource.Roles[0] = $scope.userRole;
 			$scope.elementResource.$update(function () {
 				$scope.toggleCollapse();
@@ -172,15 +168,16 @@ userApplicationModule.controller('UserAdminCtrl',
 
 		$scope.cancelUserSave = function () {
 			$scope.toggleCollapse();
-			//setNewResource();
 		};
 
 		$scope.toggleCollapse = function () {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
 
-		//!-- content area ----------------------------------------------------
+		// ************************ END INFO AREA *************************************
 		// ----------------------------------------------------------------------------
+		// ************************ CONTENT AREA **************************************
+
 		$scope.setContentArea = function () {
 
 			$scope.dtStart = new Date();
@@ -208,18 +205,13 @@ userApplicationModule.controller('UserAdminCtrl',
 			return new Date(parseInt(dateValue.substr(6)));
 		};
 		
-		$scope.GetDomainPermissions = function () {
-			authAdminDomainPermissionsResource.get({}, function (response) {
-				$scope.domainPermissions = response;
-				$scope.domainPermissionSelectedId = $scope.domainPermissions[0].Id;
-			});
-		};
-
-
 		$scope.addDP = function () {
 			$scope.isDPNew = true;
 			$scope.isDPEdit = false;
 
+			//Set available domain permisions for combo
+			setAvailableDomainPermissions(-1);
+			
 			$scope.dtStart = new Date();
 			$scope.dtEnd = new Date();
 			$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
@@ -232,14 +224,28 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.isDPEdit = true;
 			
 			$scope.domainPermissionSelectedId = row.entity.DomainPermissionId;
-
-			$scope.dtStart = $scope.parseJsonDateValue(row.entity.ActiveTimeSpan.StartDate);
-			$scope.dtEnd = $scope.parseJsonDateValue(row.entity.ActiveTimeSpan.EndDate);
-			//$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
+			$scope.dtStart = row.entity.StartDate;
+			$scope.dtEnd = row.entity.EndDate;
+			
+			//Set available domain permisions for combo
+			setAvailableDomainPermissions(row.entity.DomainPermissionId);
 
 			$scope.isDPCollapsed = true;
 		};
 
+		var setAvailableDomainPermissions = function (domainPermissionId) {
+			$scope.domainPermissionsAvailable.length = 0;
+			var usedIds = $scope.usedDomainPermissionIds;
+			remove(usedIds, domainPermissionId);
+			
+			for (var j = 0; j < $scope.domainPermissions.length - 1; j++) {
+				var id = $scope.domainPermissions[j].Id;
+				if (!contains(usedIds, id)) {
+					$scope.domainPermissionsAvailable.push($scope.domainPermissions[j]);
+				}
+			}
+		};
+		
 		$scope.saveDP = function () {
 			if ($scope.isDPNew) {
 				$scope.dpo = {};
@@ -266,7 +272,6 @@ userApplicationModule.controller('UserAdminCtrl',
 
 		$scope.cancelDPSave = function () {
 			$scope.toggleDPCollapse();
-			//setNewResource();
 		};
 
 		//DatePickers ----------
@@ -286,6 +291,27 @@ userApplicationModule.controller('UserAdminCtrl',
 			$timeout(function () {
 				$scope.openedDtEnd = true;
 			});
+		};
+
+		// ************************ CONTENT AREA **************************************
+
+		// TODO: Add to seperate library
+		
+		var contains = function (a, obj) {
+			for (var i = 0; i < a.length; i++) {
+				if (a[i] === obj) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		var remove = function(arr, item) {
+			for (var i = arr.length; i--;) {
+				if (arr[i] === item) {
+					arr.splice(i, 1);
+				}
+			}
 		};
 
 	}]);

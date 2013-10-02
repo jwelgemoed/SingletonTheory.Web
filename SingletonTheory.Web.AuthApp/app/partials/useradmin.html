@@ -45,11 +45,11 @@
 							</div>
 							<br />
 							<button id="saveNewUserButton" class="btn btn-default" ng-show="isNew"
-								ng-click="addNewUser()"
+								ng-click="saveNewUser()"
 								data-i18n="_SaveHeading_">
 							</button>
 							<button id="saveEditedUserButton" class="btn btn-default" ng-show="isEdit"
-								ng-disabled="elementForm.$invalid" ng-click="updateUser()" data-i18n="_UpdateHeading_">
+								ng-disabled="elementForm.$invalid" ng-click="saveUser()" data-i18n="_UpdateHeading_">
 							</button>
 							<button type="button" class="btn btn-warning" ng-click="cancelUserSave()" data-i18n="_CancelHeading_"></button>
 						</div>
@@ -74,7 +74,7 @@
 							<div class="control-group">
 								<label for="domainPermissions" class="control-label" data-i18n="_DomainPermissionsHeading_"></label>
 								<div class="controls">
-									<select id="domainPermissions" data-ng-model="domainPermissionSelectedId" data-ng-options="opt.Id as opt.Label for opt in domainPermissionsAvailable"></select>
+									<select id="domainPermissions" data-ng-model="domainPermissionSelectedId" data-ng-options="opt.Id as opt.Label for opt in domainPermissionsAvailable" data-ng-readonly="isDPEdit"></select>
 								</div>
 							</div>
 							
