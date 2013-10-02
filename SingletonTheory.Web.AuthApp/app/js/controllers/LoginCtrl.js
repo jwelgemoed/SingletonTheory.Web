@@ -6,11 +6,11 @@ userApplicationModule.controller('LoginCtrl',
 			UserName: '',
 			Password: '',
 			RememberMe: true
-		}
+		};
 
 		$scope.login =
 			function () {
-				$scope.RememberMe = $scope.RememberMe == undefined ? false : $scope.RememberMe;
+				$scope.user.RememberMe = $scope.user.RememberMe == undefined ? false : $scope.user.RememberMe;
 
 				authService.login($scope.user,
 				function (res) {
