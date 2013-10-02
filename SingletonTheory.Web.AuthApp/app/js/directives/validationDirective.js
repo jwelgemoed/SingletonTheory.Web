@@ -4,7 +4,11 @@ userApplicationModule.directive('userAvailable', ['UserResource', function (user
 	return {
 		require: 'ngModel',
 		link: function (scope, elem, attr, ctrl) {
-				var availableValidator = function(value) {
+			var availableValidator = function (value) {
+				if ($('input').is('[readonly]')) {
+					ctrl.$setValidity('useravailability', true);
+					return value;
+				}
 					if (value !== undefined && value.trim().length > 0) {
 						userResource.query({ UserName: value },
 							function(result) {
