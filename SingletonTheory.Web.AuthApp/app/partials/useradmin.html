@@ -74,7 +74,7 @@
 							<div class="control-group">
 								<label for="domainPermissions" class="control-label" data-i18n="_DomainPermissionsHeading_"></label>
 								<div class="controls">
-									<select id="domainPermissions" data-ng-model="dpSelected" data-ng-options="opt.Id as opt.Label for opt in domainPermissions"></select>
+									<select id="domainPermissions" data-ng-model="domainPermissionSelectedId" data-ng-options="opt.Id as opt.Label for opt in domainPermissionsAvailable"></select>
 								</div>
 							</div>
 							
@@ -88,12 +88,12 @@
 								<button class="btn" ng-click="openDtEnd()"><i class="icon-calendar"></i></button>
 							</div>
 							<br />
-							<button id="Button1" class="btn btn-default" ng-show="isDPNew"
-								ng-click="addNewDP()"
+							<button id="btnAddNewDp" class="btn btn-default" ng-show="isDPNew"
+								ng-click="saveDP()"
 								data-i18n="_SaveHeading_">
 							</button>
-							<button id="Button2" class="btn btn-default" ng-show="isDPEdit"
-								ng-disabled="dpForm.$invalid" ng-click="updateDP()" data-i18n="_UpdateHeading_">
+							<button id="btnUpdateDP" class="btn btn-default" ng-show="isDPEdit"
+								ng-disabled="dpForm.$invalid" ng-click="saveDP()" data-i18n="_UpdateHeading_">
 							</button>
 							<button type="button" class="btn btn-warning" ng-click="cancelDPSave()" data-i18n="_CancelHeading_"></button>
 						</div>

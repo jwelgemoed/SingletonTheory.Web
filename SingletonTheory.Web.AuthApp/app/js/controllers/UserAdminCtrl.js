@@ -2,15 +2,19 @@
 
 userApplicationModule.controller('UserAdminCtrl',
 	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource) {
+
 		$scope.loading = true;
 		$scope.isCollapsed = false;
 		$scope.isDPCollapsed = false;
+		$scope.contentData = [];
+		$scope.domainPermissions = [];
+		$scope.domainPermissionsAvailable = [];
 		
 		$scope.activeFilterDescriptions = 'true'; //Set the default
 
 		$scope.Language = 'nl-nl';
 		$scope.userRole = '1';
-	
+
 		//Filters
 		$scope.filterOptions = {
 			filterText: '',
@@ -21,9 +25,6 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.init = function () {
 			$scope.refresh();
 			$scope.loadRoles();
-			$scope.dtStart = new Date();
-			$scope.dtEnd = new Date();
-			$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
 		};
 
 		//---------- properties ----------
@@ -33,6 +34,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			usersResource.get({}, function (response) {
 				$scope.users = response;
 
+				$scope.GetDomainPermissions();
 				$scope.loading = false;
 			});
 		};
@@ -59,9 +61,53 @@ userApplicationModule.controller('UserAdminCtrl',
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
 				$scope.setContentArea();
+
+				$scope.selectedUser = new userResource();
+
+				userResource.get({ Id: data.entity.Id }, function (response) {
+					$scope.selectedUser = response;
+					var usedDomainPermissionIds = [];
+					$scope.contentData.length = 0;
+					
+					//Set content grid data
+					for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
+						var dp = { DomainPermissionId: $scope.selectedUser.DomainPermissions[i].DomainPermissionId, Label: getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId), StartDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate), EndDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate) };
+						$scope.contentData.push(dp);
+						usedDomainPermissionIds.push($scope.selectedUser.DomainPermissions[i].DomainPermissionId);
+					}
+					
+					//Set available domain permisions for combo
+					$scope.domainPermissionsAvailable.length = 0;
+					for (var j = 0; j < $scope.domainPermissions.length - 1; j++) {
+						var id = $scope.domainPermissions[j].Id;
+						if (!contains(usedDomainPermissionIds, id)) {
+							$scope.domainPermissionsAvailable.push($scope.domainPermissions[j]);
+						}
+					}
+				},
+				function (error) {
+					$scope.error = error;
+				});
 			}
 		};
+
+		var contains = function(a, obj) {
+			for (var i = 0; i < a.length; i++) {
+				if (a[i] === obj) {
+					return true;
+				}
+			}
+			return false;
+		};
 		
+		var getDomainPermissionLabel = function(domainPermissionId) {
+			for (var i = 0; i < $scope.domainPermissions.length; i++) {
+				if ($scope.domainPermissions[i].Id == domainPermissionId) {
+					return $scope.domainPermissions[i].Label;
+				}
+			}
+			return "NotSet";
+		};
 		// ----------------------------------------------------------------------------
 		// User edit area
 
@@ -90,7 +136,6 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.elementResource = new userResource();
 
 			userResource.get({ Id: row.entity.Id }, function (response) {
-
 				$scope.elementResource = response;
 				$scope.userRole = $scope.elementResource.Roles[0];
 			},
@@ -137,31 +182,36 @@ userApplicationModule.controller('UserAdminCtrl',
 		//!-- content area ----------------------------------------------------
 		// ----------------------------------------------------------------------------
 		$scope.setContentArea = function () {
-			//$scope.elementResource.Id
-			$scope.GetDomainPermissions();
-			//for (var i = 0; i < scope.elementResource.DomainPermissions.length; i++) {
 
-			//}
+			$scope.dtStart = new Date();
+			$scope.dtEnd = new Date();
+			$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
+
 		};
 
 		$scope.editableDPInPopup = '<button type="button" class="btn btn-default" ng-click="editDP(row)"><i class="icon-edit icon-black"></i></button> ';
 
 		$scope.dpGridOptions = {
-			data: '$scope.elementResource.DomainPermissions',
+			data: 'contentData',
 			//filterOptions: $scope.filterOptions,
 			//showFilter: true,
-			columnDefs: [{ field: 'DomainPermissionId', displayName: localize.getLocalizedString('_DomainPermissionsHeading_') },
+			columnDefs: [{ field: 'Label', displayName: localize.getLocalizedString('_DomainPermissionsHeading_') },
 				{ field: 'StartDate', displayName: localize.getLocalizedString('_StartDateHeading_') },
 				{ field: 'EndDate', displayName: localize.getLocalizedString('_EndDateHeading_') },
 				 { displayName: '', cellTemplate: $scope.editableDPInPopup, width: 40 }],
-			selectedItems: $scope.selectedElement,
+			selectedItems: $scope.selectedDPElement,
 			multiSelect: false,
 			plugins: [new ngGridFlexibleHeightPlugin()]
 		};
 
+		$scope.parseJsonDateValue = function (dateValue) {
+			return new Date(parseInt(dateValue.substr(6)));
+		};
+		
 		$scope.GetDomainPermissions = function () {
 			authAdminDomainPermissionsResource.get({}, function (response) {
 				$scope.domainPermissions = response;
+				$scope.domainPermissionSelectedId = $scope.domainPermissions[0].Id;
 			});
 		};
 
@@ -170,40 +220,73 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.isDPNew = true;
 			$scope.isDPEdit = false;
 
-			//$scope.dpResource = new dpResource();
-			//$scope.elementResource.Id = 0;
-			//$scope.elementResource.Active = true;
-			//$scope.elementResource.Language = $scope.Language;
-			//$scope.userRole = $scope.roles[1].Id;
-			//$scope.elementResource.Roles = [];
-			//$scope.elementResource.Roles.push($scope.userRole);
+			$scope.dtStart = new Date();
+			$scope.dtEnd = new Date();
+			$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
 
 			$scope.toggleDPCollapse();
 		};
-		
+
+		$scope.editDP = function (row) {
+			$scope.isDPNew = false;
+			$scope.isDPEdit = true;
+			
+			$scope.domainPermissionSelectedId = row.entity.DomainPermissionId;
+
+			$scope.dtStart = $scope.parseJsonDateValue(row.entity.ActiveTimeSpan.StartDate);
+			$scope.dtEnd = $scope.parseJsonDateValue(row.entity.ActiveTimeSpan.EndDate);
+			//$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
+
+			$scope.isDPCollapsed = true;
+		};
+
+		$scope.saveDP = function () {
+			if ($scope.isDPNew) {
+				$scope.dpo = {};
+				$scope.dpo.DomainPermissionId = $scope.domainPermissionSelectedId;
+				$scope.dpo.ActiveTimeSpan = {};
+				$scope.dpo.ActiveTimeSpan.StartDate = $scope.dtStart;
+				$scope.dpo.ActiveTimeSpan.EndDate = $scope.dtEnd;
+
+				$scope.selectedUser.DomainPermissions.push($scope.dpo);
+			}
+
+			$scope.selectedUser.$update(function () {
+				$scope.toggleDPCollapse();
+				$scope.GetDomainPermissions();
+			},
+			function (error) {
+				$scope.error = error;
+			});
+		};
+
 		$scope.toggleDPCollapse = function () {
 			$scope.isDPCollapsed = !$scope.isDPCollapsed;
 		};
-		
+
+		$scope.cancelDPSave = function () {
+			$scope.toggleDPCollapse();
+			//setNewResource();
+		};
 
 		//DatePickers ----------
-		
+
 		$scope.dateOptions = {
 			'year-format': "'yy'",
 			'starting-day': 1
 		};
-		
+
 		$scope.openDtStart = function () {
 			$timeout(function () {
 				$scope.openedDtStart = true;
 			});
 		};
-		
+
 		$scope.openDtEnd = function () {
 			$timeout(function () {
 				$scope.openedDtEnd = true;
 			});
 		};
-		
+
 	}]);
 
