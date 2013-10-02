@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-userApplicationModule.directive('stInput', function () {
+userApplicationModule.directive('stInput', ['$compile', function ($compile) {
 	return {
 		restrict: 'E',
 		transclude: true,
@@ -8,51 +8,57 @@ userApplicationModule.directive('stInput', function () {
 		replace: true,
 		scope: {},
 		template:
-				'<div class="control-group"   ng-class="{error: isError}">' +
-							'<label for="Name" data-i18n="_Name5MinCharsHeading_"></label>' +
-							'<div class="controls row-fluid" >' +
-							'<div ng-transclude></div>' +
-							'<i ng-show="isError" tooltip-append-to-body="true" tooltip-placement="right" tooltip-animation="true" tooltip-html-unsafe="{{errorList}}"  tooltip-trigger="mouseenter" class="icon-exclamation-sign icon-white"></i>' +
-							'</div>' +
-						'</div>',
+				'<div class="control-group" ng-class="{error: isError}">' +
+							'<div class="controls" >' +
+							'<div ng-transclude></div></div></div>',
 		link: function (scope, element, attrs, formController) {
-			// The <label> should have a `for` attribute that links it to the input.
-			// Get the `id` attribute from the input element
-			// and add it to the scope so our template can access it.
-			var id = element.find(":input").attr("id");
+			var labelHtml = '';
+			var id = element.find(':input').attr('id');
+			var inputName = element.find(':input').attr('name');
+			var errorExpression = [formController.$name, inputName, '$invalid'].join('.');
+			var errorListExpression = [formController.$name, inputName, '$error'].join('.');
+
+			element.find('div[ng-transclude]').append($compile('<i ng-show="isError" tooltip-append-to-body="true" tooltip-placement="right" tooltip-animation="true" tooltip-html-unsafe="{{errorList}}"  tooltip-trigger="mouseenter" class="icon-exclamation-sign icon-white"></i>')(scope));
+
 			scope.for = id;
 
-			// Get the `name` attribute of the input
-			var inputName = element.find(":input").attr("name");
-			// Build the scope expression that contains the validation status.
-			// e.g. "form.example.$invalid"
-			var errorExpression = [formController.$name, inputName, "$invalid"].join(".");
-			// Watch the parent scope, because current scope is isolated.
+			labelHtml = '<label for="' + inputName + '" data-i18n="' + attrs.labelName + '"></label>';
+
+			element.prepend($compile(labelHtml)(scope));
+
+			scope.$parent.$watch(attrs.ngHide, function (hideValue) {
+				if (hideValue) {
+					element.hide();
+				} else {
+					element.show();
+				}
+			});
+
 			scope.$parent.$watch(errorExpression, function (isError) {
 				scope.isError = isError;
 			});
 
-			var errorListExpression = [formController.$name, inputName, "$error"].join(".");
-			// Watch the parent scope, because current scope is isolated.
 			scope.$parent.$watch(errorListExpression, function (errorList) {
 				var validationString = '';
-				var colourClass = '';
+				var colourStyle = '';
 				var properties = Object.keys(errorList);
 				for (var i = 0; i < properties.length; i++) {
 					if (errorList[properties[i]]) {
-						colourClass = 'class="errorValidation"';
+						colourStyle = 'style="color:red!important;"';
 					} else {
-						colourClass = 'class="passedValidation"';
+						colourStyle = 'style="color:white!important;"';
 					}
 					switch (properties[i]) {
 						case 'required':
-							validationString += '<span ' + colourClass + '">This field is required</span><br/>';
+							validationString += '<span ' + colourStyle + '">This field is required</span><br/>';
 							break;
 						case 'minlength':
-							validationString += '<span ' + colourClass + '">This field has a minimum length</span><br/>';
+							var minLength = element.find(':input').attr('ng-minlength');
+							validationString += '<span ' + colourStyle + '">This field has a minimum length of ' + minLength + '</span><br/>';
 							break;
 						case 'maxlength':
-							validationString += '<span ' + colourClass + '">This field has a maximum length</span><br/>';
+							var maxLength = element.find(':input').attr('ng-maxlength');
+							validationString += '<span ' + colourStyle + '">This field has a maximum length of ' + maxLength + '</span><br/>';
 							break;
 					}
 				}
@@ -60,4 +66,4 @@ userApplicationModule.directive('stInput', function () {
 			}, true);
 		}
 	};
-});
+}]);
