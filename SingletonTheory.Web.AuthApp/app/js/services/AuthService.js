@@ -19,6 +19,7 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 			}
 
 			localize.setLanguage(currentUser.Language);
+			
 			$rootScope.$broadcast('currentUser');
 
 			if (success != undefined)
