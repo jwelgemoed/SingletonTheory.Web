@@ -58,7 +58,8 @@ userApplicationModule.controller('UserAdminCtrl',
 		
 		// ******** info area grid *************************
 		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editUser(row)"><i class="icon-edit icon-black"></i></button> ';
-
+		$scope.lastRowId = 0;
+		
 		$scope.userGridOptions = {
 			data: 'users',
 			filterOptions: $scope.filterOptions,
@@ -69,26 +70,31 @@ userApplicationModule.controller('UserAdminCtrl',
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
 			plugins: [new ngGridFlexibleHeightPlugin()],
-			afterSelectionChange: function (data) {
-				$scope.setContentArea();
-				$scope.contentData.length = 0;
-				$scope.selectedUser = new userResource();
+			afterSelectionChange: function(data) {
+				//NOTE : This event is called twice once to select and then to decelect
+				if (data.entity.Id != $scope.lastRowId) {
+					alert(data.entity.Id);
+					$scope.setContentArea();
+					$scope.contentData.length = 0;
+					$scope.selectedUser = new userResource();
 
-				userResource.get({ Id: data.entity.Id }, function (response) {
-					$scope.selectedUser = response;
+					userResource.get({ Id: data.entity.Id }, function(response) {
+						$scope.selectedUser = response;
 
-					//Set content grid data
-					setContentGridData();
-				},
-				function (error) {
-					$scope.error = error;
-				});
+						//Set content grid data
+						setContentGridData();
+					},
+						function(error) {
+							$scope.error = error;
+						});
+					$scope.lastRowId = data.entity.Id;
+				}
 			}
 		};
 
 		var setContentGridData = function () {
 			$scope.usedDomainPermissionIds.length = 0;
-			$scope.contentData.length = 0;
+		//	$scope.contentData.length = 0;
 			for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
 				var dp = { DomainPermissionId: $scope.selectedUser.DomainPermissions[i].DomainPermissionId, Label: getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId), StartDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate), EndDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate) };
 				$scope.contentData.push(dp);
