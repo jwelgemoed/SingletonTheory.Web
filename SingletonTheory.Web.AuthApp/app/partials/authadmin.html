@@ -25,10 +25,10 @@
 					<div collapse="!isCollapsed">
 						<form class="well well-small form-inline" name="elementForm" novalidate>
 							<div class="controls">
-									<st-input label-name="_Name5MinCharsHeading_" ng-hide="!isBasePermission()">
+									<st-input label-name="_NameHeading_" ng-hide="!isBasePermission()">
 										<input id="nameInputId" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" ng-minlength="5" ng-maxlength="60" />
 									</st-input>
-									<st-input label-name="_Label5MinCharsHeading_" ng-hide="isBasePermission()">
+									<st-input label-name="_LabelHeading_" ng-hide="isBasePermission()">
 										<input id="labelInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60"  />
 									</st-input>
 									<st-input label-name="_DescriptionHeading_" ng-hide="isBasePermission()">

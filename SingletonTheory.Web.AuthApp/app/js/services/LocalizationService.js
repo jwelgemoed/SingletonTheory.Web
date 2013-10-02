@@ -15,7 +15,7 @@ localizationModule
 	.factory('localize', ['$http', '$rootScope', '$window', '$filter', 'dynamicLocale', function ($http, $rootScope, $window, $filter, dynamicLocale) {
 		var localize = {
 			// use the $window service to get the language of the user's browser
-			language: $window.navigator.userLanguage || $window.navigator.language,
+			language: '',
 			// array to hold the localized resource string entries
 			dictionary: [],
 			// flag to indicate if the service hs loaded the resource file
@@ -39,12 +39,14 @@ localizationModule
 
 			// loads the language resource file from the server
 			initLocalizedResources: function () {
-				// request the resource file
-				$http.get('/localize/' + localize.language).success(localize.successCallback).error(function () {
-					// request the default resource file
-					$http.get('/localize/default').success(localize.successCallback).error(error);
-				});
-				dynamicLocale.set(localize.language);
+				if (localize.language != '') {
+					// request the resource file
+					$http.get('/localize/' + localize.language).success(localize.successCallback).error(function() {
+						// request the default resource file
+						$http.get('/localize/default').success(localize.successCallback).error(error);
+					});
+					dynamicLocale.set(localize.language);
+				}
 			},
 
 			// checks the dictionary for a localized resource string

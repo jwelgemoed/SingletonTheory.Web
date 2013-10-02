@@ -13,7 +13,11 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.element = '_RoleHeading_';
 
-		$scope.displayElement = localize.getLocalizedString($scope.element);
+		$scope.displayElement = '';
+		
+		$scope.$on('localizeResourcesUpdates', function() {
+			$scope.displayElement = localize.getLocalizedString($scope.element);
+		});
 
 		$scope.isCollapsed = false;
 
@@ -35,14 +39,23 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
-		var sortHeading = localize.getLocalizedString('_SortHeading_');
+		$scope.sortHeading = '';
+
+		$scope.mainColumnDefs = [{ field: 'Label', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+		$scope.assignColumDefs = [{ field: 'Label', displayName: $scope.sortHeading }];
+
+		$scope.$on('localizeResourcesUpdates', function () {
+			$scope.sortHeading = localize.getLocalizedString('_SortHeading_');
+			$scope.mainColumnDefs = [{ field: 'Label', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+			$scope.assignColumDefs = [{ field: 'Label', displayName: $scope.sortHeading }];
+		});
 
 		$scope.elementGridOptions = {
 			data: 'elementDictionary',
-			columnDefs: [{ field: 'Label', displayName: sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
+			columnDefs: 'mainColumnDefs',
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
-			plugins: [new ngGridFlexibleHeightPlugin()],
+			plugins: [new ngGridFlexibleHeightPlugin(), new ngGridLayoutPlugin()],
 			afterSelectionChange: function (data) {
 				fireSubSelection();
 			}
@@ -50,7 +63,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.assignedGridOptions = {
 			data: 'subElementResource.Assigned',
-			columnDefs: [{ field: 'Label', displayName: sortHeading }],
+			columnDefs: 'assignColumDefs',
 			selectedItems: $scope.selectedAssigned,
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
@@ -58,7 +71,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.unAssignedGridOptions = {
 			data: 'subElementResource.UnAssigned',
-			columnDefs: [{ field: 'Label', displayName: sortHeading }],
+			columnDefs: 'assignColumDefs',
 			selectedItems: $scope.selectedUnAssigned,
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			multiSelect: true
