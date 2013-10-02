@@ -4,8 +4,8 @@
 			<div>
 				<span class="label label-default btn-block st-centered" data-i18n="_AdministrateUsersHeading_"></span>
 
-				<button class="btn btn-default" ng-click="addElement()"><i class="icon-plus-sign icon-white"></i></button>
-			<!--	<input type="text" class="input-large" ng-model="filterOptions.filterText" data-i18n-attr="_SearchMessage_|placeholder"><span class="add-on"><i class="icon-search"></i></span>-->
+				<button class="btn btn-default" ng-click="addUser()"><i class="icon-plus-sign icon-white"></i></button>
+				<!--	<input type="text" class="input-large" ng-model="filterOptions.filterText" data-i18n-attr="_SearchMessage_|placeholder"><span class="add-on"><i class="icon-search"></i></span>-->
 				<br />
 				<div collapse="!isCollapsed">
 					<form class="well well-small form-inline" name="elementForm">
@@ -45,20 +45,62 @@
 							</div>
 							<br />
 							<button id="saveNewUserButton" class="btn btn-default" ng-show="isNew"
-								ng-click="addNewElement()"
+								ng-click="addNewUser()"
 								data-i18n="_SaveHeading_">
 							</button>
 							<button id="saveEditedUserButton" class="btn btn-default" ng-show="isEdit"
-								ng-disabled="elementForm.$invalid" ng-click="updateElement()" data-i18n="_UpdateHeading_">
+								ng-disabled="elementForm.$invalid" ng-click="updateUser()" data-i18n="_UpdateHeading_">
 							</button>
-							<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+							<button type="button" class="btn btn-warning" ng-click="cancelUserSave()" data-i18n="_CancelHeading_"></button>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="gridStyle" ng-grid="elementGridOptions"></div>
+			<div class="gridStyle" ng-grid="userGridOptions"></div>
 		</div>
 	</div>
+
 	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div id="Div1" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div>
+				<span class="label label-default btn-block st-centered" data-i18n="_AdministrateUserDomainPermissionsHeading_"></span>
+
+				<button class="btn btn-default" ng-click="addDP()"><i class="icon-plus-sign icon-white"></i></button>
+				<!--	<input type="text" class="input-large" ng-model="filterOptions.filterText" data-i18n-attr="_SearchMessage_|placeholder"><span class="add-on"><i class="icon-search"></i></span>-->
+				<br />
+				<div collapse="!isDPCollapsed">
+					<form class="well well-small form-inline" name="elementForm">
+						<div class="controls">
+							<div class="control-group">
+								<label for="domainPermissions" class="control-label" data-i18n="_DomainPermissionsHeading_"></label>
+								<div class="controls">
+									<select id="domainPermissions" data-ng-model="dpSelected" data-ng-options="opt.Id as opt.Label for opt in domainPermissions"></select>
+								</div>
+							</div>
+							
+							<div class="form-horizontal">
+								<input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dtStart" is-open="openedDtStart" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+								<button class="btn" ng-click="openDtStart()"><i class="icon-calendar"></i></button>
+							</div>
+							
+							<div class="form-horizontal">
+								<input type="text" datepicker-popup="dd-MMMM-yyyy" datepicker-append-to-body="true" ng-model="dtEnd" is-open="openedDtEnd" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+								<button class="btn" ng-click="openDtEnd()"><i class="icon-calendar"></i></button>
+							</div>
+							<br />
+							<button id="Button1" class="btn btn-default" ng-show="isDPNew"
+								ng-click="addNewDP()"
+								data-i18n="_SaveHeading_">
+							</button>
+							<button id="Button2" class="btn btn-default" ng-show="isDPEdit"
+								ng-disabled="dpForm.$invalid" ng-click="updateDP()" data-i18n="_UpdateHeading_">
+							</button>
+							<button type="button" class="btn btn-warning" ng-click="cancelDPSave()" data-i18n="_CancelHeading_"></button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="gridStyle" ng-grid="dpGridOptions"></div>
+		</div>
 	</div>
 </div>

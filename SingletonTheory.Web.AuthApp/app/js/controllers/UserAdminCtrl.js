@@ -1,20 +1,16 @@
 ﻿'use strict';
 
 userApplicationModule.controller('UserAdminCtrl',
-	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource) {
+	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource) {
 		$scope.loading = true;
 		$scope.isCollapsed = false;
-		//$scope.userRoles = authService.userRoles;
-
+		$scope.isDPCollapsed = false;
+		
 		$scope.activeFilterDescriptions = 'true'; //Set the default
 
 		$scope.Language = 'nl-nl';
 		$scope.userRole = '1';
-
-		//$scope.options = {
-		//	role: ['admin', 'user']
-		//};
-
+	
 		//Filters
 		$scope.filterOptions = {
 			filterText: '',
@@ -25,6 +21,9 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.init = function () {
 			$scope.refresh();
 			$scope.loadRoles();
+			$scope.dtStart = new Date();
+			$scope.dtEnd = new Date();
+			$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
 		};
 
 		//---------- properties ----------
@@ -46,9 +45,9 @@ userApplicationModule.controller('UserAdminCtrl',
 			});
 		};
 
-		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
+		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editUser(row)"><i class="icon-edit icon-black"></i></button> ';
 
-		$scope.elementGridOptions = {
+		$scope.userGridOptions = {
 			data: 'users',
 			filterOptions: $scope.filterOptions,
 			showFilter: true,
@@ -57,12 +56,16 @@ userApplicationModule.controller('UserAdminCtrl',
 				 { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }],
 			selectedItems: $scope.selectedElement,
 			multiSelect: false,
-			plugins: [new ngGridFlexibleHeightPlugin()]
+			plugins: [new ngGridFlexibleHeightPlugin()],
+			afterSelectionChange: function (data) {
+				$scope.setContentArea();
+			}
 		};
-
+		
+		// ----------------------------------------------------------------------------
 		// User edit area
 
-		$scope.addElement = function () {
+		$scope.addUser = function () {
 			$scope.isNew = true;
 			$scope.isEdit = false;
 
@@ -79,7 +82,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.toggleCollapse();
 		};
 
-		$scope.editElement = function (row) {
+		$scope.editUser = function (row) {
 			$scope.isNew = false;
 			$scope.isEdit = true;
 			$scope.passwordIsRequired = false;
@@ -98,7 +101,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.isCollapsed = true;
 		};
 
-		$scope.addNewElement = function () {
+		$scope.addNewUser = function () {
 			if ($scope.elementResource.Active == '')
 				$scope.elementResource.Active = true;
 
@@ -111,7 +114,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			});
 		};
 
-		$scope.updateElement = function () {
+		$scope.updateUser = function () {
 			$scope.elementResource.Roles[0] = $scope.userRole;
 			$scope.elementResource.$update(function () {
 				$scope.toggleCollapse();
@@ -122,7 +125,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			});
 		};
 
-		$scope.cancelElementSave = function () {
+		$scope.cancelUserSave = function () {
 			$scope.toggleCollapse();
 			//setNewResource();
 		};
@@ -130,5 +133,77 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.toggleCollapse = function () {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
+
+		//!-- content area ----------------------------------------------------
+		// ----------------------------------------------------------------------------
+		$scope.setContentArea = function () {
+			//$scope.elementResource.Id
+			$scope.GetDomainPermissions();
+			//for (var i = 0; i < scope.elementResource.DomainPermissions.length; i++) {
+
+			//}
+		};
+
+		$scope.editableDPInPopup = '<button type="button" class="btn btn-default" ng-click="editDP(row)"><i class="icon-edit icon-black"></i></button> ';
+
+		$scope.dpGridOptions = {
+			data: '$scope.elementResource.DomainPermissions',
+			//filterOptions: $scope.filterOptions,
+			//showFilter: true,
+			columnDefs: [{ field: 'DomainPermissionId', displayName: localize.getLocalizedString('_DomainPermissionsHeading_') },
+				{ field: 'StartDate', displayName: localize.getLocalizedString('_StartDateHeading_') },
+				{ field: 'EndDate', displayName: localize.getLocalizedString('_EndDateHeading_') },
+				 { displayName: '', cellTemplate: $scope.editableDPInPopup, width: 40 }],
+			selectedItems: $scope.selectedElement,
+			multiSelect: false,
+			plugins: [new ngGridFlexibleHeightPlugin()]
+		};
+
+		$scope.GetDomainPermissions = function () {
+			authAdminDomainPermissionsResource.get({}, function (response) {
+				$scope.domainPermissions = response;
+			});
+		};
+
+
+		$scope.addDP = function () {
+			$scope.isDPNew = true;
+			$scope.isDPEdit = false;
+
+			//$scope.dpResource = new dpResource();
+			//$scope.elementResource.Id = 0;
+			//$scope.elementResource.Active = true;
+			//$scope.elementResource.Language = $scope.Language;
+			//$scope.userRole = $scope.roles[1].Id;
+			//$scope.elementResource.Roles = [];
+			//$scope.elementResource.Roles.push($scope.userRole);
+
+			$scope.toggleDPCollapse();
+		};
+		
+		$scope.toggleDPCollapse = function () {
+			$scope.isDPCollapsed = !$scope.isDPCollapsed;
+		};
+		
+
+		//DatePickers ----------
+		
+		$scope.dateOptions = {
+			'year-format': "'yy'",
+			'starting-day': 1
+		};
+		
+		$scope.openDtStart = function () {
+			$timeout(function () {
+				$scope.openedDtStart = true;
+			});
+		};
+		
+		$scope.openDtEnd = function () {
+			$timeout(function () {
+				$scope.openedDtEnd = true;
+			});
+		};
+		
 	}]);
 

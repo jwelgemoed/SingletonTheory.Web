@@ -25,27 +25,15 @@
 					<div collapse="!isCollapsed">
 						<form class="well well-small form-inline" name="elementForm" novalidate>
 							<div class="controls">
-								<div class="control-group" ng-hide="!isBasePermission()">
-									<label for="Name" class="control-label" data-i18n="_Name5MinCharsHeading_"></label>
-									<div class="controls">
-										<input id="nameInput" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" pattern=".{5,60}" />
-										<i ng-show="elementForm.isValid()" class="icon-exclamation-sign icon-white"></i>
-									</div>
-								</div>
-								<div class="control-group" ng-hide="isBasePermission()">
-									<label for="Label" class="control-label" data-i18n="_Label5MinCharsHeading_"></label>
-									<div class="controls">
-										<input id="labelInput" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" pattern=".{5,60}" />
-										<i ng-show="elementForm.isValid()" class="icon-exclamation-sign icon-white"></i>
-									</div>
-								</div>
-								<div class="control-group" ng-hide="isBasePermission()">
-									<label for="Name" class="control-label" data-i18n="_DescriptionHeading_"></label>
-									<div class="controls">
-										<input id="descriptionInput" type="text" data-ng-model="elementResource.Description" name="descriptionInput" pattern=".{5,250}" />
-										<i ng-show="elementForm.$invalid" class="icon-exclamation-sign icon-white"></i>
-									</div>
-								</div>
+									<st-input label-name="_Name5MinCharsHeading_" ng-hide="!isBasePermission()">
+										<input id="nameInputId" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" ng-minlength="5" ng-maxlength="60" />
+									</st-input>
+									<st-input label-name="_Label5MinCharsHeading_" ng-hide="isBasePermission()">
+										<input id="labelInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60"  />
+									</st-input>
+									<st-input label-name="_DescriptionHeading_" ng-hide="isBasePermission()">
+											<input id="descriptionInputId" type="text" data-ng-model="elementResource.Description" name="descriptionInput" ng-minlength="5" ng-maxlength="250" />
+									</st-input>
 								<br />
 								<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
 								<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
