@@ -18,17 +18,22 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 			var errorExpression = [formController.$name, inputName, '$invalid'].join('.');
 			var errorListExpression = [formController.$name, inputName, '$error'].join('.');
 			var rawErrors;
+			var labelClass = '';
 
 			element.find('div[ng-transclude]').append($compile('<i ng-show="isError" tooltip-append-to-body="true" tooltip-placement="right" tooltip-animation="true" tooltip-html-unsafe="{{errorList}}"  tooltip-trigger="mouseenter" class="icon-exclamation-sign icon-white"></i>')(scope));
 
 			scope.for = id;
 
-			labelHtml = '<label for="' + inputName + '" data-i18n="' + attrs.labelName + '"></label>';
+			if (attrs.labelClass !== undefined) {
+				labelClass = 'class="' + attrs.labelClass + '"';
+			}
+
+			labelHtml = '<label for="' + inputName + '" ' + labelClass + ' data-i18n="' + attrs.labelName + '"></label>';
 
 			element.prepend($compile(labelHtml)(scope));
 
-			if (element.attr('ng-hide') !== undefined) {
-				scope.$parent.$watch(attrs.ngHide, function(hideValue) {
+			if (attrs.ngHide !== undefined) {
+				scope.$parent.$watch(attrs.ngHide, function (hideValue) {
 					if (hideValue) {
 						element.hide();
 					} else {
@@ -49,7 +54,7 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 				updateTooltip(errorList);
 				rawErrors = errorList;
 			}, true);
-			
+
 			var updateTooltip = function (errorList) {
 				var validationString = '';
 				var colourStyle = '';
