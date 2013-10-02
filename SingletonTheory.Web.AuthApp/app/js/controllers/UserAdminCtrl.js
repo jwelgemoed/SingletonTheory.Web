@@ -71,7 +71,7 @@ userApplicationModule.controller('UserAdminCtrl',
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
 				$scope.setContentArea();
-
+				$scope.contentData.length = 0;
 				$scope.selectedUser = new userResource();
 
 				userResource.get({ Id: data.entity.Id }, function (response) {

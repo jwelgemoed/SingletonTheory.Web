@@ -65,7 +65,6 @@
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
     <Content Include="app\js\controllers\UserAdminCtrl.js" />
-    <Content Include="app\js\controllers\UserDetailCtrl.js" />
     <Content Include="app\js\directives\AccessLevelDirective.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
     <Content Include="app\js\directives\BlurDirective.js" />
@@ -80,7 +79,6 @@
     <Content Include="app\js\modules\DynamicLocale.js" />
     <Content Include="app\js\services\AuthAdminService.js" />
     <Content Include="app\js\services\AuthService.js" />
-    <Content Include="app\js\controllers\UsersCtrl.js" />
     <Content Include="app\js\controllers\NavCtrl.js" />
     <Content Include="app\js\directives\ActiveNavDirective.js" />
     <Content Include="app\js\filters\Interpolate.js" />
@@ -124,7 +122,6 @@
     <Content Include="app\partials\header.html" />
     <Content Include="app\partials\notifications.html" />
     <Content Include="app\partials\useradmin.html" />
-    <Content Include="app\partials\userdetail.html" />
     <Content Include="config\karma.e2e.conf.js" />
     <Content Include="config\karma.unit.conf.js" />
     <Content Include="app\lib\angular\angular-cookies.js" />
@@ -146,7 +143,6 @@
     <Content Include="app\lib\requirejs\require.js" />
     <Content Include="app\lib\underscore\underscore-min.js" />
     <Content Include="app\partials\404.html" />
-    <Content Include="app\partials\users.html" />
     <Content Include="app\partials\home.html" />
     <Content Include="app\partials\login.html" />
     <Content Include="app\Index.html" />
