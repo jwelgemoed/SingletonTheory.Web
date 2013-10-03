@@ -17,6 +17,8 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.domainPermissions = [];
 		$scope.domainPermissionsAvailable = [];
 		$scope.usedDomainPermissionIds = [];
+		$scope.isDPNew = false;
+		$scope.isDPEdit = false;
 		
 		// ************************ INFO AREA ************************************************************************
 		//Filters
@@ -73,30 +75,37 @@ userApplicationModule.controller('UserAdminCtrl',
 			afterSelectionChange: function(data) {
 				//NOTE : This event is called twice once to select and then to decelect
 				if (data.entity.Id != $scope.lastRowId) {
-					alert(data.entity.Id);
+					//alert(data.entity.Id);
 					$scope.setContentArea();
-					$scope.contentData.length = 0;
-					$scope.selectedUser = new userResource();
+					//$scope.contentData.length = 0;
 
-					userResource.get({ Id: data.entity.Id }, function(response) {
-						$scope.selectedUser = response;
-
-						//Set content grid data
-						setContentGridData();
-					},
-						function(error) {
-							$scope.error = error;
-						});
+					refreshSetSelectedUser(data.entity.Id);
+					
 					$scope.lastRowId = data.entity.Id;
 				}
 			}
 		};
+		
+		var refreshSetSelectedUser = function (userId) {
+			$scope.selectedUser = new userResource();
+			$scope.contentData.length = 0;
+			userResource.get({ Id: userId }, function (response) {
+				$scope.selectedUser = response;
+				//alert("seting grid data for " + userId);
+				//Set content grid data
+				setContentGridData();
+			},
+				function (error) {
+					$scope.error = error;
+				});
+		};
 
 		var setContentGridData = function () {
 			$scope.usedDomainPermissionIds.length = 0;
-		//	$scope.contentData.length = 0;
+			//$scope.contentData.length = 0;
 			for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
 				var dp = { DomainPermissionId: $scope.selectedUser.DomainPermissions[i].DomainPermissionId, Label: getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId), StartDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate), EndDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate) };
+				//alert(dp.Label);
 				$scope.contentData.push(dp);
 				$scope.usedDomainPermissionIds.push($scope.selectedUser.DomainPermissions[i].DomainPermissionId);
 			}
@@ -105,6 +114,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		var getDomainPermissionLabel = function(domainPermissionId) {
 			for (var i = 0; i < $scope.domainPermissions.length; i++) {
 				if ($scope.domainPermissions[i].Id == domainPermissionId) {
+					//alert($scope.domainPermissions[i].Label);
 					return $scope.domainPermissions[i].Label;
 				}
 			}
@@ -253,19 +263,39 @@ userApplicationModule.controller('UserAdminCtrl',
 		};
 		
 		$scope.saveDP = function () {
+			//alert("isDPEdit " + $scope.isDPEdit);
 			if ($scope.isDPNew) {
+				//alert("isDPNew " + $scope.isDPNew);
 				$scope.dpo = {};
 				$scope.dpo.DomainPermissionId = $scope.domainPermissionSelectedId;
 				$scope.dpo.ActiveTimeSpan = {};
 				$scope.dpo.ActiveTimeSpan.StartDate = $scope.dtStart;
 				$scope.dpo.ActiveTimeSpan.EndDate = $scope.dtEnd;
 
-				$scope.selectedUser.DomainPermissions.push($scope.dpo);
-			}
+				if (!$scope.selectedUser.DomainPermissions) {
+					$scope.selectedUser.DomainPermissions = [];
+				}
 
+				$scope.selectedUser.DomainPermissions.push($scope.dpo);
+			} else {
+				//alert("dp length : " + $scope.selectedUser.DomainPermissions.length + " ")
+				for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
+					
+					if ($scope.selectedUser.DomainPermissions[i].DomainPermissionId == $scope.domainPermissionSelectedId) {
+						alert("setting date values ");
+						$scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate = $scope.dtStart;
+						$scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate = $scope.dtEnd;
+					}
+				}
+			}
+			
+			$scope.contentData.length = 0;
+			
 			$scope.selectedUser.$update(function () {
 				$scope.toggleDPCollapse();
-				$scope.GetDomainPermissions();
+				
+				//Set content grid data
+				setContentGridData();
 			},
 			function (error) {
 				$scope.error = error;
