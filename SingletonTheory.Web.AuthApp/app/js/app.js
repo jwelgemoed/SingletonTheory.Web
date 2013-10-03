@@ -11,13 +11,13 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			{
 				templateUrl: '/partials/home.html',
 				controller: 'HomeCtrl',
-				access: access.user
+				access: 'General_Access'
 			});
 	$routeProvider.when('/login',
 			{
 				templateUrl: '/partials/login.html',
 				controller: 'LoginCtrl',
-				access: access.anon
+				access: 'Guest_Access'
 			});
 	//$routeProvider.when('/users',
 	//		{
@@ -29,13 +29,13 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 		{
 			templateUrl: '/partials/useradmin.html',
 			controller: 'UserAdminCtrl',
-			access: access.admin
+			access: 'UserAdministration_Access'
 		});
 	$routeProvider.when('/auth/authadmin',
 			{
 				templateUrl: '/partials/authadmin.html',
 				controller: 'AuthAdminCtrl',
-				access: access.admin
+				access: 'AuthorizationAdministration_Access'
 			});
 	//$routeProvider.when('/users/:Id',
 	//		{
@@ -46,7 +46,7 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 	$routeProvider.when('/404',
 			{
 				templateUrl: '/partials/404.html',
-				access: access.public
+				access: 'General_Access'
 			});
 	$routeProvider.otherwise({ redirectTo: '/404' });
 

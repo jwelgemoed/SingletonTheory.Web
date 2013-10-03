@@ -63,11 +63,11 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 		authorize: function (success, error, accessPermission) {
 			if (!this.isValidUser()) {
 				setCurrentUser(function () {
-				//	doAuthorize(success, error, accessPermission);
+					doAuthorize(success, error, accessPermission);
 				}, error);
 			}
 			else {
-			//	doAuthorize(success, error, accessPermission);
+				doAuthorize(success, error, accessPermission);
 			}
 		},
 		isLoggedIn: function (user) {
