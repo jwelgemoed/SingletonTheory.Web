@@ -8,6 +8,9 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	var accessLevels = routingConfig.accessLevels, userRoles = routingConfig.userRoles;
 	var currentUser;
 	var defaultUser = { UserName: 'Guest', Language: 'nl-nl', Roles: ['public'] };
+	//var userFunctionalPermissions = ['General_Access'];
+	//IMPORTANT NOTE: General access should be given to all users
+	var userFunctionalPermissions = ['General_Access', 'Administrator_Access', 'UserAdministration_Access', 'AuthorizationAdministration_Access'];
 
 	function setCurrentUser(success, error) {
 		$http.get('/authapi/currentuser').success(function (response) {
@@ -19,7 +22,7 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 			}
 
 			localize.setLanguage(currentUser.Language);
-			
+
 			$rootScope.$broadcast('currentUser');
 
 			if (success != undefined)
@@ -40,13 +43,8 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 		};
 	}
 
-	function doAuthorize(success, error, accessLevel) {
-		var role = getRole(currentUser.Roles[0]);
-
-		if (accessLevel == undefined)
-			accessLevel = accessLevels.public;
-
-		var authorized = accessLevel.bitMask & role.bitMask;
+	function doAuthorize(success, error, accessPermission) {
+		var authorized = (userFunctionalPermissions.indexOf(accessPermission) > -1 );
 		if (authorized) {
 			success();
 		}
@@ -62,14 +60,14 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 		getCurrentUser: function () {
 			return currentUser;
 		},
-		authorize: function (success, error, accessLevel, role) {
+		authorize: function (success, error, accessPermission) {
 			if (!this.isValidUser()) {
 				setCurrentUser(function () {
-					//doAuthorize(success, error, accessLevel, role);
+					doAuthorize(success, error, accessPermission);
 				}, error);
 			}
 			else {
-				//doAuthorize(success, error, accessLevel, role);
+				doAuthorize(success, error, accessPermission);
 			}
 		},
 		isLoggedIn: function (user) {
