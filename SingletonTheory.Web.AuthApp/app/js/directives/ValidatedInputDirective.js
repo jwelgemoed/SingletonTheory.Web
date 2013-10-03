@@ -69,6 +69,9 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 						case 'required':
 							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_requiredFieldDescription_') + '</span><br/>';
 							break;
+						case 'useravailability':
+							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_userAvailabilityDescription_') + '</span><br/>';
+							break;
 						case 'minlength':
 							var minLength = element.find(':input').attr('ng-minlength');
 							var minLengthDescription = $filter('stringFormat')(localize.getLocalizedString('_minLengthDescription_'), [minLength]);
