@@ -59,7 +59,7 @@
 			<div>
 				<span class="label label-default btn-block st-centered" data-i18n="_AdministrateUserDomainPermissionsHeading_"></span>
 
-				<button class="btn btn-default" ng-click="addDP()"><i class="icon-plus-sign icon-white"></i></button>
+				<button class="btn btn-default" ng-click="addDP()" data-ng-disabled="isAddDomainPermissionsDisabled"><i class="icon-plus-sign icon-white"></i></button>
 				<!--	<input type="text" class="input-large" ng-model="filterOptions.filterText" data-i18n-attr="_SearchMessage_|placeholder"><span class="add-on"><i class="icon-search"></i></span>-->
 				<br />
 				<div collapse="!isDPCollapsed">
