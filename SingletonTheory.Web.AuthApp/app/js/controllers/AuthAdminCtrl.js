@@ -43,7 +43,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.editableInPopup = '<button type="button" ng-disabled="!canUpdate" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
-		$scope.sortHeading = '';
+		$scope.sortHeading = localize.getLocalizedString('_SortHeading_');
 
 		$scope.mainColumnDefs = [{ field: 'Label', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
 		$scope.assignColumDefs = [{ field: 'Label', displayName: $scope.sortHeading }];
