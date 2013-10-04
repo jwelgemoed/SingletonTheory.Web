@@ -71,14 +71,16 @@
 									<select id="domainPermissions" data-ng-model="domainPermissionSelectedId" data-ng-options="opt.Id as opt.Label for opt in domainPermissionsAvailable" data-ng-readonly="isDPEdit"></select>
 								</div>
 							</div>
-
+							<div>
+								<input type="checkbox" data-ng-model="useEndDate" name="useEndDate">
+								<br />
+							</div>
 							<div class="form-horizontal">
 								<input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dtStart" is-open="openedDtStart" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
 								<button class="btn" ng-click="openDtStart()"><i class="icon-calendar"></i></button>
 							</div>
-
-							<div class="form-horizontal">
-								<input type="text" datepicker-popup="dd-MMMM-yyyy" datepicker-append-to-body="true" ng-model="dtEnd" is-open="openedDtEnd" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+							<div class="form-horizontal" data-ng-show="useEndDate">
+								<input type="text" datepicker-popup="dd-MMMM-yyyy" datepicker-append-to-body="true" ng-model="dtEnd" is-open="openedDtEnd" min="minDate" max="'2045-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
 								<button class="btn" ng-click="openDtEnd()"><i class="icon-calendar"></i></button>
 							</div>
 							<br />

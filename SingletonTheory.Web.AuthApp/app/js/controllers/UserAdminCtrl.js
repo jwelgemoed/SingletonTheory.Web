@@ -19,6 +19,9 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.usedDomainPermissionIds = [];
 		$scope.isDPNew = false;
 		$scope.isDPEdit = false;
+		$scope.useEndDate = true;
+		$scope.maxDate = new Date("June 1, 2045");
+		$scope.dateFormat = "dd-MMMM-yyyy";
 		
 		// ************************ INFO AREA ************************************************************************
 		//Filters
@@ -104,7 +107,14 @@ userApplicationModule.controller('UserAdminCtrl',
 			$scope.usedDomainPermissionIds.length = 0;
 			//$scope.contentData.length = 0;
 			for (var i = 0; i < $scope.selectedUser.DomainPermissions.length; i++) {
-				var dp = { DomainPermissionId: $scope.selectedUser.DomainPermissions[i].DomainPermissionId, Label: getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId), StartDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate), EndDate: $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate) };
+
+				
+				var id = $scope.selectedUser.DomainPermissions[i].DomainPermissionId;
+				var label = getDomainPermissionLabel($scope.selectedUser.DomainPermissions[i].DomainPermissionId);
+				var startDate = $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate);
+				var	endDate = $scope.parseJsonDateValue($scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate);
+				
+				var dp = { DomainPermissionId: id, Label: label, StartDate: startDate, EndDate: endDate };
 				//alert(dp.Label);
 				$scope.contentData.push(dp);
 				$scope.usedDomainPermissionIds.push($scope.selectedUser.DomainPermissions[i].DomainPermissionId);
@@ -195,7 +205,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		// ************************ CONTENT AREA **************************************
 
 		$scope.setContentArea = function () {
-
+			
 			$scope.dtStart = new Date();
 			$scope.dtEnd = new Date();
 			$scope.dtEnd.setDate($scope.dtStart.getDate() + 5);
@@ -215,10 +225,6 @@ userApplicationModule.controller('UserAdminCtrl',
 			selectedItems: $scope.selectedDPElement,
 			multiSelect: false,
 			plugins: [new ngGridFlexibleHeightPlugin()]
-		};
-
-		$scope.parseJsonDateValue = function (dateValue) {
-			return new Date(parseInt(dateValue.substr(6)));
 		};
 		
 		$scope.addDP = function () {
@@ -270,8 +276,10 @@ userApplicationModule.controller('UserAdminCtrl',
 				$scope.dpo.DomainPermissionId = $scope.domainPermissionSelectedId;
 				$scope.dpo.ActiveTimeSpan = {};
 				$scope.dpo.ActiveTimeSpan.StartDate = $scope.dtStart;
-				$scope.dpo.ActiveTimeSpan.EndDate = $scope.dtEnd;
-
+				if ($scope.useEndDate) {
+					$scope.dpo.ActiveTimeSpan.EndDate = $scope.dtEnd;
+				}
+				
 				if (!$scope.selectedUser.DomainPermissions) {
 					$scope.selectedUser.DomainPermissions = [];
 				}
@@ -283,6 +291,11 @@ userApplicationModule.controller('UserAdminCtrl',
 					
 					if ($scope.selectedUser.DomainPermissions[i].DomainPermissionId == $scope.domainPermissionSelectedId) {
 						alert("setting date values ");
+						
+						if (!$scope.useEndDate) {
+							$scope.dtEnd = $scope.maxDate;
+						}
+						
 						$scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.StartDate = $scope.dtStart;
 						$scope.selectedUser.DomainPermissions[i].ActiveTimeSpan.EndDate = $scope.dtEnd;
 					}
@@ -324,14 +337,21 @@ userApplicationModule.controller('UserAdminCtrl',
 		};
 
 		$scope.openDtEnd = function () {
-			$timeout(function () {
-				$scope.openedDtEnd = true;
-			});
+			if ($scope.useEndDate) {
+				$timeout(function() {
+					$scope.openedDtEnd = true;
+				});
+			}
 		};
 
 		// ************************ CONTENT AREA **************************************
 
 		// TODO: Add to seperate library
+		
+		$scope.parseJsonDateValue = function (dateValue) {
+			return new Date(parseInt(dateValue.substr(6))).toString($scope.dateFormat);
+		};
+		
 		
 		var contains = function (a, obj) {
 			for (var i = 0; i < a.length; i++) {
