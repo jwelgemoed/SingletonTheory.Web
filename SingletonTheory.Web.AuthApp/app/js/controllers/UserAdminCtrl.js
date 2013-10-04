@@ -22,6 +22,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.useEndDate = true;
 		$scope.maxDate = new Date("June 1, 2045");
 		$scope.dateFormat = "dd-MMMM-yyyy";
+		$scope.isAddDomainPermissionsDisabled = true;
 		
 		// ************************ INFO AREA ************************************************************************
 		//Filters
@@ -97,6 +98,8 @@ userApplicationModule.controller('UserAdminCtrl',
 				//alert("seting grid data for " + userId);
 				//Set content grid data
 				setContentGridData();
+				//Set available domain permisions for combo
+				setAvailableDomainPermissions(-1);
 			},
 				function (error) {
 					$scope.error = error;
@@ -224,7 +227,10 @@ userApplicationModule.controller('UserAdminCtrl',
 				 { displayName: '', cellTemplate: $scope.editableDPInPopup, width: 40 }],
 			selectedItems: $scope.selectedDPElement,
 			multiSelect: false,
-			plugins: [new ngGridFlexibleHeightPlugin()]
+			plugins: [new ngGridFlexibleHeightPlugin()],
+			afterSelectionChange: function (data) {
+				
+			}
 		};
 		
 		$scope.addDP = function () {
@@ -266,6 +272,9 @@ userApplicationModule.controller('UserAdminCtrl',
 					$scope.domainPermissionsAvailable.push($scope.domainPermissions[j]);
 				}
 			}
+			$scope.domainPermissionSelectedId = $scope.domainPermissionsAvailable[0].Id;
+			$scope.isAddDomainPermissionsDisabled = !($scope.domainPermissionsAvailable.length > 0);
+			//alert("isAddDomainPermissionsDisabled: " + $scope.isAddDomainPermissionsDisabled);
 		};
 		
 		$scope.saveDP = function () {
@@ -309,6 +318,8 @@ userApplicationModule.controller('UserAdminCtrl',
 				
 				//Set content grid data
 				setContentGridData();
+				//Set available domain permisions for combo
+				setAvailableDomainPermissions(-1);
 			},
 			function (error) {
 				$scope.error = error;
