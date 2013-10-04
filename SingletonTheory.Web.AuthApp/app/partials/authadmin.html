@@ -5,22 +5,22 @@
 				<span class="label label-default btn-block st-centered" data-i18n="_ElementHeading_"></span>
 				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayElement}} <i class="icon-chevron-down icon-white"></i></button>
 				<ul class="dropdown-menu">
-					<li>
+					<li show-permission="RoleAdministration_Access">
 						<a ng-click="selectElement('_RoleHeading_')" data-i18n="_RoleHeading_"></a>
 					</li>
-					<li>
+					<li show-permission="DomainPermissionAdministration_Access">
 						<a ng-click="selectElement('_DomainPermissionHeading_')" data-i18n="_DomainPermissionHeading_"></a>
 					</li>
-					<li>
+					<li show-permission="FunctionalPermissionAdministration_Access">
 						<a ng-click="selectElement('_FunctionalPermissionHeading_')" data-i18n="_FunctionalPermissionHeading_"></a>
 					</li>
-					<li>
+					<li show-permission="PermissionAdministration_Access">
 						<a ng-click="selectElement('_PermissionHeading_')" data-i18n="_PermissionHeading_"></a>
 					</li>
 				</ul>
 			</div>
 			<div>
-				<button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
+				<button ng-show="canWrite" class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
 				&nbsp;
 					<div collapse="!isCollapsed">
 						<form class="well well-small form-inline" name="elementForm" novalidate>
@@ -41,25 +41,25 @@
 						</form>
 					</div>
 			</div>
-			<div class="gridStyle" ng-grid="elementGridOptions"></div>
+			<div  class="gridStyle" ng-grid="elementGridOptions"></div>
 		</div>
 	</div>
 	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div class="row-fluid sortme">
 			<div id="assignedContainer" class="span6 well well-small element" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
 				<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
-				<button class="btn btn-default btn-block" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
+				<button class="btn btn-default btn-block" ng-disabled="!canWrite" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
 				<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 			</div>
 			<div id="unAssignedContainer" class="span6 well well-small element" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
 				<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
-				<button class="btn btn-default btn-block" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
+				<button class="btn btn-default btn-block" ng-disabled="!canWrite" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
 				<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
 			</div>
 		</div>
 		<div data-ng-hide="hideSublevels" class="pull-right">
 			<button class="btn btn-default" ng-disabled="madeSubListChanges" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
-			<button type="button" class="btn btn-warning" ng-click="cancelSubElementEdit()" data-i18n="_CancelHeading_"></button>
+			<button type="button" ng-disabled="!canWrite" class="btn btn-warning" ng-click="cancelSubElementEdit()" data-i18n="_CancelHeading_"></button>
 		</div>
 	</div>
 </div>

@@ -3,11 +3,11 @@
 userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminRoleResource', 'AuthAdminDomainPermissionsResource',
 	'AuthAdminDomainPermissionResource', 'AuthAdminFunctionalPermissionsResource', 'AuthAdminFunctionalPermissionResource', 'AuthAdminPermissionsResource',
 	'AuthAdminPermissionResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
-	'AuthAdmiFunctionalPermissionPermissionsResource','localize',
+	'AuthAdmiFunctionalPermissionPermissionsResource','localize', 'AuthService',
 	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminRoleResource, AuthAdminDomainPermissionsResource,
 		AuthAdminDomainPermissionResource, AuthAdminFunctionalPermissionsResource, AuthAdminFunctionalPermissionResource, AuthAdminPermissionsResource,
 		AuthAdminPermissionResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
-		AuthAdmiFunctionalPermissionPermissionsResource,localize) {
+		AuthAdmiFunctionalPermissionPermissionsResource, localize, AuthService) {
 
 		$scope.madeSubListChanges = true;
 
@@ -20,6 +20,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		});
 
 		$scope.isCollapsed = false;
+
+		$scope.canWrite = true;
 
 		$scope.selectedElement = [];
 
@@ -37,7 +39,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.hideSublevels = true;
 
-		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
+		$scope.editableInPopup = '<button type="button" ng-disabled="!canWrite" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
 		$scope.sortHeading = '';
 
@@ -140,10 +142,34 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.selectElement = function (elementName) {
 			$scope.element = elementName;
+			SetReadWrite();
 			$scope.displayElement = localize.getLocalizedString(elementName);
 			$scope.hideSublevels = true;
 			getElementData();
 		};
+
+		function SetReadWrite() {
+			var permissionRequired = '';
+			switch ($scope.element) {
+				case '_RoleHeading_':
+					permissionRequired = 'RoleAdministration_Write';
+					break;
+				case '_DomainPermissionHeading_':
+					permissionRequired = 'DomainPermissionAdministration_Write';
+					break;
+				case '_FunctionalPermissionHeading_':
+					permissionRequired = 'FunctionalPermissionAdministration_Write';
+					break;
+				case '_PermissionHeading_':
+					permissionRequired = 'PermissionAdministration_Write';
+					break;
+			}
+			AuthService.authorize(function () {
+				$scope.canWrite = true;
+			}, function () {
+				$scope.canWrite = false;
+			},permissionRequired);
+		}
 
 		$scope.isBasePermission = function () {
 			switch ($scope.element) {

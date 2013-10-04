@@ -10,7 +10,35 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	var defaultUser = { UserName: 'Guest', Language: 'nl-nl', Roles: ['public'] };
 	//var userFunctionalPermissions = ['General_Access'];
 	//IMPORTANT NOTE: General access should be given to all users
-	var userFunctionalPermissions = ['General_Access', 'Administrator_Access', 'UserAdministration_Access', 'AuthorizationAdministration_Access'];
+	var userFunctionalPermissions = [
+	'General_Access',
+	'Administrator_Access',
+	'UserAdministration_Access',
+	'AuthorizationAdministration_Access',
+	'RoleAdministration_Access',
+	'DomainPermissionAdministration_Access',
+	'FunctionalPermissionAdministration_Access',
+	'PermissionAdministration_Access',
+	'RoleAdministration_Write',
+	'DomainPermissionAdministration_Write',
+	'FunctionalPermissionAdministration_Write',
+	'PermissionAdministration_Write'
+	];
+
+	/*
+	RoleAdministration_Access
+	DomainPermissionAdministration_Access
+	FunctionalPermissionAdministration_Access
+	PermissionAdministration_Access
+	RoledAdministration_Read
+	RoleAdministration_Write
+	DomainPermissionAdministration_Read
+	DomainPermissionAdministration_Write
+	FunctionalPermissionAdministration_Read
+	FunctionalPermissionAdministration_Write
+	PermissionAdministration_Read
+	PermissionAdministration_Write
+	*/
 
 	function setCurrentUser(success, error) {
 		$http.get('/authapi/currentuser').success(function (response) {
@@ -44,7 +72,7 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	}
 
 	function doAuthorize(success, error, accessPermission) {
-		var authorized = (userFunctionalPermissions.indexOf(accessPermission) > -1 );
+		var authorized = (userFunctionalPermissions.indexOf(accessPermission) > -1);
 		if (authorized) {
 			success();
 		}
