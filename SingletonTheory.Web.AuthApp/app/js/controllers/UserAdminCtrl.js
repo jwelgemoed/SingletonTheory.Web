@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('UserAdminCtrl',
-	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource) {
+	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', 'AuthService', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource, AuthService) {
 
 		//info
 		$scope.loading = true;
@@ -9,6 +9,10 @@ userApplicationModule.controller('UserAdminCtrl',
 		$scope.activeFilterDescriptions = 'true'; //Set the default
 		$scope.Language = 'nl-nl';
 		$scope.userRole = '1';
+		$scope.canCreateUser = false;
+		$scope.canUpdateUser = false;
+		$scope.canCreateDomainPermissionLink = false;
+		$scope.canUpdateDomainPermissionLink = false;
 		
 		
 		//Content area
@@ -34,6 +38,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		//********** init **********
 		$scope.init = function () {
 			$scope.refresh();
+			setCreateUpdate();
 			$scope.loadRoles();
 		};
 		
@@ -45,6 +50,29 @@ userApplicationModule.controller('UserAdminCtrl',
 				$scope.loading = false;
 			});
 		};
+		
+		function setCreateUpdate() {
+			AuthService.authorize(function () {
+				$scope.canCreateUser = true;
+			}, function () {
+				$scope.canCreateUser = false;
+			}, 'UserAdministrationUser_Create');
+			AuthService.authorize(function () {
+				$scope.canUpdateUser = true;
+			}, function () {
+				$scope.canUpdateUser = false;
+			}, 'UserAdministrationUser_Update');
+			AuthService.authorize(function () {
+				$scope.canCreateDomainPermissionLink = true;
+			}, function () {
+				$scope.canCreateDomainPermissionLink = false;
+			}, 'UserAdministrationDomainPermissionLink_Create');
+			AuthService.authorize(function () {
+				$scope.canUpdateDomainPermissionLink = true;
+			}, function () {
+				$scope.canUpdateDomainPermissionLink = false;
+			}, 'UserAdministrationDomainPermissionLink_Update');
+		}
 
 		//========== load roles ==========
 		$scope.loadRoles = function () {
@@ -63,7 +91,7 @@ userApplicationModule.controller('UserAdminCtrl',
 		};
 		
 		// ******** info area grid *************************
-		$scope.editableInPopup = '<button type="button" class="btn btn-default" ng-click="editUser(row)"><i class="icon-edit icon-black"></i></button> ';
+		$scope.editableInPopup = '<button type="button" ng-disabled="!canUpdateUser"  class="btn btn-default" ng-click="editUser(row)"><i class="icon-edit icon-black"></i></button> ';
 		$scope.lastRowId = 0;
 		
 		$scope.userGridOptions = {
@@ -215,7 +243,7 @@ userApplicationModule.controller('UserAdminCtrl',
 
 		};
 
-		$scope.editableDPInPopup = '<button type="button" class="btn btn-default" ng-click="editDP(row)"><i class="icon-edit icon-black"></i></button> ';
+		$scope.editableDPInPopup = '<button type="button" ng-disabled="!canUpdateDomainPermissionLink"   class="btn btn-default" ng-click="editDP(row)"><i class="icon-edit icon-black"></i></button> ';
 
 		$scope.dpGridOptions = {
 			data: 'contentData',

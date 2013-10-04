@@ -21,10 +21,19 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	'DomainPermissionAdministration_Access',
 	'FunctionalPermissionAdministration_Access',
 	'PermissionAdministration_Access',
-	'RoleAdministration_Write',
-	'DomainPermissionAdministration_Write',
-	'FunctionalPermissionAdministration_Write',
-	'PermissionAdministration_Write'
+	'RoleAdministration_Create',
+	'DomainPermissionAdministration_Create',
+	'FunctionalPermissionAdministration_Create',
+	'PermissionAdministration_Create',
+	'RoleAdministration_Update',
+	'DomainPermissionAdministration_Update',
+	'FunctionalPermissionAdministration_Update',
+	'PermissionAdministration_Update',
+	/*User Admin Screen*/
+	'UserAdministrationUser_Create',
+	'UserAdministrationDomainPermissionLink_Create',
+	'UserAdministrationUser_Update',
+	'UserAdministrationDomainPermissionLink_Update'
 	];
 
 	function setCurrentUser(success, error) {
