@@ -23,32 +23,32 @@
 		<div class="navbar-inner">
 			<a class="brand" href="/">{{appName}}</a>
 			<ul class="nav">
-				<li data-access-level="accessLevels.user" active-nav>
+				<li show-permission="General_Access" active-nav>
 					<a data-i18n="_HomeAnchor_" href="/"></a>
 				</li>
-				<li id="adminActionsMenu" data-access-level="accessLevels.admin" active-nav>
+				<li id="adminActionsMenu" show-permission="Administrator_Access" active-nav>
 					<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle" data-i18n="_AdminActionsAnchor_">
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li data-access-level="accessLevels.admin" active-nav>
+						<li show-permission="UserAdministration_Access" active-nav>
 							<a id="adminUsersMenuItem" href="/useradmin" data-i18n="_AdministrateUsersHeading_"></a>
 						</li>
-						<li data-access-level="accessLevels.admin" active-nav>
+						<li show-permission="AuthorizationAdministration_Access"  active-nav>
 							<a id="authAdminMenuItem" href="/auth/authadmin" data-i18n="_AuthAdminHeading_"></a>
 						</li>
 					</ul>
 				</li>
 			</ul>
 			<ul class="nav pull-right">
-				<li data-access-level="accessLevels.anon" active-nav>
+				<li show-permission="Guest_Access" active-nav>
 					<a href="/login" data-i18n="_LogInHeading_"></a>
 				</li>
-				<li id="logoutButtonContainer" data-access-level="accessLevels.user">
+				<li id="logoutButtonContainer" show-permission="General_Access">
 					<a id="logoutButton" href="" data-ng-click="logout()" data-i18n="_LogOutAnchor_"></a>
 				</li>
 				<li>
-					<div id="userInfo" data-access-level="accessLevels.user" class="pull-right">
+					<div id="userInfo" show-permission="General_Access" class="pull-right">
 						<span data-i18n="_UserWelcomeMessage_"></span>&nbsp;
 						<strong>{{ user.UserName }}&nbsp;</strong>
 						<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
@@ -62,9 +62,9 @@
 					<li ng-repeat="breadcrumb in breadcrumbs.getAll()">
 						<span class="divider">/</span>
 						<ng-switch on="$last">
-						<span ng-switch-when="true">{{breadcrumb.name}}</span>
-						<span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
-					</ng-switch>
+							<span ng-switch-when="true">{{breadcrumb.name}}</span>
+							<span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
+						</ng-switch>
 					</li>
 				</ul>
 			</div>
@@ -107,12 +107,13 @@
 	<script src="/js/directives/BlurDirective.js"></script>
 	<script src="/js/directives/FocusDirective.js"></script>
 	<script src="/js/directives/ResizeDirective.js"></script>
-	<script src="/js/directives/AccessLevelDirective.js"></script>
 	<script src="/js/directives/ActiveNavDirective.js"></script>
 	<script src="/js/directives/ValidatedInputDirective.js"></script>
 	<script src="/js/services/LocalizationService.js"></script>
 	<script src="/js/directives/LocalizationDirective.js"></script>
 	<script src="/js/directives/LocalizationAttributeDirective.js"></script>
+	<script src="/js/directives/ShowPermissionDirective.js"></script>
+	<script src="/js/directives/EnablePermissionDirective.js"></script>
 	<script src="/js/filters/LocalizationFilter.js"></script>
 	<script src="/js/filters/StringFormatFilter.js"></script>
 	<script src="/js/services/AuthAdminService.js"></script>

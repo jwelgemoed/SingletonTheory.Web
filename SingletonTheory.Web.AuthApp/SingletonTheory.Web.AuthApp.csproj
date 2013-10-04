@@ -65,13 +65,14 @@
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
     <Content Include="app\js\controllers\UserAdminCtrl.js" />
-    <Content Include="app\js\directives\AccessLevelDirective.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
     <Content Include="app\js\directives\BlurDirective.js" />
+    <Content Include="app\js\directives\EnablePermissionDirective.js" />
     <Content Include="app\js\directives\FocusDirective.js" />
     <Content Include="app\js\directives\LocalizationAttributeDirective.js" />
     <Content Include="app\js\directives\LocalizationDirective.js" />
     <Content Include="app\js\directives\ResizeDirective.js" />
+    <Content Include="app\js\directives\ShowPermissionDirective.js" />
     <Content Include="app\js\directives\ValidatedInputDirective.js" />
     <Content Include="app\js\directives\ValidationDirective.js" />
     <Content Include="app\js\filters\LocalizationFilter.js" />
