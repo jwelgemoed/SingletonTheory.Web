@@ -10,10 +10,13 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	var defaultUser = { UserName: 'Guest', Language: 'nl-nl', Roles: ['public'] };
 	//IMPORTANT NOTE: General access should be given to all users
 	var userFunctionalPermissions = [
+		/*All screens and items accessible by all users*/
 	'General_Access',
+		/*Navbar*/
 	'Administrator_Access',
 	'UserAdministration_Access',
 	'AuthorizationAdministration_Access',
+		/*Auth Admin Screen*/
 	'RoleAdministration_Access',
 	'DomainPermissionAdministration_Access',
 	'FunctionalPermissionAdministration_Access',
