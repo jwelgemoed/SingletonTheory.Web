@@ -46,12 +46,12 @@
 	</div>
 	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div class="row-fluid sortme">
-			<div id="assignedContainer" class="span6 well well-small element" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
+			<div id="assignedContainer" class="span6 well well-small element scrollVertical" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
 				<span class="label label-default btn-block st-centered">{{AssignedHeader}}</span>
 				<button class="btn btn-default btn-block" ng-disabled="!canUpdate" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
 				<div class="gridStyle" ng-grid="assignedGridOptions"></div>
 			</div>
-			<div id="unAssignedContainer" class="span6 well well-small element" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
+			<div id="unAssignedContainer" class="span6 well well-small element scrollVertical" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
 				<span class="label label-default btn-block st-centered">{{UnAssignedHeader}}</span>
 				<button class="btn btn-default btn-block" ng-disabled="!canUpdate" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
 				<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
