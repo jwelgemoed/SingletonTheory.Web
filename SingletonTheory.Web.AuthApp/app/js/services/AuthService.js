@@ -8,7 +8,6 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	var accessLevels = routingConfig.accessLevels, userRoles = routingConfig.userRoles;
 	var currentUser;
 	var defaultUser = { UserName: 'Guest', Language: 'nl-nl', Roles: ['public'] };
-	//var userFunctionalPermissions = ['General_Access'];
 	//IMPORTANT NOTE: General access should be given to all users
 	var userFunctionalPermissions = [
 	'General_Access',
@@ -24,21 +23,6 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	'FunctionalPermissionAdministration_Write',
 	'PermissionAdministration_Write'
 	];
-
-	/*
-	RoleAdministration_Access
-	DomainPermissionAdministration_Access
-	FunctionalPermissionAdministration_Access
-	PermissionAdministration_Access
-	RoledAdministration_Read
-	RoleAdministration_Write
-	DomainPermissionAdministration_Read
-	DomainPermissionAdministration_Write
-	FunctionalPermissionAdministration_Read
-	FunctionalPermissionAdministration_Write
-	PermissionAdministration_Read
-	PermissionAdministration_Write
-	*/
 
 	function setCurrentUser(success, error) {
 		$http.get('/authapi/currentuser').success(function (response) {
