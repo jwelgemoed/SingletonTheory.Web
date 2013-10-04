@@ -45,8 +45,8 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 				currentUser = response;
 			}
 
-			//userFunctionalPermissions.length = 0;
-			//userFunctionalPermissions = response.Permissions;
+			userFunctionalPermissions.length = 0;
+			userFunctionalPermissions = response.Permissions;
 			
 			localize.setLanguage(currentUser.Language);
 
