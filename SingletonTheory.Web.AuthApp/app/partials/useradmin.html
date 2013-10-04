@@ -76,7 +76,7 @@
 								<br />
 							</div>
 							<div class="form-horizontal">
-								<input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dtStart" is-open="openedDtStart" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+								<input type="text" datepicker-popup="dd-MMMM-yyyy"  datepicker-append-to-body="true" ng-model="dtStart" is-open="openedDtStart" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
 								<button class="btn" ng-click="openDtStart()"><i class="icon-calendar"></i></button>
 							</div>
 							<div class="form-horizontal" data-ng-show="useEndDate">
