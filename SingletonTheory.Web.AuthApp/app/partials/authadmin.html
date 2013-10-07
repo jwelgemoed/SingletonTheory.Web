@@ -42,6 +42,14 @@
 					</div>
 			</div>
 			<div  class="gridStyle" ng-grid="elementGridOptions"></div>
+		<!--	<table ng-table class="table">
+				<tr ng-repeat="element in elementDictionary">
+					<td data-title="'Name'" sortable="user">
+						{{element.Label}}
+					</td>
+					<td data-title="'Edit'"><button type="button" ng-disabled="!canUpdate" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button></td>
+				</tr>
+			</table>-->
 		</div>
 	</div>
 	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
