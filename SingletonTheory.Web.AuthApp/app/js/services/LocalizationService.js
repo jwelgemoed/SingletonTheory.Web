@@ -24,7 +24,7 @@ localizationModule
 			// success handler for all server communication
 			successCallback: function (data) {
 				// store the returned array in the dictionary
-				localize.dictionary = data.LocalizationItems;
+				localize.dictionary = data.LocalizationData;
 				// set the flag that the resource are loaded
 				localize.resourceFileLoaded = true;
 				// broadcast that the file has been loaded
