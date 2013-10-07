@@ -37,6 +37,12 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 				controller: 'AuthAdminCtrl',
 				access: 'AuthorizationAdministration_Access'
 			});
+	$routeProvider.when('/auth/localeadmin',
+		{
+			templateUrl: '/partials/localeadmin.html',
+			controller: 'LocaleAdminCtrl',
+			access: 'LocaleAdministration_Access'
+		});
 	//$routeProvider.when('/users/:Id',
 	//		{
 	//			templateUrl: '/partials/userdetail.html',

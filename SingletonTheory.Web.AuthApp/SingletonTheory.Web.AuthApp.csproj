@@ -63,6 +63,7 @@
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers\AuthAdminCtrl.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
+    <Content Include="app\js\controllers\LocaleAdminCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
     <Content Include="app\js\controllers\UserAdminCtrl.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
@@ -121,6 +122,7 @@
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.6.0.min.js" />
     <Content Include="app\partials\authadmin.html" />
     <Content Include="app\partials\header.html" />
+    <Content Include="app\partials\localeadmin.html" />
     <Content Include="app\partials\notifications.html" />
     <Content Include="app\partials\useradmin.html" />
     <Content Include="config\karma.e2e.conf.js" />
