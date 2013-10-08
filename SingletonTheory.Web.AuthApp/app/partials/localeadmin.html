@@ -1,6 +1,43 @@
-﻿<div class="row-fluid sortme">
+﻿<div class="row-fluid sortme" ng-init="init()">
 	<div id="infoContainer" class="span4 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div class="dropdown">
+				<span class="label label-default btn-block st-centered" data-i18n="_LocaleTypeHeading_"></span>
+				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayLocalizationType}} <i class="icon-chevron-down icon-white"></i></button>
+				<ul class="dropdown-menu">
+					<li>
+						<a ng-click="selectType('_LocaleHeading_')" data-i18n="_LocaleHeading_"></a>
+					</li>
+					<li>
+						<a ng-click="selectType('_LocaleKeyHeading_')" data-i18n="_LocaleKeyHeading_"></a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<button ng-show="canCreate" class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
+				&nbsp;
+					<div collapse="!isCollapsed">
+						<form class="well well-small form-inline" name="localeTypeForm" novalidate>
+							<div class="controls">
+								<st-input label-name="_LocaleKeyNameHeading_" st-hide="!isKey">
+										<input id="localeKeyNameInputId" type="text" data-ng-model="Name" name="localeKeyNameInput" ng-required="isKey" ng-minlength="5" ng-maxlength="60" />
+									</st-input>
+								<st-input label-name="_LocaleKeyValueHeading_" st-hide="!isKey">
+									<input id="localeKeyValueInputId" type="text" data-ng-model="Label" name="localeKeyValueInput" ng-required="isKey" ng-minlength="5" ng-maxlength="60"  />
+								</st-input>
+								<st-input label-name="_LocaleKeyDescriptionHeading_"st-hide="!isKey">
+										<input id="localeKeyDescriptionInputId" type="text" data-ng-model="Label2" name="localeKeyDescriptionInput" ng-required="isKey" ng-minlength="5" ng-maxlength="250"  />
+									</st-input>
+								<st-input label-name="_LocaleCodeHeading_" st-hide="isKey">
+											<input id="localeCodeHeadingInputId" type="text" data-ng-model="Description" name="localeCodeHeadingInput" ng-required="!isKey" ng-minlength=2 ng-maxlength="5" />
+									</st-input>
+								<br />
+								<button class="btn btn-default" ng-disabled="localeTypeForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
+								<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+							</div>
+						</form>
+					</div>
+			</div>
 		</div>
 	</div>
 	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">

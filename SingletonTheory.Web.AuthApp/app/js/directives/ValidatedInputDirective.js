@@ -32,8 +32,8 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 
 			element.prepend($compile(labelHtml)(scope));
 
-			if (attrs.ngHide !== undefined) {
-				scope.$parent.$watch(attrs.ngHide, function (hideValue) {
+			if (attrs.stHide !== undefined) {
+				scope.$parent.$watch(attrs.stHide, function (hideValue) {
 					if (hideValue) {
 						element.hide();
 					} else {
