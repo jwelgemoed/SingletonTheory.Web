@@ -7,12 +7,27 @@
  * http://codingsmackdown.tv
  *
  */
-var localizationModule = angular.module('localization', []);
+var localizationModule = angular.module('localization', ['ngResource']);
+
+localizationModule.factory('LocalizationDictionaryResource', function ($resource) {
+	return $resource('/localize/:locale', {},
+	{
+		get: { method: 'GET', params: {}, isArray: false }
+	});
+});
+
+localizationModule.factory('LocalizationKeyDictionaryResource', function ($resource) {
+	return $resource('/localize/keys/:key', {},
+	{
+		get: { method: 'GET', params: {}, isArray: false }
+	});
+});
 
 localizationModule
 	// localization service responsible for retrieving resource files from the server and
 	// managing the translation dictionary
-	.factory('localize', ['$http', '$rootScope', '$window', '$filter', 'dynamicLocale', function ($http, $rootScope, $window, $filter, dynamicLocale) {
+	.factory('localize', ['$http', '$rootScope', '$window', '$filter', 'dynamicLocale', 'LocalizationDictionaryResource', 'LocalizationKeyDictionaryResource',
+		function ($http, $rootScope, $window, $filter, dynamicLocale, LocalizationDictionaryResource) {
 		var localize = {
 			// use the $window service to get the language of the user's browser
 			language: '',
@@ -41,10 +56,15 @@ localizationModule
 			initLocalizedResources: function () {
 				if (localize.language != '') {
 					// request the resource file
-					$http.get('/localize/' + localize.language).success(localize.successCallback).error(function() {
+					LocalizationDictionaryResource.get({ locale: localize.language }, localize.successCallback, function () {
 						// request the default resource file
-						$http.get('/localize/default').success(localize.successCallback).error(error);
+						LocalizationDictionaryResource.get({ locale: 'default' }, localize.successCallback, error);
 					});
+					
+					//$http.get('/localize/' + localize.language).success(localize.successCallback).error(function() {
+					//	// request the default resource file
+					//	$http.get('/localize/default').success(localize.successCallback).error(error);
+					//});
 					dynamicLocale.set(localize.language);
 				}
 			},
