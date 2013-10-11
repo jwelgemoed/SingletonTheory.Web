@@ -16,13 +16,16 @@ userApplicationModule.controller('LocaleAdminCtrl',
 
 			$scope.subElementSource = [];
 
+			$scope.newSubElement = new LocalizationKeyDictionaryResource();
+
 			$scope.sortHeading = localize.getLocalizedString('_SortHeading_');
 			$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
 			$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
 			$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
+			$scope.editableInPopup = '<button type="button" ng-disabled="!canUpdate" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 			
-			$scope.mainColumnDefs = [{ field: 'Label', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
-			$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading }, { field: 'Value', displayName: $scope.valueHeading }, { field: 'Description', displayName: $scope.descriptionHeading }];
+			$scope.mainColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+			$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
 
 			$scope.$on('localizeResourcesUpdates', function () {
 				$scope.displayLocalizationType = localize.getLocalizedString($scope.localizationType);
@@ -31,10 +34,8 @@ userApplicationModule.controller('LocaleAdminCtrl',
 				$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
 				$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
 				$scope.mainColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
-				$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading }, { field: 'Value', displayName: $scope.valueHeading }, { field: 'Description', displayName: $scope.descriptionHeading }];
+				$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
 			});
-
-			$scope.editableInPopup = '<button type="button" ng-disabled="!canUpdate" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
 
 			$scope.typeGridOptions = {
 				data: 'defaultLocaleDictionary',
@@ -50,6 +51,9 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			$scope.valueGridOptions = {
 				data: 'subElementSource.KeyValues',
 				columnDefs: 'valueColumDefs',
+				enableCellSelection: true,
+				enableRowSelection: false,
+				enableCellEdit: true,
 				//		selectedItems: $scope.selectedElement,
 				multiSelect: false,
 				plugins: [new ngGridFlexibleHeightPlugin()],
@@ -72,6 +76,36 @@ userApplicationModule.controller('LocaleAdminCtrl',
 				return ($scope.localizationType === '_LocaleKeyHeading_');
 			};
 
+			$scope.saveSubElements = function () {
+				$scope.subElementSource.$update({ key: $scope.selectedElement[0].Key }, function (result) {
+				//todo Successfunction
+				}, function (err) { $scope.error = err; }
+						);
+			};
+
+			$scope.saveType = function () {
+				$scope.subElementSource = $scope.newSubElement;
+				$scope.newSubElement = new LocalizationKeyDictionaryResource();
+				$scope.subElementSource.$add({ key: $scope.subElementSource.Key }, function (result) {
+					getElementData();
+					expandCollapse();
+				}, function (err) { $scope.error = err; }
+					);
+			};
+
+			function expandCollapse() {
+				$scope.isCollapsed = !$scope.isCollapsed;
+			}
+
+			$scope.addType = function () {
+				expandCollapse();
+			}; 
+
+			$scope.cancelTypeSave = function () {
+				$scope.newSubElement = new LocalizationKeyDictionaryResource();
+				expandCollapse();
+			};
+
 			function fireSubSelection() {
 				if ($scope.selectedElement.length > 0) {
 					setElementSubLists($scope.selectedElement[0].Key);
@@ -82,8 +116,6 @@ userApplicationModule.controller('LocaleAdminCtrl',
 				switch ($scope.localizationType) {
 					case '_LocaleKeyHeading_':
 						$scope.subElementSource.$get({ key: element }, function (result) {
-							//$scope.defaultLocaleDictionary = result.LocalizationData;
-							var x = result;
 							//selectFirst(result);
 						}, function (err) { $scope.error = err; }
 						);
@@ -96,7 +128,7 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			function getElementData() {
 				switch ($scope.localizationType) {
 					case '_LocaleKeyHeading_':
-						LocalizationDictionaryResource.get({ locale: 'default' }, function (result) {
+						LocalizationDictionaryResource.query({}, function (result) {
 							$scope.defaultLocaleDictionary = result.LocalizationData;
 							$scope.subElementSource = new LocalizationKeyDictionaryResource();
 							//selectFirst(result);
