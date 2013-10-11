@@ -84,6 +84,12 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			};
 
 			$scope.saveType = function () {
+				if ($scope.newSubElement.Key.substr(0, 1) != '_') {
+					$scope.newSubElement.Key = '_' + $scope.newSubElement.Key;
+				}
+				if ($scope.newSubElement.Key.substr($scope.newSubElement.Key.length - 1, 1) != '_') {
+					$scope.newSubElement.Key = $scope.newSubElement.Key + '_';
+				}
 				$scope.subElementSource = $scope.newSubElement;
 				$scope.newSubElement = new LocalizationKeyDictionaryResource();
 				$scope.subElementSource.$add({ key: $scope.subElementSource.Key }, function (result) {
