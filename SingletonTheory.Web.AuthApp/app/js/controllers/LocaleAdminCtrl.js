@@ -22,7 +22,7 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
 			$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
 			$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
-			$scope.editableInPopup = '<button type="button" ng-disabled="!canUpdate" class="btn btn-default" ng-click="editElement(row)"><i class="icon-edit icon-black"></i></button> ';
+			$scope.editableInPopup = '<button type="button"  class="btn btn-default" ng-click="deleteElement(row)"><i class="icon-remove-sign icon-black" style="color:red!important"></i></button> ';
 			
 			$scope.mainColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
 			$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
@@ -48,18 +48,24 @@ userApplicationModule.controller('LocaleAdminCtrl',
 				}
 			};
 
+			$scope.deleteElement = function (row) {
+				var confirmed = confirm(localize.getLocalizedString('_DeleteConfirmMessage_'));
+				if (confirmed) {
+					$scope.subElementSource.$remove({ key: row.entity.Key }, function () {
+						getElementData();
+					}, function (err) { $scope.error = err; }
+				);
+				}
+			}; 
+
 			$scope.valueGridOptions = {
 				data: 'subElementSource.KeyValues',
 				columnDefs: 'valueColumDefs',
 				enableCellSelection: true,
 				enableRowSelection: false,
 				enableCellEdit: true,
-				//		selectedItems: $scope.selectedElement,
 				multiSelect: false,
-				plugins: [new ngGridFlexibleHeightPlugin()],
-				afterSelectionChange: function (data) {
-					//		fireSubSelection();
-				}
+				plugins: [new ngGridFlexibleHeightPlugin()]
 			};
 
 			$scope.init = function () {

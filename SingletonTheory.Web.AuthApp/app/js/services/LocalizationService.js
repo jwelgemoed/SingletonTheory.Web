@@ -22,7 +22,8 @@ localizationModule.factory('LocalizationKeyDictionaryResource', function ($resou
 	{
 		get: { method: 'GET', params: {}, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
-		update: { method: 'PUT', params: {}, isArray: false }
+		update: { method: 'PUT', params: {}, isArray: false },
+		remove: {method: 'DELETE', params: {}, isArray:false }
 	});
 });
 
