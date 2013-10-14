@@ -17,6 +17,13 @@ localizationModule.factory('LocalizationDictionaryResource', function ($resource
 	});
 });
 
+localizationModule.factory('LocalizationLocaleCollectionResource', function ($resource) {
+	return $resource('/localize/locales', {},
+	{
+		query: { method: 'GET', params: {}, isArray: false }
+	});
+});
+
 localizationModule.factory('LocalizationKeyDictionaryResource', function ($resource) {
 	return $resource('/localize/keys/:key', {},
 	{

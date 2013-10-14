@@ -1,13 +1,13 @@
 ﻿'use strict';
 
 userApplicationModule.controller('LocaleAdminCtrl',
-	['$rootScope', '$scope', 'localize', 'AuthService', 'LocalizationDictionaryResource', 'LocalizationKeyDictionaryResource',
-		function ($rootScope, $scope, localize, AuthService, LocalizationDictionaryResource, LocalizationKeyDictionaryResource) {
+	['$rootScope', '$scope', 'localize', 'AuthService', 'LocalizationDictionaryResource', 'LocalizationKeyDictionaryResource', 'LocalizationLocaleCollectionResource',
+		function ($rootScope, $scope, localize, AuthService, LocalizationDictionaryResource, LocalizationKeyDictionaryResource, LocalizationLocaleCollectionResource) {
 
 			$scope.localizationType = '_LocaleKeyHeading_';
 			$scope.displayLocalizationType = '';
 
-			$scope.defaultLocaleDictionary = '';
+			$scope.typeDictionary = '';
 
 			$scope.canCreate = true;
 			$scope.isCollapsed = false;
@@ -23,8 +23,9 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
 			$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
 			$scope.editableInPopup = '<button type="button"  class="btn btn-default" ng-click="deleteElement(row)"><i class="icon-remove-sign icon-black" style="color:red!important"></i></button> ';
+
+			setMainHeadings();
 			
-			$scope.mainColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
 			$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
 
 			$scope.$on('localizeResourcesUpdates', function () {
@@ -33,12 +34,23 @@ userApplicationModule.controller('LocaleAdminCtrl',
 				$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
 				$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
 				$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
-				$scope.mainColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+				setMainHeadings();
 				$scope.valueColumDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
 			});
 
+			function setMainHeadings() {
+				switch ($scope.localizationType) {
+					case '_LocaleKeyHeading_':
+						$scope.mainColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+						break;
+					case '_LocaleHeading_':
+						$scope.mainColumnDefs = [{ field: 'LocaleKey', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+						break;
+				}
+			}
+
 			$scope.typeGridOptions = {
-				data: 'defaultLocaleDictionary',
+				data: 'typeDictionary',
 				columnDefs: 'mainColumnDefs',
 				selectedItems: $scope.selectedElement,
 				multiSelect: false,
@@ -138,17 +150,23 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			}
 
 			function getElementData() {
+				setMainHeadings();
 				switch ($scope.localizationType) {
 					case '_LocaleKeyHeading_':
 						LocalizationDictionaryResource.query({}, function (result) {
-							$scope.defaultLocaleDictionary = result.LocalizationData;
+							$scope.typeDictionary = result.LocalizationData;
 							$scope.subElementSource = new LocalizationKeyDictionaryResource();
 							//selectFirst(result);
 						}, function (err) { $scope.error = err; }
 						);
 						break;
 					case '_LocaleHeading_':
-
+						LocalizationLocaleCollectionResource.query({}, function (result) {
+							$scope.typeDictionary = result.Locales;
+							//$scope.subElementSource = new LocalizationKeyDictionaryResource();
+							//selectFirst(result);
+						}, function (err) { $scope.error = err; }
+						);
 
 						break;
 				}
