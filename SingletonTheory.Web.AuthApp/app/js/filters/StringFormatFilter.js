@@ -14,8 +14,8 @@ userApplicationModule.filter('stringFormat', function () {
 
 		for (var i = 0; ; ) {
 			// Find the next opening or closing brace
-			var open = format.indexOf('{', i);
-			var close = format.indexOf('}', i);
+			var open = format.indexOf('<', i);
+			var close = format.indexOf('>', i);
 			if ((open < 0) && (close < 0)) {
 				// Not found: copy the end of the string and break
 				result += format.slice(i);
@@ -23,7 +23,7 @@ userApplicationModule.filter('stringFormat', function () {
 			}
 			if ((close > 0) && ((close < open) || (open < 0))) {
 
-				if (format.charAt(close + 1) !== '}') {
+				if (format.charAt(close + 1) !== '>') {
 					throw new Error('format stringFormatBraceMismatch');
 				}
 
@@ -37,7 +37,7 @@ userApplicationModule.filter('stringFormat', function () {
 			i = open + 1;
 
 			// Check for double braces (which display as one and are not arguments)
-			if (format.charAt(i) === '{') {
+			if (format.charAt(i) === '<') {
 				result += '{';
 				i++;
 				continue;
