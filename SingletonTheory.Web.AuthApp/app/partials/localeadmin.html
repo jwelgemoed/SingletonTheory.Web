@@ -6,15 +6,16 @@
 				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayLocalizationType}} <i class="icon-chevron-down icon-white"></i></button>
 				<ul class="dropdown-menu">
 					<li>
-						<a ng-click="selectType('_LocaleKeyHeading_')" data-i18n="_LocaleKeyHeading_"></a>
+						<a  show-permission="LocaleKeyAdministration_Access" ng-click="selectType('_LocaleKeyHeading_')" data-i18n="_LocaleKeyHeading_"></a>
 					</li>
 					<li>
-						<a ng-click="selectType('_LocaleHeading_')" data-i18n="_LocaleHeading_"></a>
+						<a show-permission="LocaleAdministration_Access" ng-click="selectType('_LocaleHeading_')" data-i18n="_LocaleHeading_"></a>
 					</li>
 				</ul>
 			</div>
 			<div>
-				<button ng-show="canCreate" class="btn btn-default" ng-click="addType()"><i class="icon-plus-sign icon-white"></i></button>
+				<button ng-hide="!isKeyEdit" ng-disabled="!canCreateKeys" class="btn btn-default" ng-click="addType()"><i class="icon-plus-sign icon-white"></i></button>
+					<button ng-hide="isKeyEdit" ng-disabled="!canCreateLocales" class="btn btn-default" ng-click="addType()"><i class="icon-plus-sign icon-white"></i></button>
 				&nbsp;
 				<div collapse="!isCollapsed">
 					<form class="well well-small form-inline" name="localeTypeForm" novalidate>
@@ -43,7 +44,8 @@
 			<div ng-hide="isKeyEdit" class="gridStyle" ng-grid="localeValueGridOptions"></div>
 		</div>
 		<div class="pull-right">
-			<button class="btn btn-default" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
+			<button ng-hide="!isKeyEdit" ng-disabled="!canEditKeys"   class="btn btn-default" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
+			<button ng-hide="isKeyEdit" ng-disabled="!canEditLocales" class="btn btn-default" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
 		</div>
 	</div>
 </div>

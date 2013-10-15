@@ -4,8 +4,15 @@ userApplicationModule.controller('LocaleAdminCtrl',
 	['$rootScope', '$scope', 'localize', 'AuthService', 'LocalizationDictionaryResource', 'LocalizationKeyDictionaryResource', 'LocalizationLocaleCollectionResource',
 		function ($rootScope, $scope, localize, AuthService, LocalizationDictionaryResource, LocalizationKeyDictionaryResource, LocalizationLocaleCollectionResource) {
 
-			$scope.localizationType = '_LocaleKeyHeading_';
+			$scope.localizationType = '';
 			$scope.displayLocalizationType = '';
+
+			$scope.canDeleteKeys = false;
+			$scope.canDeleteLocales = false;
+			$scope.canEditKeys = false;
+			$scope.canEditLocales = false;
+			$scope.canCreateKeys = false;
+			$scope.canCreateLocales = false;
 
 			$scope.keyDictionary = '';
 			$scope.localeDictionary = '';
@@ -25,32 +32,17 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			$scope.newSubKeyElement = new LocalizationKeyDictionaryResource();
 			$scope.newSubLocaleElement = new LocalizationDictionaryResource();
 
-			$scope.editableInPopup = '<button type="button"  class="btn btn-default" ng-click="deleteElement(row)"><i class="icon-remove-sign icon-black" style="color:red!important"></i></button> ';
+			$scope.deleteKeyButton = '<button type="button" ng-disabled="!canDeleteKeys"  class="btn btn-default" ng-click="deleteElement(row)"><i class="icon-remove-sign icon-black" style="color:red!important"></i></button> ';
+
+			$scope.deleteLocaleButton = '<button type="button" ng-disabled="!canDeleteLocales"  class="btn btn-default" ng-click="deleteElement(row)"><i class="icon-remove-sign icon-black" style="color:red!important"></i></button> ';
 
 			setupGrids();
 
 			$scope.$on('localizeResourcesUpdates', function () {
 				setupGrids();
+				authorizeMain();
+				authorizeActions();
 			});
-
-			function setupGrids() {
-				$scope.displayLocalizationType = localize.getLocalizedString($scope.localizationType);
-				$scope.sortHeading = localize.getLocalizedString('_SortHeading_');
-				$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
-				$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
-				$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
-				$scope.keyHeading = localize.getLocalizedString('_KeyHeading_');
-				switch ($scope.localizationType) {
-					case '_LocaleKeyHeading_':
-						$scope.mainKeyColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
-						$scope.keyValueColumnDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
-						break;
-					case '_LocaleHeading_':
-						$scope.mainLocaleColumnDefs = [{ field: 'LocaleKey', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
-						$scope.keyLocaleColumnDefs = [{ field: 'Key', displayName: $scope.keyHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
-						break;
-				}
-			}
 
 			$scope.keyGridOptions = {
 				data: 'keyDictionary',
@@ -115,7 +107,8 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			};
 
 			$scope.init = function () {
-				$scope.selectType($scope.localizationType);
+				authorizeMain();
+				authorizeActions();
 			};
 
 			$scope.selectType = function (typeName) {
@@ -188,22 +181,89 @@ userApplicationModule.controller('LocaleAdminCtrl',
 				}
 				expandCollapse();
 			};
+			
+			function authorizeMain() {
+				AuthService.authorize(function () {
+					$scope.displayLocalizationType = '_LocaleKeyHeading_';
+					$scope.selectType($scope.displayLocalizationType);
+				}, function () {
+					$scope.displayLocalizationType = '_LocaleHeading_';
+					$scope.selectType($scope.displayLocalizationType);
+				}, 'LocaleKeyAdministration_Access');
+			}
+
+			function authorizeActions() {
+				AuthService.authorize(function () {
+					$scope.canCreateLocales = true;
+				}, function () {
+					$scope.canCreateLocales = false;
+				}, 'LocaleAdministration_Create');
+
+				AuthService.authorize(function () {
+					$scope.canEditLocales = true;
+				}, function () {
+					$scope.canEditLocales = false;
+				}, 'LocaleAdministration_Update');
+
+				AuthService.authorize(function () {
+					$scope.canDeleteLocales = true;
+				}, function () {
+					$scope.canDeleteLocales = false;
+				}, 'LocaleAdministration_Delete');
+
+				AuthService.authorize(function () {
+					$scope.canCreateKeys = true;
+				}, function () {
+					$scope.canCreateKeys = false;
+				}, 'LocaleKeyAdministration_Create');
+
+				AuthService.authorize(function () {
+					$scope.canEditKeys = true;
+				}, function () {
+					$scope.canEditKeys = false;
+				}, 'LocaleKeyAdministration_Update');
+
+				AuthService.authorize(function () {
+					$scope.canDeleteKeys = true;
+				}, function () {
+					$scope.canDeleteKeys = false;
+				}, 'LocaleKeyAdministration_Delete');
+			}
+
+			function setupGrids() {
+				$scope.displayLocalizationType = localize.getLocalizedString($scope.localizationType);
+				$scope.sortHeading = localize.getLocalizedString('_SortHeading_');
+				$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
+				$scope.valueHeading = localize.getLocalizedString('_ValueHeading_');
+				$scope.localeHeading = localize.getLocalizedString('_LocaleHeading_');
+				$scope.keyHeading = localize.getLocalizedString('_KeyHeading_');
+				switch ($scope.localizationType) {
+					case '_LocaleKeyHeading_':
+						$scope.mainKeyColumnDefs = [{ field: 'Key', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.deleteKeyButton, width: 40 }];
+						$scope.keyValueColumnDefs = [{ field: 'Locale', displayName: $scope.localeHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
+						break;
+					case '_LocaleHeading_':
+						$scope.mainLocaleColumnDefs = [{ field: 'LocaleKey', displayName: $scope.sortHeading }, { displayName: '', cellTemplate: $scope.deleteLocaleButton, width: 40 }];
+						$scope.keyLocaleColumnDefs = [{ field: 'Key', displayName: $scope.keyHeading, enableCellEdit: false }, { field: 'Value', displayName: $scope.valueHeading, enableCellEdit: true }, { field: 'Description', displayName: $scope.descriptionHeading, enableCellEdit: true }];
+						break;
+				}
+			}
 
 			function selectFirst() {
-					switch ($scope.localizationType) {
-						case '_LocaleKeyHeading_':
-							if ($scope.keyDictionary.length > 0) {
-								$scope.keyGridOptions.selectedItems[0] = $scope.keyDictionary[0];
-								fireSubSelection();
-							}
-							break;
-						case '_LocaleHeading_':
-							if ($scope.localeDictionary.length > 0) {
-								$scope.localeGridOptions.selectedItems[0] = $scope.localeDictionary[0];
-								fireSubSelection();
-							}
-							break;
-					}
+				switch ($scope.localizationType) {
+					case '_LocaleKeyHeading_':
+						if ($scope.keyDictionary.length > 0) {
+							$scope.keyGridOptions.selectedItems[0] = $scope.keyDictionary[0];
+							fireSubSelection();
+						}
+						break;
+					case '_LocaleHeading_':
+						if ($scope.localeDictionary.length > 0) {
+							$scope.localeGridOptions.selectedItems[0] = $scope.localeDictionary[0];
+							fireSubSelection();
+						}
+						break;
+				}
 			}
 
 			function expandCollapse() {
