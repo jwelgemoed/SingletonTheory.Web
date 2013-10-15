@@ -15,7 +15,8 @@ localizationModule.factory('LocalizationDictionaryResource', function ($resource
 		query: { method: 'GET', params: { locale: 'default' }, isArray: false },
 		get: { method: 'GET', params: {}, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
-		update: { method: 'PUT', params: {}, isArray: false }
+		update: { method: 'PUT', params: {}, isArray: false },
+		remove: { method: 'DELETE', params: {}, isArray: false }
 	});
 });
 

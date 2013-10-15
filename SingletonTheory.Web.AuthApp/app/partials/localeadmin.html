@@ -20,7 +20,7 @@
 					<form class="well well-small form-inline" name="localeTypeForm" novalidate>
 						<div class="controls">
 							<st-input label-name="_LocaleKeyNameHeading_" st-hide="!isLocaleKey()">
-								<input id="localeKeyNameInputId" type="text" data-ng-model="newSubElement.Key" name="localeKeyNameInput" ng-required="isLocaleKey()" ng-minlength="5" ng-maxlength="60" />
+								<input id="localeKeyNameInputId" type="text" data-ng-model="newSubKeyElement.Key" name="localeKeyNameInput" ng-required="isLocaleKey()" ng-minlength="5" ng-maxlength="60" />
 							</st-input>
 							<st-input label-name="_LocaleCodeHeading_" st-hide="isLocaleKey()">
 								<input id="localeCodeHeadingInputId" type="text" data-ng-model="subLocaleSource.LocaleKey" name="localeCodeHeadingInput" ng-required="!isLocaleKey()" ng-minlength=2 ng-maxlength="5" />

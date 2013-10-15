@@ -82,10 +82,20 @@ userApplicationModule.controller('LocaleAdminCtrl',
 			$scope.deleteElement = function (row) {
 				var confirmed = confirm(localize.getLocalizedString('_DeleteConfirmMessage_'));
 				if (confirmed) {
-					$scope.subKeySource.$remove({ key: row.entity.Key }, function () {
-						getElementData();
-					}, function (err) { $scope.error = err; }
-				);
+					switch ($scope.localizationType) {
+						case '_LocaleKeyHeading_':
+							$scope.subKeySource.$remove({ key: row.entity.Key }, function () {
+								getElementData();
+							}, function (err) { $scope.error = err; }
+							);
+							break;
+						case '_LocaleHeading_':
+							$scope.subLocaleSource.$remove({ locale: row.entity.LocaleKey }, function () {
+								getElementData();
+							}, function (err) { $scope.error = err; }
+							);
+							break;
+					}
 				}
 			};
 
