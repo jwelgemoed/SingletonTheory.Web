@@ -41,13 +41,13 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 		{
 			templateUrl: '/partials/localeadmin.html',
 			controller: 'LocaleAdminCtrl',
-			access: 'LocaleAdministration_Access'
+			access: 'LocalizationAdministration_Access'
 		});
 	$routeProvider.when('/test',
 	{
 		templateUrl: '/partials/testpage.html',
 		controller: 'TestPageCtrl',
-		access: 'LocaleAdministration_Access'
+		access: 'LocalizationAdministration_Access'
 	});
 	//$routeProvider.when('/users/:Id',
 	//		{
