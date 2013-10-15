@@ -20,6 +20,14 @@ var authAdminRolesResource = userApplicationModule.factory('AuthAdminRolesResour
 	});
 });
 
+var authAdminRoleTreeResource = userApplicationModule.factory('AuthAdminRoleTreeResource', function ($resource) {
+	return $resource('/authapi/admin/roletree', {},
+	{
+		query: { method: 'GET', params: { RootParentId: 0 }, isArray: false },
+		get: { method: 'GET', params: { RootParentId: 0 }, isArray: false }
+	});
+});
+
 var authAdminRoleDomainPermissionsResource = userApplicationModule.factory('AuthAdminRoleDomainPermissionsResource', function ($resource) {
 	return $resource('/authapi/admin/role/:Id/domainpermissions', {},
 	{

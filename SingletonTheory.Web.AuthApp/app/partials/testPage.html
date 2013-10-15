@@ -1,0 +1,26 @@
+﻿<div class="row-fluid sortme"  ng-init="init()">
+	<div id="infoContainer" class="span4 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			
+			    <div style="margin:10px 0 30px 0; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
+      <span><b>Selected Node</b> : {{roleTree.currentNode.Label}}</span>
+    </div>
+			
+			<div
+      data-angular-treeview="true"
+      data-tree-id="roleTree"
+      data-tree-model="roleListMain"
+      data-tree-add="addRole"
+      data-tree-edit="editRole"
+			data-tree-move="moveRole"
+			data-tree-remove="deleteRole"
+      data-node-id="Id"
+      data-node-label="Label"
+      data-node-children="Children" >
+    </div>
+
+		</div>
+	</div>
+	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+	</div>
+</div>

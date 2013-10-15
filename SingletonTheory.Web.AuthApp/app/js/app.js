@@ -1,7 +1,7 @@
 'use strict';
 
 // Inject modules needed for app...
-var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule', 'ngGrid', 'st-breadcrumbs']);// , 'st-exceptions', 'exceptionOverride'
+var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule', 'ngGrid', 'st-breadcrumbs', 'angularTreeview']);// , 'st-exceptions', 'exceptionOverride'
 
 userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
@@ -43,6 +43,12 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			controller: 'LocaleAdminCtrl',
 			access: 'LocaleAdministration_Access'
 		});
+	$routeProvider.when('/test',
+	{
+		templateUrl: '/partials/testpage.html',
+		controller: 'TestPageCtrl',
+		access: 'LocaleAdministration_Access'
+	});
 	//$routeProvider.when('/users/:Id',
 	//		{
 	//			templateUrl: '/partials/userdetail.html',

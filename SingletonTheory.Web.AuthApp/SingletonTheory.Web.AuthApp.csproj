@@ -57,14 +57,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\css\angular.treeview.css" />
     <Content Include="app\css\app.css" />
     <Content Include="app\DownloadPage.html" />
     <Content Include="app\favicon.ico" />
+    <Content Include="app\img\file.png" />
+    <Content Include="app\img\folder-closed.png" />
+    <Content Include="app\img\folder.png" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers\AuthAdminCtrl.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\LocaleAdminCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
+    <Content Include="app\js\controllers\testPageCtrl.js" />
     <Content Include="app\js\controllers\UserAdminCtrl.js" />
     <Content Include="app\js\directives\AppDirectives.js" />
     <Content Include="app\js\directives\BlurDirective.js" />
@@ -100,6 +105,8 @@
     <Content Include="app\lib\angular\ng-grid\ng-grid.css" />
     <Content Include="app\lib\angular\ng-grid\ng-grid.js" />
     <Content Include="app\lib\angular\ng-grid\ngGridFlexibleHeightPlugin.js" />
+    <Content Include="app\lib\angular\treeview\angular.treeview.js" />
+    <Content Include="app\lib\angular\treeview\angular.treeview.min.js" />
     <Content Include="app\lib\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="app\lib\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="app\lib\bootstrap\css\bootstrap.css" />
@@ -124,6 +131,7 @@
     <Content Include="app\partials\header.html" />
     <Content Include="app\partials\localeadmin.html" />
     <Content Include="app\partials\notifications.html" />
+    <Content Include="app\partials\testPage.html" />
     <Content Include="app\partials\useradmin.html" />
     <Content Include="config\karma.e2e.conf.js" />
     <Content Include="config\karma.unit.conf.js" />
