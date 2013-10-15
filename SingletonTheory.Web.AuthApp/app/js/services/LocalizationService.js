@@ -13,7 +13,9 @@ localizationModule.factory('LocalizationDictionaryResource', function ($resource
 	return $resource('/localize/:locale', {},
 	{
 		query: { method: 'GET', params: { locale: 'default' }, isArray: false },
-		get: { method: 'GET', params: {}, isArray: false }
+		get: { method: 'GET', params: {}, isArray: false },
+		add: { method: 'POST', params: {}, isArray: false },
+		update: { method: 'PUT', params: {}, isArray: false }
 	});
 });
 
@@ -30,7 +32,7 @@ localizationModule.factory('LocalizationKeyDictionaryResource', function ($resou
 		get: { method: 'GET', params: {}, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
 		update: { method: 'PUT', params: {}, isArray: false },
-		remove: {method: 'DELETE', params: {}, isArray:false }
+		remove: { method: 'DELETE', params: {}, isArray: false }
 	});
 });
 
