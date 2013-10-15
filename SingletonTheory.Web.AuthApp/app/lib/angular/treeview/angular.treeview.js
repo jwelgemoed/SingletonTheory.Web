@@ -131,7 +131,6 @@
 						scope[treeId].selectNodeDelete = scope[treeId].selectNodeDelete || function (selectedNode) {
 							scope[remove](selectedNode);
 						};
-						
 					}
 
 					//Rendering template.

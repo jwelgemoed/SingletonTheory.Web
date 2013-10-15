@@ -88,12 +88,12 @@ userApplicationModule.controller('TestPageCtrl', ['$rootScope', '$scope', 'AuthA
 			console.log("delete role with id: " + input.Id);
 		};
 
-		//$scope.$watch('abc.currentNode', function (newObj, oldObj) {
-		//	if ($scope.abc && angular.isObject($scope.abc.currentNode)) {
-		//		console.log('Node Selected!!');
-		//		console.log($scope.abc.currentNode);
-		//	}
-		//}, false);
+		$scope.$watch('roleTree1.currentNode', function (newObj, oldObj) {
+			if ($scope.roleTree1 && angular.isObject($scope.roleTree1.currentNode)) {
+				console.log('Node Selected!!');
+				console.log($scope.roleTree1.currentNode);
+			}
+		}, false);
 
 	}]);
 

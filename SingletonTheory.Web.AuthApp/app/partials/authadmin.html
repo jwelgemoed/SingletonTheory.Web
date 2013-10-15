@@ -20,7 +20,7 @@
 				</ul>
 			</div>
 			<div>
-				<button ng-show="canCreate" class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><i class="icon-plus-sign icon-white"></i></button>
+				<button ng-show="canCreate" class="btn btn-default" ng-click="addNewElement()" data-ng-disabled="isAddDisabled"><i class="icon-plus-sign icon-white"></i></button>
 				&nbsp;
 					<div collapse="!isCollapsed">
 						<form class="well well-small form-inline" name="elementForm" novalidate>
@@ -41,7 +41,20 @@
 						</form>
 					</div>
 			</div>
-			<div  class="gridStyle" ng-grid="elementGridOptions"></div>
+			<div  class="gridStyle" ng-grid="elementGridOptions" data-ng-show="!isRole"></div>
+			<div
+      data-angular-treeview="true"
+      data-tree-id="roleTree"
+      data-tree-model="roleListMain"
+      data-tree-add="addRole"
+      data-tree-edit="editRole"
+			data-tree-move="moveRole"
+			data-tree-remove="deleteRole"
+      data-node-id="Id"
+      data-node-label="Label"
+      data-node-children="Children" 
+			data-ng-show="isRole" >
+    </div>
 		</div>
 	</div>
 	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">

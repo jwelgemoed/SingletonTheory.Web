@@ -3,19 +3,20 @@
 userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminRoleResource', 'AuthAdminDomainPermissionsResource',
 	'AuthAdminDomainPermissionResource', 'AuthAdminFunctionalPermissionsResource', 'AuthAdminFunctionalPermissionResource', 'AuthAdminPermissionsResource',
 	'AuthAdminPermissionResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
-	'AuthAdmiFunctionalPermissionPermissionsResource','localize', 'AuthService',
+	'AuthAdmiFunctionalPermissionPermissionsResource', 'AuthAdminRoleTreeResource', 'localize', 'AuthService',
 	function ($rootScope, $scope, AuthAdminRolesResource, AuthAdminRoleResource, AuthAdminDomainPermissionsResource,
 		AuthAdminDomainPermissionResource, AuthAdminFunctionalPermissionsResource, AuthAdminFunctionalPermissionResource, AuthAdminPermissionsResource,
 		AuthAdminPermissionResource, AuthAdminRoleDomainPermissionsResource, AuthAdminDomainPermissionFunctionalPermissionsResource,
-		AuthAdmiFunctionalPermissionPermissionsResource, localize, AuthService) {
+		AuthAdmiFunctionalPermissionPermissionsResource, authAdminRoleTreeResource, localize, AuthService) {
 
 		$scope.madeSubListChanges = true;
-
+		$scope.isRole = true;
+		$scope.isAddDisabled = false;
 		$scope.element = '_RoleHeading_';
 
 		$scope.displayElement = '';
-		
-		$scope.$on('localizeResourcesUpdates', function() {
+
+		$scope.$on('localizeResourcesUpdates', function () {
 			$scope.displayElement = localize.getLocalizedString($scope.element);
 		});
 
@@ -36,7 +37,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.elementDictionary = [];
 
 		$scope.AssignedHeader = localize.getLocalizedString('_AssignedDomainPermissionHeading_');
-		
+
 		$scope.UnAssignedHeader = localize.getLocalizedString('_AvailableDomainPermissionHeading_');
 
 		$scope.hideSublevels = true;
@@ -83,6 +84,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.init = function () {
 			$scope.selectElement($scope.element);
+		};
+
+		$scope.addNewElement = function() {
+			$scope.isCollapsed = !$scope.isCollapsed;
 		};
 
 		$scope.editElement = function (row) {
@@ -157,6 +162,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 				case '_RoleHeading_':
 					createPermissionRequired = 'RoleAdministration_Create';
 					updatePermissionRequired = 'RoleAdministration_Update';
+					$scope.isAddDisabled = true;
 					break;
 				case '_DomainPermissionHeading_':
 					createPermissionRequired = 'DomainPermissionAdministration_Create';
@@ -219,7 +225,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.cancelSubElementEdit = function () {
 			setElementSubLists($scope.selectedElement[0].Id);
 		};
-		
+
 		function removeElementFromArray(elementArray, elementToRemove) {
 			for (var i = elementArray.length - 1; i >= 0; i--) {
 				if (elementArray[i].Id === elementToRemove.Id) {
@@ -236,7 +242,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			$scope.subElementResource.$get({ Id: id }, function (result) {
 				switch ($scope.element) {
 					case '_RoleHeading_':
-						$scope.AssignedHeader = localize.getLocalizedString('_AssignedDomainPermissionHeading_'); 
+						$scope.AssignedHeader = localize.getLocalizedString('_AssignedDomainPermissionHeading_');
 						$scope.UnAssignedHeader = localize.getLocalizedString('_AvailableDomainPermissionHeading_');
 						break;
 					case '_DomainPermissionHeading_':
@@ -285,10 +291,15 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					break;
 			}
 		}
-		
+
 		function fireSubSelection() {
-			if ($scope.element != '_PermissionHeading_' && $scope.selectedElement.length > 0) {
+			if ($scope.element != '_PermissionHeading_' && $scope.element != '_RoleHeading_' && $scope.selectedElement.length > 0) {
 				setElementSubLists($scope.selectedElement[0].Id);
+				$scope.hideSublevels = false;
+			}
+			
+			if ($scope.element == '_RoleHeading_' && $scope.roleTree && angular.isObject($scope.roleTree.currentNode)) {
+				setElementSubLists($scope.roleTree.currentNode.Id);
 				$scope.hideSublevels = false;
 			}
 		};
@@ -305,13 +316,23 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			setNewSubElementResource();
 			switch ($scope.element) {
 				case '_RoleHeading_':
-					AuthAdminRolesResource.query({}, function (result) {
-						$scope.elementDictionary = result;
-						selectFirst(result);
-					}, function (err) { $scope.error = err; }
-					);
+					$scope.isRole = true;
+					authAdminRoleTreeResource.get({ RootParentId: 8 }, function (response) {
+						$scope.roleListRaw = response;
+						//roleList to treeview
+						$scope.roleListMain = $scope.roleListRaw.TreeItems;
+					},
+				function (error) {
+					console.log(error);
+				});
+					//AuthAdminRolesResource.query({}, function (result) {
+					//	$scope.elementDictionary = result;
+					//	selectFirst(result);
+					//}, function (err) { $scope.error = err; }
+					//);
 					break;
 				case '_DomainPermissionHeading_':
+					$scope.isRole = false;
 					AuthAdminDomainPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 						selectFirst(result);
@@ -319,6 +340,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 				case '_FunctionalPermissionHeading_':
+					$scope.isRole = false;
 					AuthAdminFunctionalPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 						selectFirst(result);
@@ -326,6 +348,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					);
 					break;
 				case '_PermissionHeading_':
+					$scope.isRole = false;
 					AuthAdminPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
@@ -333,5 +356,32 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					break;
 			}
 		}
+		
+		//Treeview
+		$scope.addRole = function (input) {
+			console.log("add role to role with id: " + input.Id);
+		};
+
+		$scope.editRole = function (input) {
+			console.log("edit role with id: " + input.Id);
+		};
+
+		$scope.moveRole = function (input) {
+			console.log("move role with id: " + input.Id);
+		};
+
+		$scope.deleteRole = function (input) {
+			console.log("delete role with id: " + input.Id);
+		};
+		
+		$scope.$watch('roleTree.currentNode', function (newObj, oldObj) {
+			if ($scope.roleTree && angular.isObject($scope.roleTree.currentNode)) {
+				$scope.isAddDisabled = false;
+				console.log('Node Selected!!');
+				console.log($scope.roleTree.currentNode);
+				fireSubSelection();
+			}
+		}, false);
+		
 	}]);
 
