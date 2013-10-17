@@ -384,6 +384,13 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.deleteRole = function (input) {
 			console.log("delete role with id: " + input.Id);
+			//Todo: Add confirmation of delete
+			authAdminRoleResource.remove({ Id: input.Id }, function (response) {
+				$scope.elementResource = response;
+			},
+			function (error) {
+				console.log(error);
+			});
 		};
 
 		$scope.$watch('roleTree.currentNode', function (newObj, oldObj) {
