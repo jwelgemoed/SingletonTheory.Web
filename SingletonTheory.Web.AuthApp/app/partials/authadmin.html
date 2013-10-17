@@ -28,9 +28,10 @@
 									<st-input label-name="_NameHeading_" st-hide="!isBasePermission()">
 										<input id="nameInputId" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" ng-minlength="5" ng-maxlength="60" />
 									</st-input>
-									<st-input label-name="_LabelHeading_" st-hide="isBasePermission()">
-										<input id="labelInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60"  />
-									</st-input>
+								<st-input label-name="_LabelHeading_" st-hide="isBasePermission()">
+									<input id="labelInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60" role-available data-ng-show="!isRole" />
+									<input id="labelRoleInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60" data-ng-show="isRole" />
+								</st-input>
 									<st-input label-name="_DescriptionHeading_" st-hide="isBasePermission()">
 											<input id="descriptionInputId" type="text" data-ng-model="elementResource.Description" name="descriptionInput" ng-minlength="5" ng-maxlength="250" />
 									</st-input>
