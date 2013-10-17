@@ -115,6 +115,12 @@
     <Content Include="app\lib\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="app\lib\bootstrap\js\bootstrap.js" />
     <Content Include="app\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="app\lib\font-awesome\css\font-awesome-ie7.css" />
+    <Content Include="app\lib\font-awesome\css\font-awesome-ie7.min.css" />
+    <Content Include="app\lib\font-awesome\css\font-awesome.css" />
+    <Content Include="app\lib\font-awesome\css\font-awesome.min.css" />
+    <Content Include="app\lib\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="app\lib\jquery\jquery-1.10.2.min.js" />
     <Content Include="app\lib\ui-bootstrap\angular-bootstrap-prettify.js" />
     <Content Include="app\lib\ui-bootstrap\angular-bootstrap-prettify.min.js" />
     <Content Include="app\lib\ui-bootstrap\angular-bootstrap.js" />
@@ -134,6 +140,7 @@
     <Content Include="app\partials\testPage.html" />
     <Content Include="app\partials\useradmin.html" />
     <Content Include="config\karma.e2e.conf.js" />
+    <Content Include="config\karma.midway.conf.js" />
     <Content Include="config\karma.unit.conf.js" />
     <Content Include="app\lib\angular\angular-cookies.js" />
     <Content Include="app\lib\angular\angular-cookies.min.js" />
@@ -150,9 +157,9 @@
     <Content Include="tests\e2e\LoginScenario.js" />
     <Content Include="tests\e2e\runner.html" />
     <Content Include="tests\e2e\extensions\angular.scenario.custom.js" />
+    <Content Include="tests\lib\angular\ngMidwayTester.js" />
     <Content Include="tests\lib\jasmine\jasmine.js" />
     <Content Include="app\lib\requirejs\require.js" />
-    <Content Include="app\lib\underscore\underscore-min.js" />
     <Content Include="app\partials\404.html" />
     <Content Include="app\partials\home.html" />
     <Content Include="app\partials\login.html" />
@@ -177,6 +184,29 @@
     <Content Include="StartKarma_UnitTests.bat" />
     <Content Include="StartKarma_e2eTests.bat" />
     <Content Include="tests\e2e\extensions\TestHelpers.js" />
+    <Content Include="StartKarma_MidwayTests.bat" />
+    <Content Include="app\lib\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="app\lib\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="app\lib\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="app\lib\font-awesome\font\FontAwesome.otf" />
+    <Content Include="app\lib\font-awesome\less\bootstrap.less" />
+    <Content Include="app\lib\font-awesome\less\core.less" />
+    <Content Include="app\lib\font-awesome\less\extras.less" />
+    <Content Include="app\lib\font-awesome\less\font-awesome-ie7.less" />
+    <Content Include="app\lib\font-awesome\less\font-awesome.less" />
+    <Content Include="app\lib\font-awesome\less\icons.less" />
+    <Content Include="app\lib\font-awesome\less\mixins.less" />
+    <Content Include="app\lib\font-awesome\less\path.less" />
+    <Content Include="app\lib\font-awesome\less\variables.less" />
+    <Content Include="app\lib\font-awesome\scss\font-awesome-ie7.scss" />
+    <Content Include="app\lib\font-awesome\scss\font-awesome.scss" />
+    <Content Include="app\lib\font-awesome\scss\_bootstrap.scss" />
+    <Content Include="app\lib\font-awesome\scss\_core.scss" />
+    <Content Include="app\lib\font-awesome\scss\_extras.scss" />
+    <Content Include="app\lib\font-awesome\scss\_icons.scss" />
+    <Content Include="app\lib\font-awesome\scss\_mixins.scss" />
+    <Content Include="app\lib\font-awesome\scss\_path.scss" />
+    <Content Include="app\lib\font-awesome\scss\_variables.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -184,7 +214,9 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="tests\midway\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
