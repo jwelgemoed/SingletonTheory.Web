@@ -14,28 +14,21 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
+			'../tests/lib/angular/ngMidwayTester.js',
 			'../tests/lib/angular/angular-mocks.js',
-			'../app/lib/angular/*.js',
-			'../app/lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.min.js',
-			'../tests/lib/angular/angular-mocks.js',
-			'../app/lib/underscore/*.js',
+			'../app/lib/jquery/jquery-1.10.2.min.js',
+			'../app/lib/angular/angular.min.js',
+			'../app/lib/angular/angular-cookies.min.js',
+			'../app/lib/angular/angular-resource.min.js',
+
 			'../app/js/app.js',
 			'../app/js/routingConfig.js',
-			'../app/js/services/AuthService.js',
-			'../app/js/services/UserService.js',
-			'../app/js/services/LocalizationService.js',
-			'../app/js/directives/AccessLevelDirective.js',
-			'../app/js/directives/ActiveNavDirective.js',
-			'../app/js/directives/AppDirectives.js',
-			'../app/js/directives/LocalizationDirective.js',
-			'../app/js/directives/LocalizationAttributeDirective.js',
-			'../app/js/controllers/LoginCtrl.js',
-			'../app/js/controllers/UsersCtrl.js',
-			'../app/js/controllers/UserDetailCtrl.js',
-			'../app/js/filters/LocalizationFilter.js',
-			'../app/js/modules/DynamicLocale.js',
-			'../tests/unit/MockData/*.js',
-			'../tests/unit/*.js'
+			'../app/js/controllers/*.js',
+			'../app/js/directives/*.js',
+			'../app/js/filters/*.js',
+			'../app/js/modules/*.js',
+			'../app/js/services/*.js',
+			'../tests/midway/*.js'
 		],
 
 		// list of files to exclude

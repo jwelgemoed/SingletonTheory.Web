@@ -160,7 +160,6 @@
     <Content Include="tests\lib\angular\ngMidwayTester.js" />
     <Content Include="tests\lib\jasmine\jasmine.js" />
     <Content Include="app\lib\requirejs\require.js" />
-    <Content Include="app\lib\underscore\underscore-min.js" />
     <Content Include="app\partials\404.html" />
     <Content Include="app\partials\home.html" />
     <Content Include="app\partials\login.html" />
