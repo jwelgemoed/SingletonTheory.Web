@@ -5,8 +5,8 @@
 var authAdminRoleResource = userApplicationModule.factory('AuthAdminRoleResource', function ($resource) {
 	return $resource('/authapi/admin/role', {},
 	{
-		query: { method: 'GET', params: {}, isArray: true },
-		get: { method: 'GET', params: { Id: 0 }, isArray: true },
+		query: { method: 'GET', params: {}, isArray: false },
+		get: { method: 'GET', params: { Id: 0 }, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
 		update: { method: 'PUT', params: {}, isArray: false }
 	});
@@ -39,8 +39,8 @@ var authAdminRoleDomainPermissionsResource = userApplicationModule.factory('Auth
 var authAdminDomainPermissionResource = userApplicationModule.factory('AuthAdminDomainPermissionResource', function ($resource) {
 	return $resource('/authapi/admin/domainpermission', {},
 	{
-		query: { method: 'GET', params: {}, isArray: true },
-		get: { method: 'GET', params: { Id: 0 }, isArray: true },
+		query: { method: 'GET', params: {}, isArray: false },
+		get: { method: 'GET', params: { Id: 0 }, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
 		update: { method: 'PUT', params: {}, isArray: false }
 	});
@@ -65,8 +65,8 @@ var authAdminDomainPermissionFunctionalPermissionsResource = userApplicationModu
 var authAdminFunctionalPermissionResource = userApplicationModule.factory('AuthAdminFunctionalPermissionResource', function ($resource) {
 	return $resource('/authapi/admin/functionalpermission', {},
 	{
-		query: { method: 'GET', params: {}, isArray: true },
-		get: { method: 'GET', params: { Id: 0 }, isArray: true },
+		query: { method: 'GET', params: {}, isArray: false },
+		get: { method: 'GET', params: { Id: 0 }, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
 		update: { method: 'PUT', params: {}, isArray: false }
 	});
@@ -91,8 +91,8 @@ var authAdmiFunctionalPermissionPermissionsResource = userApplicationModule.fact
 var authAdminPermissionResource = userApplicationModule.factory('AuthAdminPermissionResource', function ($resource) {
 	return $resource('/authapi/admin/permission', {},
 	{
-		query: { method: 'GET', params: {}, isArray: true },
-		get: { method: 'GET', params: { Id: 0 }, isArray: true },
+		query: { method: 'GET', params: {}, isArray: false },
+		get: { method: 'GET', params: { Id: 0 }, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
 		update: { method: 'PUT', params: {}, isArray: false }
 	});
