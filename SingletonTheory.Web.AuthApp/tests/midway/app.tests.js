@@ -150,4 +150,12 @@ describe('Testing Routes', function() {
 		});
 	});
 
+	it('should have a route for a not found redirect', function () {
+		module('user-application');
+
+		inject(function ($route) {
+			expect($route.routes['null'].redirectTo).toBe('/404');
+		});
+	});
+	
 });
