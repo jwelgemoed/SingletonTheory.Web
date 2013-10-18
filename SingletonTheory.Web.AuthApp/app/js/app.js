@@ -1,8 +1,11 @@
 'use strict';
 
-// Inject modules needed for app...
+//declare module variables used throughout the application
 var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule', 'ngGrid', 'st-breadcrumbs', 'angularTreeview']);// , 'st-exceptions', 'exceptionOverride'
+var dynamicLocaleModule = angular.module('dynamicLocaleModule', []);
+var localizationModule = angular.module('localization', ['ngResource']);
 
+// Inject modules needed for app...
 userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
 	var access = routingConfig.accessLevels;

@@ -14,21 +14,28 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'../tests/lib/angular/ngMidwayTester.js',
-			'../tests/lib/angular/angular-mocks.js',
-			'../app/lib/jquery/jquery-1.10.2.min.js',
 			'../app/lib/angular/angular.min.js',
 			'../app/lib/angular/angular-cookies.min.js',
 			'../app/lib/angular/angular-resource.min.js',
+			'../tests/lib/angular/ngMidwayTester.js',
+			'../tests/lib/angular/angular-mocks.js',
+			'../app/lib/jquery/jquery-1.10.2.min.js',
+			
 
 			'../app/js/app.js',
 			'../app/js/routingConfig.js',
+			'../app/js/modules/*.js',
 			'../app/js/controllers/*.js',
 			'../app/js/directives/*.js',
 			'../app/js/filters/*.js',
-			'../app/js/modules/*.js',
+			
 			'../app/js/services/*.js',
-			'../tests/midway/*.js'
+			'../tests/midway/*.js',
+			'../tests/midway/controllers/*.js',
+			'../tests/midway/directives/*.js',
+			'../tests/midway/filters/*.js',
+			'../tests/midway/modules/*.js',
+			'../tests/midway/services/*.js'
 		],
 
 		// list of files to exclude
