@@ -25,37 +25,46 @@
 					<div collapse="!isCollapsed">
 						<form class="well well-small form-inline" name="elementForm" novalidate>
 							<div class="controls">
+								<div class="control-group" data-ng-show="!roleMove">
 									<st-input label-name="_NameHeading_" st-hide="!isBasePermission()">
-										<input id="nameInputId" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" ng-minlength="5" ng-maxlength="60" />
-									</st-input>
-								<st-input label-name="_LabelHeading_" st-hide="isBasePermission()">
+									<input id="nameInputId" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="isBasePermission()" ng-minlength="5" ng-maxlength="60" />
+								</st-input>
+									<st-input label-name="_LabelHeading_" st-hide="isBasePermission()">
 									<input id="labelInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60" role-available data-ng-show="!isRole" />
 									<input id="labelRoleInputId" type="text" data-ng-model="elementResource.Label" name="labelInput" ng-required="!isBasePermission()" ng-minlength="5" ng-maxlength="60" data-ng-show="isRole" />
 								</st-input>
 									<st-input label-name="_DescriptionHeading_" st-hide="isBasePermission()">
-											<input id="descriptionInputId" type="text" data-ng-model="elementResource.Description" name="descriptionInput" ng-minlength="5" ng-maxlength="250" />
-									</st-input>
-								<br />
-								<button class="btn btn-default" ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_"></button>
-								<button type="button" class="btn btn-warning" ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+									<input id="descriptionInputId" type="text" data-ng-model="elementResource.Description" name="descriptionInput" ng-minlength="5" ng-maxlength="250" />
+								</st-input>
+									<br />
+								</div>
+								<div class="control-group" data-ng-show="roleMove">
+									<label for="role" class="control-label" data-i18n="_RoleHeading_"></label>
+									<div class="controls">
+										<select id="role" data-ng-model="availableRoleSelected" data-ng-options="opt.Id as opt.Label for opt in rolesAvailable"></select>
+									</div>
+								</div>
 							</div>
+							<button class="btn btn-default" id="btnMove" data-ng-click="saveElement()" data-i18n="_SaveHeading_" data-ng-show="roleMove"></button>
+							<button class="btn btn-default" id="btnSave" data-ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_" data-ng-show="!roleMove"></button>
+							<button type="button" class="btn btn-warning" data-ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
 						</form>
 					</div>
 			</div>
-			<div  class="gridStyle" ng-grid="elementGridOptions" data-ng-show="!isRole"></div>
+			<div class="gridStyle" ng-grid="elementGridOptions" data-ng-show="!isRole"></div>
 			<div
-      data-angular-treeview="true"
-      data-tree-id="roleTree"
-      data-tree-model="roleListMain"
-      data-tree-add="addRole"
-      data-tree-edit="editRole"
-			data-tree-move="moveRole"
-			data-tree-remove="deleteRole"
-      data-node-id="Id"
-      data-node-label="Label"
-      data-node-children="Children" 
-			data-ng-show="isRole" >
-    </div>
+				data-angular-treeview="true"
+				data-tree-id="roleTree"
+				data-tree-model="roleListMain"
+				data-tree-add="addRole"
+				data-tree-edit="editRole"
+				data-tree-move="moveRole"
+				data-tree-remove="deleteRole"
+				data-node-id="Id"
+				data-node-label="Label"
+				data-node-children="Children"
+				data-ng-show="isRole">
+			</div>
 		</div>
 	</div>
 	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">

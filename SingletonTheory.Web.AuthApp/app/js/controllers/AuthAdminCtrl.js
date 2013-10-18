@@ -3,17 +3,17 @@
 userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'AuthAdminRolesResource', 'AuthAdminRoleResource', 'AuthAdminDomainPermissionsResource',
 	'AuthAdminDomainPermissionResource', 'AuthAdminFunctionalPermissionsResource', 'AuthAdminFunctionalPermissionResource', 'AuthAdminPermissionsResource',
 	'AuthAdminPermissionResource', 'AuthAdminRoleDomainPermissionsResource', 'AuthAdminDomainPermissionFunctionalPermissionsResource',
-	'AuthAdmiFunctionalPermissionPermissionsResource', 'AuthAdminRoleTreeResource', 'localize', 'AuthService',
+	'AuthAdmiFunctionalPermissionPermissionsResource', 'AuthAdminRoleTreeResource', 'AuthAdminRolesRoleCanMoveToResource', 'localize', 'AuthService',
 	function ($rootScope, $scope, authAdminRolesResource, authAdminRoleResource, authAdminDomainPermissionsResource,
 		authAdminDomainPermissionResource, authAdminFunctionalPermissionsResource, authAdminFunctionalPermissionResource, authAdminPermissionsResource,
 		authAdminPermissionResource, authAdminRoleDomainPermissionsResource, authAdminDomainPermissionFunctionalPermissionsResource,
-		authAdmiFunctionalPermissionPermissionsResource, authAdminRoleTreeResource, localize, authService) {
+		authAdmiFunctionalPermissionPermissionsResource, authAdminRoleTreeResource, authAdminRolesRoleCanMoveToResource, localize, authService) {
 
 		$scope.madeSubListChanges = true;
 		$scope.isRole = true;
 		$scope.isAddDisabled = false;
 		$scope.element = '_RoleHeading_';
-
+		$scope.roleMove = false;
 		$scope.displayElement = '';
 
 		$scope.$on('localizeResourcesUpdates', function () {
@@ -87,6 +87,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		};
 
 		$scope.addNewElement = function () {
+			$scope.roleMove = false;
 			$scope.isCollapsed = !$scope.isCollapsed;
 			if ($scope.element == '_RoleHeading_') {
 				$scope.elementResource.RootParentId = $scope.roleTree.currentNode.RootParentId;
@@ -213,6 +214,9 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					getElementData();
 				});
 			} else {
+				if ($scope.roleMove) {
+					$scope.elementResource.ParentId = $scope.availableRoleSelected;
+				}
 				$scope.elementResource.$update(function () {
 					$scope.toggleCollapse();
 					getElementData();
@@ -222,7 +226,11 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.cancelElementSave = function () {
 			$scope.toggleCollapse();
-			setNewResource();
+			if ($scope.roleMove) {
+				$scope.roleMove = false;
+			} else {
+				setNewResource();
+			}
 		};
 
 		$scope.toggleCollapse = function () {
@@ -324,7 +332,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			switch ($scope.element) {
 				case '_RoleHeading_':
 					$scope.isRole = true;
-					authAdminRoleTreeResource.get({ RootParentId: 8 }, function (response) {
+					authAdminRoleTreeResource.get({ }, function (response) {
 						$scope.roleListRaw = response;
 						//roleList to treeview
 						$scope.roleListMain = $scope.roleListRaw.TreeItems;
@@ -367,7 +375,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.editRole = function (input) {
 			console.log("edit role with id: " + input.Id);
-
+			$scope.roleMove = false;
 			authAdminRoleResource.get({ Id: input.Id }, function (response) {
 				$scope.elementResource = response;
 			},
@@ -379,7 +387,23 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		};
 
 		$scope.moveRole = function (input) {
+			$scope.roleMove = true;
 			console.log("move role with id: " + input.Id);
+			authAdminRoleResource.get({ Id: input.Id }, function (response) {
+				$scope.elementResource = response;
+			},
+			function (error) {
+				console.log(error);
+			});
+			
+			authAdminRolesRoleCanMoveToResource.get({ Id: input.Id }, function (response) {
+				$scope.rolesAvailable = response;
+				$scope.availableRoleSelected = $scope.rolesAvailable[1].Id;
+			},
+			function (error) {
+				console.log(error);
+			});
+			$scope.isCollapsed = true;
 		};
 
 		$scope.deleteRole = function (input) {
