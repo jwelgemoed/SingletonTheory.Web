@@ -15,6 +15,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.element = '_RoleHeading_';
 		$scope.roleMove = false;
 		$scope.displayElement = '';
+		$scope.rootRole = false;
+		$scope.editCurrentRole = false;
 
 		$scope.$on('localizeResourcesUpdates', function () {
 			$scope.displayElement = localize.getLocalizedString($scope.element);
@@ -88,6 +90,8 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.addNewElement = function () {
 			$scope.roleMove = false;
+			$scope.editCurrentRole = false;
+
 			$scope.isCollapsed = !$scope.isCollapsed;
 			if ($scope.element == '_RoleHeading_') {
 				$scope.elementResource.RootParentId = $scope.roleTree.currentNode.RootParentId;
@@ -208,6 +212,9 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		};
 
 		$scope.saveElement = function () {
+			if ($scope.rootRole) {
+				$scope.elementResource.RootParentId = $scope.elementResource.Id;
+			}
 			if ($scope.elementResource.Id == undefined) {
 				$scope.elementResource.$add(function () {
 					$scope.toggleCollapse();
@@ -332,7 +339,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			switch ($scope.element) {
 				case '_RoleHeading_':
 					$scope.isRole = true;
-					authAdminRoleTreeResource.get({ }, function (response) {
+					authAdminRoleTreeResource.get({}, function (response) {
 						$scope.roleListRaw = response;
 						//roleList to treeview
 						$scope.roleListMain = $scope.roleListRaw.TreeItems;
@@ -376,8 +383,10 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 		$scope.editRole = function (input) {
 			console.log("edit role with id: " + input.Id);
 			$scope.roleMove = false;
+			$scope.editCurrentRole = true;
 			authAdminRoleResource.get({ Id: input.Id }, function (response) {
 				$scope.elementResource = response;
+				$scope.rootRole = $scope.elementResource.Id == $scope.elementResource.RootParentId;
 			},
 			function (error) {
 				console.log(error);
@@ -388,6 +397,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.moveRole = function (input) {
 			$scope.roleMove = true;
+			$scope.editCurrentRole = false;
 			console.log("move role with id: " + input.Id);
 			authAdminRoleResource.get({ Id: input.Id }, function (response) {
 				$scope.elementResource = response;
@@ -395,7 +405,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			function (error) {
 				console.log(error);
 			});
-			
+
 			authAdminRolesRoleCanMoveToResource.get({ Id: input.Id }, function (response) {
 				$scope.rolesAvailable = response;
 				$scope.availableRoleSelected = $scope.rolesAvailable[1].Id;
@@ -408,13 +418,17 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 
 		$scope.deleteRole = function (input) {
 			console.log("delete role with id: " + input.Id);
-			//Todo: Add confirmation of delete
-			authAdminRoleResource.remove({ Id: input.Id }, function (response) {
-				$scope.elementResource = response;
-			},
-			function (error) {
-				console.log(error);
-			});
+			var confirmed = confirm(localize.getLocalizedString('_DeleteConfirmMessage_'));
+			if (confirmed) {
+				authAdminRoleResource.remove({ Id: input.Id }, function(response) {
+					$scope.elementResource = response;
+					getElementData();
+				},
+					function(error) {
+						console.log(error);
+						getElementData();
+					});
+			}
 		};
 
 		$scope.$watch('roleTree.currentNode', function (newObj, oldObj) {
