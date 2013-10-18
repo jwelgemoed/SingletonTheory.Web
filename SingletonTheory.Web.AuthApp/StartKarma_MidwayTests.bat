@@ -1,2 +1,2 @@
 cls
-karma start config\karma.unit.conf.js
+karma start config\karma.midway.conf.js

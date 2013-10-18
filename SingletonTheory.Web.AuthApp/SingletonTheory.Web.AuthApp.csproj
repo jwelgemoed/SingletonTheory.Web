@@ -171,6 +171,7 @@
   <ItemGroup>
     <Content Include="app\SSTest.html" />
     <Content Include="tests\lib\jquery\jquery.js" />
+    <Content Include="tests\midway\modules\DynamicLocale.tests.js" />
     <Content Include="tests\unit\auth.spec.js" />
     <Content Include="tests\lib\angular\angular-mocks.js" />
     <Content Include="tests\lib\angular\angular-scenario.js" />
@@ -215,7 +216,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="tests\midway\" />
+    <Folder Include="tests\midway\controllers\" />
+    <Folder Include="tests\midway\directives\" />
+    <Folder Include="tests\midway\filters\" />
+    <Folder Include="tests\midway\services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-var dynamicLocaleModule = angular.module('dynamicLocaleModule', []);
+
 
 dynamicLocaleModule.provider('dynamicLocale', function () {
 
 	var localeLocationPattern = 'lib/angular/i18n/angular-locale_{{locale}}.js';
-
+	
 	/**
    * Loads a script asynchronously
    *

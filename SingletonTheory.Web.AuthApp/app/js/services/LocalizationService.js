@@ -7,7 +7,6 @@
  * http://codingsmackdown.tv
  *
  */
-var localizationModule = angular.module('localization', ['ngResource']);
 
 localizationModule.factory('LocalizationDictionaryResource', function ($resource) {
 	return $resource('/localize/:locale', {},
