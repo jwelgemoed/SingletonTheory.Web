@@ -171,6 +171,7 @@
   <ItemGroup>
     <Content Include="app\SSTest.html" />
     <Content Include="tests\lib\jquery\jquery.js" />
+    <Content Include="tests\midway\app.tests.js" />
     <Content Include="tests\midway\modules\DynamicLocale.tests.js" />
     <Content Include="tests\unit\auth.spec.js" />
     <Content Include="tests\lib\angular\angular-mocks.js" />
