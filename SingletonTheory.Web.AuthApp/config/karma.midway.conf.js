@@ -14,9 +14,14 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
+			'../app/lib/jquery/jquery-1.10.2.min.js',
 			'../app/lib/angular/angular.min.js',
 			'../app/lib/angular/angular-cookies.min.js',
 			'../app/lib/angular/angular-resource.min.js',
+			'../app/lib/ui-bootstrap/ui-bootstrap-tpls-0.6.0.min.js',
+			'../app/lib/angular/ng-grid/ng-grid.js',
+			'../app/lib/angular/treeview/angular.treeview.min.js',
+			'../app/lib/jasmine/jasmine.js',
 			'../tests/lib/angular/ngMidwayTester.js',
 			'../tests/lib/angular/angular-mocks.js',
 			'../app/lib/jquery/jquery-1.10.2.min.js',
