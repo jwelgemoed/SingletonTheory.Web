@@ -120,6 +120,7 @@
     <Content Include="app\lib\font-awesome\css\font-awesome.css" />
     <Content Include="app\lib\font-awesome\css\font-awesome.min.css" />
     <Content Include="app\lib\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="app\lib\google\chart\ng-google-chart.js" />
     <Content Include="app\lib\jquery\jquery-1.10.2.min.js" />
     <Content Include="app\lib\ui-bootstrap\angular-bootstrap-prettify.js" />
     <Content Include="app\lib\ui-bootstrap\angular-bootstrap-prettify.min.js" />
