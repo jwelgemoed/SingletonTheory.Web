@@ -19,109 +19,110 @@
 		}
 	</script>
 </head>
-<body id="contentBody" ng-cloak resize-to="navbars" resize-type="element" resize-reduction="0">
-	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<a class="brand" href="/">{{appName}}</a>
-			<ul class="nav">
-				<li show-permission="General_Access" active-nav>
-					<a data-i18n="_HomeAnchor_" href="/"></a>
-				</li>
-				<li id="adminActionsMenu" show-permission="Administrator_Access" active-nav>
-					<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle" data-i18n="_AdminActionsAnchor_">
-						<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li show-permission="UserAdministration_Access" active-nav>
-							<a id="adminUsersMenuItem" href="/useradmin" data-i18n="_AdministrateUsersHeading_"></a>
-						</li>
-						<li show-permission="AuthorizationAdministration_Access" active-nav>
-							<a id="authAdminMenuItem" href="/auth/authadmin" data-i18n="_AuthAdminHeading_"></a>
-						</li>
-						<li show-permission="LocalizationAdministration_Access" active-nav>
-							<a id="a1" href="/auth/localeadmin" data-i18n="_LocaleAdminHeading_"></a>
-						</li>
-						<li active-nav>
-							<a id="test" href="/test" data-i18n="_LocaleTestHeading_"></a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav pull-right">
-				<li id="logoutButtonContainer" show-permission="General_Access">
-					<a id="logoutButton" href="" data-ng-click="logout()" data-i18n="_LogOutAnchor_"></a>
-				</li>
-				<li>
-					<div id="userInfo" show-permission="General_Access" class="pull-right">
-						<span data-i18n="_UserWelcomeMessage_"></span>&nbsp;
-						<strong>{{ user.UserName }}&nbsp;</strong>
-						<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="navbar-inner">
-			<div>
-				<ul class="breadcrumb pull-left margin-bottom: 0px !important">
-					<li ng-repeat="breadcrumb in breadcrumbs.getAll()">
-						<span class="divider">/</span>
-						<ng-switch on="$last">
-							<span ng-switch-when="true">{{breadcrumb.name}}</span>
-							<span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
-						</ng-switch>
+	<body id="contentBody" ng-cloak resize-to="navbars" resize-type="element" resize-reduction="0">
+			<input id="localeTestHiddenField" type="hidden" value="{{123456079.12|number}}"/>
+		<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<a class="brand" href="/">{{appName}}</a>
+				<ul class="nav">
+					<li show-permission="General_Access" active-nav>
+						<a data-i18n="_HomeAnchor_" href="/"></a>
+					</li>
+					<li id="adminActionsMenu" show-permission="Administrator_Access" active-nav>
+						<a id="adminActionsMenuToggle" href="#" role="button" class="dropdown-toggle" data-i18n="_AdminActionsAnchor_">
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li show-permission="UserAdministration_Access" active-nav>
+								<a id="adminUsersMenuItem" href="/useradmin" data-i18n="_AdministrateUsersHeading_"></a>
+							</li>
+							<li show-permission="AuthorizationAdministration_Access" active-nav>
+								<a id="authAdminMenuItem" href="/auth/authadmin" data-i18n="_AuthAdminHeading_"></a>
+							</li>
+							<li show-permission="LocalizationAdministration_Access" active-nav>
+								<a id="a1" href="/auth/localeadmin" data-i18n="_LocaleAdminHeading_"></a>
+							</li>
+							<li active-nav>
+								<a id="test" href="/test" data-i18n="_LocaleTestHeading_"></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li id="logoutButtonContainer" show-permission="General_Access">
+						<a id="logoutButton" href="" data-ng-click="logout()" data-i18n="_LogOutAnchor_"></a>
+					</li>
+					<li>
+						<div id="userInfo" show-permission="General_Access" class="pull-right">
+							<span data-i18n="_UserWelcomeMessage_"></span>&nbsp;
+							<strong>{{ user.UserName }}&nbsp;</strong>
+							<span data-ng-class="{&quot;label-info&quot;: user.role.title == userRoles.user.title, &quot;label-success&quot;: user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
+						</div>
 					</li>
 				</ul>
 			</div>
-			<div class="alert alert-danger pull-right" ng-show="showException">
-				<button type="button" class="close" data-dismiss="alert" ng-click="removeNotification()">&times;</button>
-				<strong>{{_ErrorAlert_}}&nbsp;&nbsp;</strong>{{exceptionMessage}}
+			<div class="navbar-inner">
+				<div>
+					<ul class="breadcrumb pull-left margin-bottom: 0px !important">
+						<li ng-repeat="breadcrumb in breadcrumbs.getAll()">
+							<span class="divider">/</span>
+							<ng-switch on="$last">
+								<span ng-switch-when="true">{{breadcrumb.name}}</span>
+								<span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
+							</ng-switch>
+						</li>
+					</ul>
+				</div>
+				<div class="alert alert-danger pull-right" ng-show="showException">
+					<button type="button" class="close" data-dismiss="alert" ng-click="removeNotification()">&times;</button>
+					<strong>{{_ErrorAlert_}}&nbsp;&nbsp;</strong>{{exceptionMessage}}
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="contentCanvas" data-ng-view="ng-view" class="container-fluid  mini-layout fluid darkenMore" resize-to="body" resize-type="element" resize-reduction="20" style="padding: 10px;"></div>
-	<div id="footerCtrl" class="navbar-fixed-bottom footer ">
-		<div class="pull-right">
-			&copy; 2013 <span>Singleton Theory</span>
+		<div id="contentCanvas" data-ng-view="ng-view" class="container-fluid  mini-layout fluid darkenMore" resize-to="body" resize-type="element" resize-reduction="20" style="padding: 10px;"></div>
+		<div id="footerCtrl" class="navbar-fixed-bottom footer ">
+			<div class="pull-right">
+				&copy; 2013 <span>Singleton Theory</span>
+			</div>
 		</div>
-	</div>
-	<script src="/lib/angular/angular.js"></script>
-	<script src="/lib/angular/angular-cookies.js"></script>
-	<script src="/lib/angular/angular-resource.js"></script>
-	<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-	<script src="/lib/ui-bootstrap/angular-bootstrap-prettify.js"></script>
-	<script src="/lib/angular/ng-grid/ng-grid.js"></script>
-	<script src="/lib/angular/ng-grid/ng-grid-layout.js"></script>
-	<script src="/lib/angular/ng-grid/ngGridFlexibleHeightPlugin.js"></script>
-	<script src="/lib/angular/treeview/angular.treeview.js"></script>
-	<script src="/js/app.js"></script>
-	<script src="/js/routingConfig.js"></script>
-	<script src="/js/modules/DynamicLocale.js"></script>
-	<script src="/js/services/AuthService.js"></script>
-	<script src="/js/services/UserService.js"></script>
-	<script src="/js/services/BreadcrumbService.js"></script>
-	<script src="/js/services/ExceptionService.js"></script>
-	<script src="/js/controllers/UserAdminCtrl.js"></script>
-	<script src="/js/controllers/HomeCtrl.js"></script>
-	<script src="/js/controllers/AuthAdminCtrl.js"></script>
-	<script src="/js/controllers/LocaleAdminCtrl.js"></script>
-	<script src="/js/controllers/LoginCtrl.js"></script>
-	<script src="/js/controllers/NavCtrl.js"></script>
-	<script src="/js/controllers/testPageCtrl.js"></script>
-	<script src="/js/filters/Interpolate.js"></script>
-	<script src="/js/directives/AppDirectives.js"></script>
-	<script src="/js/directives/ValidationDirective.js"></script>
-	<script src="/js/directives/BlurDirective.js"></script>
-	<script src="/js/directives/FocusDirective.js"></script>
-	<script src="/js/directives/ResizeDirective.js"></script>
-	<script src="/js/directives/ActiveNavDirective.js"></script>
-	<script src="/js/directives/ValidatedInputDirective.js"></script>
-	<script src="/js/services/LocalizationService.js"></script>
-	<script src="/js/directives/LocalizationDirective.js"></script>
-	<script src="/js/directives/LocalizationAttributeDirective.js"></script>
-	<script src="/js/directives/ShowPermissionDirective.js"></script>
-	<script src="/js/directives/EnablePermissionDirective.js"></script>
-	<script src="/js/filters/LocalizationFilter.js"></script>
-	<script src="/js/filters/StringFormatFilter.js"></script>
-	<script src="/js/services/AuthAdminService.js"></script>
-</body>
+		<script src="/lib/angular/angular.js"></script>
+		<script src="/lib/angular/angular-cookies.js"></script>
+		<script src="/lib/angular/angular-resource.js"></script>
+		<script src="/lib/ui-bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+		<script src="/lib/ui-bootstrap/angular-bootstrap-prettify.js"></script>
+		<script src="/lib/angular/ng-grid/ng-grid.js"></script>
+		<script src="/lib/angular/ng-grid/ng-grid-layout.js"></script>
+		<script src="/lib/angular/ng-grid/ngGridFlexibleHeightPlugin.js"></script>
+		<script src="/lib/angular/treeview/angular.treeview.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/routingConfig.js"></script>
+		<script src="/js/modules/DynamicLocale.js"></script>
+		<script src="/js/services/AuthService.js"></script>
+		<script src="/js/services/UserService.js"></script>
+		<script src="/js/services/BreadcrumbService.js"></script>
+		<script src="/js/services/ExceptionService.js"></script>
+		<script src="/js/controllers/UserAdminCtrl.js"></script>
+		<script src="/js/controllers/HomeCtrl.js"></script>
+		<script src="/js/controllers/AuthAdminCtrl.js"></script>
+		<script src="/js/controllers/LocaleAdminCtrl.js"></script>
+		<script src="/js/controllers/LoginCtrl.js"></script>
+		<script src="/js/controllers/NavCtrl.js"></script>
+		<script src="/js/controllers/testPageCtrl.js"></script>
+		<script src="/js/filters/Interpolate.js"></script>
+		<script src="/js/directives/AppDirectives.js"></script>
+		<script src="/js/directives/ValidationDirective.js"></script>
+		<script src="/js/directives/BlurDirective.js"></script>
+		<script src="/js/directives/FocusDirective.js"></script>
+		<script src="/js/directives/ResizeDirective.js"></script>
+		<script src="/js/directives/ActiveNavDirective.js"></script>
+		<script src="/js/directives/ValidatedInputDirective.js"></script>
+		<script src="/js/services/LocalizationService.js"></script>
+		<script src="/js/directives/LocalizationDirective.js"></script>
+		<script src="/js/directives/LocalizationAttributeDirective.js"></script>
+		<script src="/js/directives/ShowPermissionDirective.js"></script>
+		<script src="/js/directives/EnablePermissionDirective.js"></script>
+		<script src="/js/filters/LocalizationFilter.js"></script>
+		<script src="/js/filters/StringFormatFilter.js"></script>
+		<script src="/js/services/AuthAdminService.js"></script>
+	</body>
 </html>

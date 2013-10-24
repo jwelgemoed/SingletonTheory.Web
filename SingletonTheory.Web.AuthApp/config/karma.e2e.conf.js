@@ -14,23 +14,10 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			//'../app/lib/angular/angular.js',
-			//'../app/lib/angular/*.js',
-			//'../tests/lib/angular/angular-mocks.js',
-			//'../tests/lib/angular/angular-scenario.js',
-			//'../app/lib/underscore/*.js',
-			//'../app/js/app.js',
-			//'../app/js/routingConfig.js',
-			//'../app/js/services/AuthService.js',
-			//'../app/js/services/UserService.js',
-			//'../app/js/directives/AccessLevelDirective.js',
-			//'../app/js/directives/ActiveNavDirective.js',
-			//'../app/js/directives/AppDirectives.js',
-			//'../app/js/controllers/LoginCtrl.js',
 			'../tests/lib/jquery/jquery.js',
 			'../tests/e2e/extensions/angular.scenario.custom.js',
 			'../tests/e2e/extensions/TestHelpers.js',
-			'../tests/e2e/LoginScenario.js'
+			'../tests/e2e/*.js'
 		],
 
 		// list of files to exclude
