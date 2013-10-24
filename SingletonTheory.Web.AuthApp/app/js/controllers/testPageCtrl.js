@@ -95,11 +95,32 @@ userApplicationModule.controller('TestPageCtrl', ['$rootScope', '$scope', 'AuthA
 			}
 		}, false);
 
+		var cssStyleCurrent = "height:100%; width:100%;";
+		var cssStyleAreaChartCurrent = "height:100%; width:100%;";
+		$scope.areaChartSpan = "span4";
+		$scope.chartSpan = "span4";
+		
+		$scope.fullScreen = function() {
+			$scope.chartSpan = "span12";
+		};
+		
+		$scope.resizeSmall = function () {
+			$scope.chartSpan = "span4";
+		};
+		
+		$scope.fullScreenAreaChart = function () {
+			$scope.areaChartSpan = "span12";
+		};
+
+		$scope.resizeSmallAreaChart = function () {
+			$scope.areaChartSpan = "span4";
+		};
+
 		$scope.chart = {
-			"type": "PieChart",
-			"displayed": true,
-			"cssStyle": "height:400px; width:100%;",
-			"data": {
+			type: "PieChart",
+			displayed: true,
+			cssStyle: cssStyleCurrent,
+			data: {
 				"cols": [
 					{
 						"id": "month",
@@ -286,5 +307,198 @@ userApplicationModule.controller('TestPageCtrl', ['$rootScope', '$scope', 'AuthA
 				]
 			}
 		};
+		
+		$scope.areaChart = {
+			type: "AreaChart",
+			displayed: true,
+			cssStyle: cssStyleAreaChartCurrent,
+			data: {
+				"cols": [
+					{
+						"id": "month",
+						"label": "Month",
+						"type": "string"
+					},
+					{
+						"id": "laptop-id",
+						"label": "Laptop",
+						"type": "number"
+					},
+					{
+						"id": "desktop-id",
+						"label": "Desktop",
+						"type": "number"
+					},
+					{
+						"id": "server-id",
+						"label": "Server",
+						"type": "number"
+					},
+					{
+						"id": "cost-id",
+						"label": "Shipping",
+						"type": "number"
+					}
+				],
+				"rows": [
+					{
+						"c": [
+							{
+								"v": "January"
+							},
+							{
+								"v": 19,
+								"f": "<span style=\"padding: 0; float: left; white-space: nowrap;\"><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_s.png\" height=\"12\" width=\"1\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_b.png\" height=\"12\" width=\"80\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_w.png\" height=\"12\" width=\"20\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_s.png\" height=\"12\" width=\"1\" /> 42 items</span> ",
+								"p": {
+									"className": "google-visualization-formatters-arrow-empty",
+									"_bar_format_old_value": "42 items"
+								}
+							},
+							{
+								"v": 12,
+								"f": "Ony 12 items"
+							},
+							{
+								"v": 7,
+								"f": "7 servers"
+							},
+							{
+								"v": 4,
+								"p": {
+									"style": "color:white;background-color:#800080;"
+								},
+								"f": "$4,00"
+							}
+						]
+					},
+					{
+						"c": [
+							{
+								"v": "February"
+							},
+							{
+								"v": 13,
+								"p": {
+									"className": "google-visualization-formatters-arrow-dr",
+									"_bar_format_old_value": "13"
+								},
+								"f": "<span style=\"padding: 0; float: left; white-space: nowrap;\"><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_s.png\" height=\"12\" width=\"1\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_b.png\" height=\"12\" width=\"55\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_w.png\" height=\"12\" width=\"45\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_s.png\" height=\"12\" width=\"1\" /> 13</span> "
+							},
+							{
+								"v": 1,
+								"f": "1 unit (Out of stock this month)"
+							},
+							{
+								"v": 12
+							},
+							{
+								"v": 2,
+								"p": {
+									"style": "color:white;background-color:red;"
+								},
+								"f": "$2,00"
+							}
+						]
+					},
+					{
+						"c": [
+							{
+								"v": "March"
+							},
+							{
+								"v": 24,
+								"p": {
+									"className": "google-visualization-formatters-arrow-ug",
+									"_bar_format_old_value": "24"
+								},
+								"f": "<span style=\"padding: 0; float: left; white-space: nowrap;\"><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_s.png\" height=\"12\" width=\"1\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_b.png\" height=\"12\" width=\"100\" /><img style=\"padding: 0\" src=\"http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/util/bar_s.png\" height=\"12\" width=\"1\" /> 24</span> "
+							},
+							{
+								"v": 5
+							},
+							{
+								"v": 11
+							},
+							{
+								"v": 6,
+								"p": {
+									"style": "color:black;background-color:#33ff33;"
+								},
+								"f": "$6,00"
+							}
+						]
+					}
+				]
+			},
+			"options": {
+				"title": "Sales per month",
+				"isStacked": "true",
+				"fill": 20,
+				"displayExactValues": true,
+				"vAxis": {
+					"title": "Sales unit",
+					"gridlines": {
+						"count": 10
+					}
+				},
+				"hAxis": {
+					"title": "Date"
+				},
+				"allowHtml": true
+			},
+			"formatters": {
+				"date": [
+					{
+						"columnNum": 5,
+						"formatType": "long"
+					}
+				],
+				"arrow": [
+					{
+						"columnNum": 1,
+						"base": 19
+					}
+				],
+				"color": [
+					{
+						"columnNum": 4,
+						"formats": [
+							{
+								"from": 0,
+								"to": 3,
+								"color": "white",
+								"bgcolor": "red"
+							},
+							{
+								"from": 3,
+								"to": 5,
+								"color": "white",
+								"fromBgColor": "red",
+								"toBgColor": "blue"
+							},
+							{
+								"from": 6,
+								"to": null,
+								"color": "black",
+								"bgcolor": "#33ff33"
+							}
+						]
+					}
+				],
+				"number": [
+					{
+						"columnNum": 4,
+						"prefix": "$"
+					}
+				],
+				"bar": [
+					{
+						"columnNum": 1,
+						"width": 100
+					}
+				]
+			}
+		};
+		
 	}]);
 
