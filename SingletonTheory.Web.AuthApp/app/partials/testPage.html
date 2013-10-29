@@ -1,26 +1,46 @@
-﻿<div class="row-fluid sortme"  ng-init="init()">
+﻿<div class="row-fluid sortme" ng-init="init()">
 	<div id="infoContainer" class="span4 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
-			
-			    <div style="margin:10px 0 30px 0; padding:10px; background-color:#EEEEEE; border-radius:5px; font:12px Tahoma;">
-      <span><b>Selected Node</b> : {{roleTree1.currentNode.Label}}</span>
-    </div>
-			
+
+			<div style="margin: 10px 0 30px 0; padding: 10px; background-color: #EEEEEE; border-radius: 5px; font: 12px Tahoma;">
+				<span><b>Selected Node</b> : {{roleTree1.currentNode.Label}}</span>
+			</div>
+
 			<div
-      data-angular-treeview="true"
-      data-tree-id="roleTree1"
-      data-tree-model="roleListMain"
-      data-tree-add="addRole"
-      data-tree-edit="editRole"
-			data-tree-move="moveRole"
-			data-tree-remove="deleteRole"
-      data-node-id="Id"
-      data-node-label="Label"
-      data-node-children="Children" >
-    </div>
+				data-angular-treeview="true"
+				data-tree-id="roleTree1"
+				data-tree-model="roleListMain"
+				data-tree-add="addRole"
+				data-tree-edit="editRole"
+				data-tree-move="moveRole"
+				data-tree-remove="deleteRole"
+				data-node-id="Id"
+				data-node-label="Label"
+				data-node-children="Children">
+			</div>
 
 		</div>
 	</div>
 	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<ul class="thumbnails">
+			<li class="span4">
+				<div class="thumbnail">
+					<div class="btn-group">
+						<button class="btn" onclick="resizeSmall()"><i class="icon-resize-small"></i></button>
+						<button class="btn" onclick="fullScreen()"><i class="icon-fullscreen"></i></button>
+					</div>
+					<div google-chart chart="chart" style="{{chart.cssStyle}}" />
+				</div>
+			</li>
+			<li class="span4">
+				<div class="thumbnail">
+					<div class="btn-group">
+						<button class="btn" onclick="resizeSmallAreaChart()"><i class="icon-resize-small"></i></button>
+						<button class="btn" onclick="fullScreenAreaChart()"><i class="icon-fullscreen"></i></button>
+					</div>
+					<div google-chart chart="areaChart" style="{{areaChart.cssStyle}}" />
+				</div>
+			</li>
+		</ul>
 	</div>
 </div>
