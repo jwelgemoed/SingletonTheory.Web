@@ -3,13 +3,13 @@
 		<div class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
 			<div class="dropdown">
 				<span class="label label-default btn-block st-centered" data-i18n="_LocaleTypeHeading_"></span>
-				<button class="btn btn-info btn-block dropdown-toggle" type="button">{{displayLocalizationType}} <i class="icon-chevron-down icon-white"></i></button>
+				<button id="typeDropDownToggleButtom" class="btn btn-info btn-block dropdown-toggle" type="button">{{displayLocalizationType}} <i class="icon-chevron-down icon-white"></i></button>
 				<ul class="dropdown-menu">
 					<li>
 						<a  show-permission="LocaleKeyAdministration_Access" ng-click="selectType('_LocaleKeyHeading_')" data-i18n="_LocaleKeyHeading_"></a>
 					</li>
 					<li>
-						<a show-permission="LocaleAdministration_Access" ng-click="selectType('_LocaleHeading_')" data-i18n="_LocaleHeading_"></a>
+						<a id="localeAnchor" show-permission="LocaleAdministration_Access" ng-click="selectType('_LocaleHeading_')" data-i18n="_LocaleHeading_"></a>
 					</li>
 				</ul>
 			</div>
@@ -37,7 +37,7 @@
 			<div class="gridStyle" ng-hide="isKeyEdit" ng-grid="localeGridOptions"></div>
 		</div>
 	</div>
-	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+	<div id="editContainer" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="50">
 			<span class="label label-default btn-block st-centered" data-i18n="_LocaleTypeDataHeading_"></span>
 			<div ng-hide="!isKeyEdit" class="gridStyle" ng-grid="keyValueGridOptions"></div>
