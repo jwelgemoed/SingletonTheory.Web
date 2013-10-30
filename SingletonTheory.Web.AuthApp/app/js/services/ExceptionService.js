@@ -1,5 +1,5 @@
 ﻿// Override the default global exception handler.
-userApplicationModule.factory('$exceptionHandler', ['$injector', function ($injector) {
+userApplicationModule.factory('$exceptionHandler', ['$injector', '$log', function ($injector, $log) {
 	var errorForNotification = {
 		message: ''
 	};
@@ -9,6 +9,8 @@ userApplicationModule.factory('$exceptionHandler', ['$injector', function ($inje
 		errorForNotification.message = exception.message;
 
 		rootScope.exception = errorForNotification;
-		rootScope.$broadcast('ErrorNotification');		
+		rootScope.$broadcast('ErrorNotification');
+		if (exception.stack != undefined && exception.stack != '')
+			$log.error(exception.stack);
 	};
 }]);
