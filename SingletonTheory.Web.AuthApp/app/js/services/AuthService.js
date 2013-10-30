@@ -11,6 +11,14 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 	var userFunctionalPermissions = [];
 
 	function setCurrentUser(success, error) {
+		if ($rootScope.serverCallBusy == true) {
+			if ($rootScope.authCallbacks == undefined)
+				$rootScope.authCallbacks = [];
+
+			$rootScope.authCallbacks.push({ Success: success, Error: error });
+		}
+
+		$rootScope.serverCallBusy = true;
 		$http.get('/authapi/currentuser').success(function (response) {
 			if (response == '') {
 				currentUser = defaultUser;
@@ -29,7 +37,26 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 			if (success != undefined)
 				success();
 
-		}).error(error);
+			if ($rootScope.authCallbacks.length != 0) {
+				for (var i = 0; i < callbacks.length; i++) {
+					$rootScope.authCallbacks[i].Success();
+				}
+
+				$rootScope.authCallbacks.length = 0;
+			}
+		}).error(function (response){
+			error();
+
+			if ($rootScope.authCallbacks.length != 0) {
+				for (var i = 0; i < callbacks.length; i++) {
+					$rootScope.authCallbacks[i].Error();
+				}
+
+				$rootScope.authCallbacks.length = 0;
+			}
+		});
+
+		$rootScope.serverCallBusy = false;
 	};
 
 	function getRole(userRole) {

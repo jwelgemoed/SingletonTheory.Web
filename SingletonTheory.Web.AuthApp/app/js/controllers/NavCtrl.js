@@ -1,17 +1,16 @@
 ﻿'use strict';
 
-userApplicationModule.controller('NavCtrl', ['$scope', '$location', '$rootScope', 'AuthService', 'BreadcrumbService', function ($scope, $location, $rootScope, authService, breadcrumbService) {
-	//$scope.userRoles = authService.userRoles;
+userApplicationModule.controller('NavCtrl', ['$scope', '$location', '$rootScope', '$exceptionHandler', 'AuthService', 'BreadcrumbService', function ($scope, $location, $rootScope, $exceptionHandler, authService, breadcrumbService) {
 	$scope.accessLevels = authService.accessLevels;
 	$scope.breadcrumbs = breadcrumbService;
-	$scope.appName = 'Singleton Theory';
-	$scope.exceptionMessage = 'Some exception has happened!';
-	$scope.showException = true;
+	$scope.appName = 'Bridge';
+	$scope.exceptionMessage = '';
+	$scope.showException = false;
 
-	//$rootScope.$watch('exceptionMessage', function () {
-	//	$scope.exceptionMessage = $rootScope.exceptionMessage.message;
-	//	$scope.showException = !!($scope.exceptionMessage == undefined);
-	//});
+	$rootScope.$on('ErrorNotification', function () {
+		$scope.exceptionMessage = $rootScope.exception.message;
+		$scope.showException = !!($rootScope.exception.message != '');
+	});
 
 	$scope.$on('currentUser', function () {
 		$scope.user = authService.getCurrentUser();

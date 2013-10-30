@@ -1,7 +1,7 @@
 'use strict';
 
 //declare module variables used throughout the application
-var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule', 'ngGrid', 'st-breadcrumbs', 'angularTreeview','googlechart']);// , 'st-exceptions', 'exceptionOverride'
+var userApplicationModule = angular.module('user-application', ['ngResource', 'ngCookies', 'ui.bootstrap', 'localization', 'dynamicLocaleModule', 'ngGrid', 'st-breadcrumbs', 'angularTreeview', 'googlechart']);
 var dynamicLocaleModule = angular.module('dynamicLocaleModule', []);
 var localizationModule = angular.module('localization', ['ngResource']);
 

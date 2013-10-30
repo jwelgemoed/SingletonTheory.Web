@@ -1,17 +1,14 @@
 ﻿// Override the default global exception handler.
-angular.module('exceptionOverride', []).factory('$exceptionHandler', [function () {
+userApplicationModule.factory('$exceptionHandler', ['$injector', function ($injector) {
+	var errorForNotification = {
+		message: ''
+	};
+
 	return function (exception, cause) {
-		exception.message += ' (caused by "' + cause + '")';
-		//$rootScope.exceptionMessage = exception.message;
-		//throw exception;
+		var rootScope = $injector.get('$rootScope');
+		errorForNotification.message = exception.message;
+
+		rootScope.exception = errorForNotification;
+		rootScope.$broadcast('ErrorNotification');		
 	};
 }]);
-
-//angular.module('st-exceptions', []).factory('$exceptionHandler', '$rootScope', function ($rootScope) {
-//	return function (exception, cause) {
-//		exception.message += ' (caused by "' + cause + '")';
-//		$rootScope.exceptionMessage = exception.message;
-
-//		//throw exception;
-//	};
-//});
