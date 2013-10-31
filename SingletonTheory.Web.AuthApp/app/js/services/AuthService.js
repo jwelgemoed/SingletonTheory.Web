@@ -37,7 +37,7 @@ userApplicationModule.factory('AuthService', ['$http', '$cookieStore', '$rootSco
 			if (success != undefined)
 				success();
 
-			if ($rootScope.authCallbacks.length != 0) {
+			if ($rootScope.authCallbacks != undefined && $rootScope.authCallbacks.length != 0) {
 				for (var i = 0; i < callbacks.length; i++) {
 					$rootScope.authCallbacks[i].Success();
 				}
