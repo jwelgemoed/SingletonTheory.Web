@@ -46,6 +46,13 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			controller: 'LocaleAdminCtrl',
 			access: 'LocalizationAdministration_Access'
 		});
+	$routeProvider.when('/hoursmanagement',
+		{
+			templateUrl: '/partials/hoursmanagement.html',
+			controller: 'HoursManagementCtrl'
+			,
+			access: 'LocalizationAdministration_Access'
+		});
 	$routeProvider.when('/test',
 	{
 		templateUrl: '/partials/testpage.html',
