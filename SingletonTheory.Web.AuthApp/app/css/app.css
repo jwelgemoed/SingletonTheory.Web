@@ -171,3 +171,9 @@ body {
 .passedValidation {
 	color: white !important;
 }
+
+.horizontalContainer {
+	margin-top: 2px!important; 
+	margin-bottom: 2px!important; 
+	background-color: white!important;
+}
