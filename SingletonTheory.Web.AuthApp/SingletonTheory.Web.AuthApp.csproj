@@ -61,6 +61,7 @@
     <Content Include="app\css\app.css" />
     <Content Include="app\DownloadPage.html" />
     <Content Include="app\favicon.ico" />
+    <Content Include="app\img\BridgeLogoSmall.png" />
     <Content Include="app\img\file.png" />
     <Content Include="app\img\folder-closed.png" />
     <Content Include="app\img\folder.png" />
