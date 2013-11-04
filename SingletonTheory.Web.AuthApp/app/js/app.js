@@ -45,7 +45,7 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			templateUrl: '/partials/localeadmin.html',
 			controller: 'LocaleAdminCtrl',
 			access: 'LocalizationAdministration_Access'
-		});
+		}); 
 	$routeProvider.when('/hoursmanagement',
 		{
 			templateUrl: '/partials/hoursmanagement.html',
@@ -53,6 +53,13 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			,
 			access: 'LocalizationAdministration_Access'
 		});
+	$routeProvider.when('/contactmanagement',
+	{
+		templateUrl: '/partials/contactmanagement.html',
+		controller: 'ContactManagementCtrl'
+		,
+		access: 'LocalizationAdministration_Access'
+	});
 	$routeProvider.when('/test',
 	{
 		templateUrl: '/partials/testpage.html',

@@ -1,0 +1,43 @@
+﻿<div class="row-fluid sortme" ng-init="init()">
+	<div id="infoContainer" class="span4 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div id="elementContainer" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div>
+				<span class="label label-default btn-block st-centered" data-i18n="_ContactManagementHeading_"></span>
+			</div>
+			<div class="gridStyle" ng-grid="contactsGrid"></div>
+		</div>
+	</div>
+
+	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div id="Div1" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div>
+
+				<div class="control-group">
+					<label for="title" class="control-label" data-i18n="_TitleHeading_"></label>
+					<div class="controls">
+						<select id="title" data-ng-model="title" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="entityType" class="control-label" data-i18n="_EntityTypeHeading_"></label>
+					<div class="controls">
+						<select id="entityType" data-ng-model="entityType" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="contactType" class="control-label" data-i18n="_ContactTypeHeading_"></label>
+					<div class="controls">
+						<select id="contactType" data-ng-model="contactType" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="occupationName" class="control-label" data-i18n="_OccupationNamesHeading_"></label>
+					<div class="controls">
+						<select id="occupationName" data-ng-model="occupationName" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -23,7 +23,8 @@
 	<input id="localeTestHiddenField" type="hidden" value="{{123456079.12|number}}" />
 	<div id="navCtrl" data-ng-controller="NavCtrl" class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<a class="brand" href="/"><img src="../img/BridgeLogoSmall.png" style="height:22px;margin-left: 10px;"/></a>
+			<a class="brand" href="/">
+				<img src="../img/BridgeLogoSmall.png" style="height: 22px; margin-left: 10px;" /></a>
 			<ul class="nav">
 				<li show-permission="General_Access" active-nav>
 					<a data-i18n="_HomeAnchor_" href="/"></a>
@@ -56,6 +57,9 @@
 							<a id="hoursEntryMenuItem" href="/hoursmanagement" data-i18n="_HoursEntryHeading_"></a>
 						</li>
 					</ul>
+				</li>
+				<li active-nav>
+					<a id="ContactManagementMenuItem" href="/contactmanagement" data-i18n="_ContactManagementHeading_"></a>
 				</li>
 			</ul>
 			<ul class="nav pull-right">
@@ -117,6 +121,8 @@
 	<script src="/js/services/ExceptionService.js"></script>
 	<script src="/js/services/LocalizationService.js"></script>
 	<script src="/js/services/AuthAdminService.js"></script>
+	<script src="/js/services/ContactService.js"></script>
+	<script src="/js/services/TypeService.js"></script>
 	<!-- Controllers -->
 	<script src="/js/controllers/UserAdminCtrl.js"></script>
 	<script src="/js/controllers/HomeCtrl.js"></script>
@@ -125,6 +131,7 @@
 	<script src="/js/controllers/LoginCtrl.js"></script>
 	<script src="/js/controllers/NavCtrl.js"></script>
 	<script src="/js/controllers/HoursManagementCtrl.js"></script>
+	<script src="/js/controllers/ContactManagementCtrl.js"></script>
 	<script src="/js/controllers/testPageCtrl.js"></script>
 	<!-- Directives -->
 	<script src="/js/directives/AppDirectives.js"></script>
