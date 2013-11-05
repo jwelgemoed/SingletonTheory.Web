@@ -3,7 +3,7 @@
 /// <reference path="~/app/js/app.js" />
 
 var ContactResource = userApplicationModule.factory('ContactResource', function ($resource) {
-	return $resource('/contactapi', {},
+	return $resource('/contactdetailsapi/contact', {},
 	{
 		query: { method: 'GET', params: { Surname: '' }, isArray: false },
 		get: { method: 'GET', params: { Id: 0 }, isArray: false },
@@ -13,9 +13,8 @@ var ContactResource = userApplicationModule.factory('ContactResource', function 
 });
 
 var ContactsResource = userApplicationModule.factory('ContactsResource', function ($resource) {
-	return $resource('/contactapi', {},
+	return $resource('/contactdetailsapi/contacts', {},
 	{
-		query: { method: 'POST', params: {}, isArray: true },
 		get: { method: 'GET', params: {}, isArray: true }
 	});
 });
