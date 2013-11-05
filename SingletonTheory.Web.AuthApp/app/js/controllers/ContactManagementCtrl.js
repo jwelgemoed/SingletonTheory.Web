@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('ContactManagementCtrl',
-	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', function ($rootScope, $scope, $location, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource) {
+	['$rootScope', '$scope', '$location', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', function ($rootScope, $scope, $location, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource) {
 
 
 		// ************************ INFO AREA ************************************************************************
@@ -25,13 +25,12 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.setContentArea();
 		};
 
-
 		// ******** info area grid *************************
 		$scope.lastRowId = 0;
 		$scope.mainColumnDefs = [{ field: 'EntityName', displayName: localize.getLocalizedString('_EntityNameHeading_') },
 				{ field: 'Surname', displayName: localize.getLocalizedString('_SurnameHeading_') }];
 
-		$scope.userGridOptions = {
+		$scope.contactsGrid = {
 			data: 'contacts',
 			filterOptions: $scope.filterOptions,
 			showFilter: true,
