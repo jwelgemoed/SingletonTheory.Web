@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('UserAdminCtrl',
-	['$rootScope', '$scope', '$location', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', 'AuthService', function ($rootScope, $scope, $location, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource, AuthService) {
+	['$rootScope', '$scope', '$location','$timeout', 'AuthService', 'UsersResource', 'UserResource', 'localize', 'AuthAdminRolesResource', 'AuthAdminDomainPermissionsResource', 'AuthService', function ($rootScope, $scope, $location,$timeout, authService, usersResource, userResource, localize, authAdminRolesResource, authAdminDomainPermissionsResource, AuthService) {
 
 		//info
 		$scope.loading = true;

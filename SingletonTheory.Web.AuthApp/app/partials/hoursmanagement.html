@@ -1,13 +1,33 @@
-﻿<div class="row-fluid ">
+﻿<div class="row-fluid">
 	<div id="infoContainer" class="span12 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
-				<div  style="height: 15%!important;" class="container-fluid horizontalContainer">
-				</div>
-				<div  style="height: 15%!important;" class="container-fluid horizontalContainer">
-				</div>
-				<div  style="height: 69%!important;" class="container-fluid horizontalContainer">
-				</div>
+			<div id="staticDataBar" style="height: 15%!important;" class="container-fluid horizontalContainer">
+				<form class="form-inline" name="hoursMainFieldsForm" novalidate>
+					<div class="row" resize-to="staticDataBar" resize-type="elementId" resize-reduction="0" style="margin-top: 10px; margin-left: 10px;">
+						<div class="control-group span2">
+							<label data-i18n="_HoursDateHeading_"></label>
+							<div class="form-horizontal">
+								<input class="span7" type="text" datepicker-popup="dd-MM-yyyy" datepicker-append-to-body="true" ng-model="dtStart" is-open="openedDtStart" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+								<button class="btn" ng-click="openDtStart()"><i class="icon-calendar"></i></button>
+							</div>
+						</div>
+						<div class="span2">
+							<st-input label-name="_PersonNumberHeading_" >
+								    <input class="span8" id="personNumberInputId" data-ng-model="personInput"  type="text" name="personNumberInput" required="required" ng-minlength=2 ng-maxlength="5" />
+							</st-input>
+						</div>
+						<div class="span2">
+							<button class="btn btn-default" ng-disabled="hoursMainFieldsForm.$invalid" data-i18n="_SelectHeading_"></button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div style="height: 15%!important;" class="container-fluid horizontalContainer">
+			</div>
+			<div style="height: 69%!important;" class="container-fluid horizontalContainer">
+			</div>
 		</div>
 	</div>
 </div>
+
 
