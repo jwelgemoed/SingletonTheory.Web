@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-userApplicationModule.controller('HoursManagementCtrl',
+userApplicationModule.controller('BookedHoursInputCtrl',
 	['$rootScope', '$scope','$timeout', 'localize', 'AuthService',
 		function ($rootScope, $scope,$timeout, localize, AuthService) {
 			//DatePickers ----------

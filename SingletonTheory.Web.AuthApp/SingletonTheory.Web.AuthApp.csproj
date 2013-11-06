@@ -69,7 +69,7 @@
     <Content Include="app\js\controllers\AuthAdminCtrl.js" />
     <Content Include="app\js\controllers\ContactManagementCtrl.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
-    <Content Include="app\js\controllers\HoursManagementCtrl.js" />
+    <Content Include="app\js\controllers\BookedHoursInputCtrl.js" />
     <Content Include="app\js\controllers\LocaleAdminCtrl.js" />
     <Content Include="app\js\controllers\LoginCtrl.js" />
     <Content Include="app\js\controllers\testPageCtrl.js" />
@@ -142,7 +142,7 @@
     <Content Include="app\partials\authadmin.html" />
     <Content Include="app\partials\contactmanagement.html" />
     <Content Include="app\partials\header.html" />
-    <Content Include="app\partials\hoursmanagement.html" />
+    <Content Include="app\partials\bookedhoursinput.html" />
     <Content Include="app\partials\localeadmin.html" />
     <Content Include="app\partials\notifications.html" />
     <Content Include="app\partials\testPage.html" />
