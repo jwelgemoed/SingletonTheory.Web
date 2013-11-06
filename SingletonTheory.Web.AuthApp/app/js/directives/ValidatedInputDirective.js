@@ -82,6 +82,19 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 							var maxLengthDescription = $filter('stringFormat')(localize.getLocalizedString('_maxLengthDescription_'), [maxLength]);
 							validationString += '<span ' + colourStyle + '">' + maxLengthDescription + '</span><br/>';
 							break;
+						case 'number':
+							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_numberCheckDescription_') + '</span><br/>';
+							break;
+						case 'min':
+							var min = element.find(':input').attr('min');
+							var minDescription = $filter('stringFormat')(localize.getLocalizedString('_minValueDescription_'), [min]);
+							validationString += '<span ' + colourStyle + '">' + minDescription + '</span><br/>';
+							break;
+						case 'max':
+							var max = element.find(':input').attr('max');
+							var maxDescription = $filter('stringFormat')(localize.getLocalizedString('_maxValueDescription_'), [max]);
+							validationString += '<span ' + colourStyle + '">' + maxDescription + '</span><br/>';
+							break;
 					}
 				}
 				scope.errorList = validationString;
