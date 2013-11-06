@@ -42,23 +42,14 @@ userApplicationModule.controller('ContactManagementCtrl',
 				//NOTE : This event is called twice once to select and then to decelect
 				if (data.entity.Id != $scope.lastRowId) {
 					$scope.setContentArea();
-					refreshSetSelectedContact(data.entity.Id);
+					setSelectedContact(data.entity);
 					$scope.lastRowId = data.entity.Id;
 				}
 			}
 		};
 
-		var refreshSetSelectedContact = function (id) {
-			$scope.selectedContact = new contactResource();
-			$scope.contentData.length = 0;
-			contactResource.get({ Id: id }, function (response) {
-				$scope.selectedContact = response;
-				//Set content area
-				$scope.setContentArea();
-			},
-				function (error) {
-					$scope.error = error;
-				});
+		var setSelectedContact = function (entity) {
+			$scope.selectedContact = entity;
 		};
 
 		// Edit area

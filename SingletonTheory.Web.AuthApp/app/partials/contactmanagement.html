@@ -11,30 +11,43 @@
 	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div id="Div1" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
 			<div>
+				<div class="tabbable">
+					<!-- Only required for left/right tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+						<li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab1">
+							<div class="control-group">
+								<label for="title" class="control-label" data-i18n="_TitleHeading_"></label>
+								<div class="controls">
+									<select id="title" data-ng-model="selectedContact.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="entityType" class="control-label" data-i18n="_EntityTypeHeading_"></label>
+								<div class="controls">
+									<select id="entityType" data-ng-model="selectedContact.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="contactType" class="control-label" data-i18n="_ContactTypeHeading_"></label>
+								<div class="controls">
+									<select id="contactType" data-ng-model="selectedContact.ContactTypeId" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
+								</div>
+							</div>
 
-				<div class="control-group">
-					<label for="title" class="control-label" data-i18n="_TitleHeading_"></label>
-					<div class="controls">
-						<select id="title" data-ng-model="title" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
-					</div>
-				</div>
-				<div class="control-group">
-					<label for="entityType" class="control-label" data-i18n="_EntityTypeHeading_"></label>
-					<div class="controls">
-						<select id="entityType" data-ng-model="entityType" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
-					</div>
-				</div>
-				<div class="control-group">
-					<label for="contactType" class="control-label" data-i18n="_ContactTypeHeading_"></label>
-					<div class="controls">
-						<select id="contactType" data-ng-model="contactType" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label for="occupationName" class="control-label" data-i18n="_OccupationNamesHeading_"></label>
-					<div class="controls">
-						<select id="occupationName" data-ng-model="occupationName" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
+							<div class="control-group">
+								<label for="occupationName" class="control-label" data-i18n="_OccupationNamesHeading_"></label>
+								<div class="controls">
+									<select id="occupationName" data-ng-model="selectedContact.OccupationNameId" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab2">
+							<p>Howdy, I'm in Section 2.</p>
+						</div>
 					</div>
 				</div>
 			</div>
