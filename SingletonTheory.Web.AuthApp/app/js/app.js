@@ -46,10 +46,10 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			controller: 'LocaleAdminCtrl',
 			access: 'LocalizationAdministration_Access'
 		}); 
-	$routeProvider.when('/hoursmanagement',
+	$routeProvider.when('/bookedhoursinput',
 		{
-			templateUrl: '/partials/hoursmanagement.html',
-			controller: 'HoursManagementCtrl'
+			templateUrl: '/partials/bookedhoursinput.html',
+			controller: 'BookedHoursInputCtrl'
 			,
 			access: 'LocalizationAdministration_Access'
 		});
