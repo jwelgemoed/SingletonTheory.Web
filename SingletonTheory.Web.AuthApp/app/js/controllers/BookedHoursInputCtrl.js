@@ -10,6 +10,14 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 			$scope.bookedHourType = "";
 			$scope.productionCostCentre = "";
 			$scope.paintingCostCentre = "";
+			$scope.gridSource = [];
+			
+			$scope.enteredHoursGridOptions = {
+				data: 'gridSource',
+		//		columnDefs: 'mainKeyColumnDefs',
+				enableRowSelection: false,
+				plugins: [new ngGridFlexibleHeightPlugin()]
+			};
 
 			$scope.init = function () {
 				$scope.itemHoursResource = new ItemHoursEntryResource();
@@ -47,6 +55,19 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					$scope.itemHoursResource.CostCentre = $scope.costCentres[1];
 				}
 				$scope.itemHoursResource.$add({}, function () {
+					var enteredHoursItem = {
+						HourType: $scope.itemHoursResource.HourType.Description,
+						PersonNumber: $scope.itemHoursResource.PersonNumber,
+						Date: $scope.itemHoursResource.Date,
+						ConstCentre: $scope.itemHoursResource.CostCentre.Description,
+						OrderNumber: $scope.itemHoursResource.OrderNumber,
+						RoomNumber: $scope.itemHoursResource.RoomNumber,
+						ItemNumber: $scope.itemHoursResource.ItemNumber,
+						Hours: $scope.itemHoursResource.Hours,
+						Description: $scope.itemHoursResource.Description
+					};
+
+					$scope.gridSource[$scope.gridSource.length] = enteredHoursItem;
 					$scope.itemHoursResource = new ItemHoursEntryResource();
 				}, function (err) { $scope.error = err; }
 					);

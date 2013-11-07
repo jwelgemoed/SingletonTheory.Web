@@ -13,26 +13,26 @@
 						</div>
 						<div class="span2">
 							<st-input label-name="_PersonNumberHeading_">
-								    <input class="span8" id="personNumberInputId" data-ng-model="itemHoursResource.PersonNumber"  type="text" name="personNumberInput" required="required" ng-minlength="4" ng-maxlength="4" />
+								<input class="span8" id="personNumberInputId" data-ng-model="itemHoursResource.PersonNumber"  type="text" name="personNumberInput" required="required" ng-minlength="4" ng-maxlength="4" />
 							</st-input>
 						</div>
 					</div>
 					<button class="btn btn-default pull-right" ng-disabled="hoursMainFieldsForm.$invalid" data-i18n="_SelectHeading_"></button>
 				</form>
 			</div>
-			<div id="hoursDataBar" style="height: 20%!important;" class="container-fluid horizontalContainer">
+			<div id="hoursDataBar" style="height: 20%!important;" class="container-fluid horizontalContainer scrollVertical">
 				<form class="form-inline" name="hoursDataFieldsForm" novalidate>
 					<div class="row" style="margin-top: 10px; margin-left: 10px;" resize-to="hoursDataBar" resize-type="elementId" resize-reduction="50">
+						<div class="span2">
+							<label for="costCentreSelection" data-i18n="_CostCentreHeading_"></label>
+							<div class="controls">
+								<select id="costCentreSelection" data-ng-model="itemHoursResource.CostCentreId" data-ng-options="opt.Id as opt.Code + ' - ' + opt.Description for opt in costCentres"></select>
+							</div>
+						</div>
 						<div class="span2">
 							<st-input label-name="_OrderNumberHeading_">
 								<input class="span8" id="orderNumberInputId" data-ng-model="itemHoursResource.OrderNumber"  type="text" name="orderNumberInput" required="required" ng-minlength="4" ng-maxlength="4" />
 							</st-input>
-						</div>
-						<div class="span2">
-							<label for="costCentreSelection"data-i18n="_CostCentreHeading_"></label>
-							<div class="controls">
-								<select id="costCentreSelection" data-ng-model="itemHoursResource.CostCentreId" data-ng-options="opt.Id as opt.Code + ' - ' + opt.Description for opt in costCentres"></select>
-							</div>
 						</div>
 						<div class="span2">
 							<st-input label-name="_RoomNumberHeading_">
@@ -51,14 +51,15 @@
 						</div>
 						<div class="span2">
 							<st-input label-name="_DescriptionHeading_">
-								    <input class="span8" id="descriptionInputId" data-ng-model="itemHoursResource.Description"  type="text" name="descriptionInput" ng-minlength=2 ng-maxlength="22" />
+								<input class="span8" id="descriptionInputId" data-ng-model="itemHoursResource.Description"  type="text" name="descriptionInput" ng-minlength=2 ng-maxlength="22" />
 							</st-input>
 						</div>
 					</div>
 					<button class="btn btn-default pull-right" ng-disabled="hoursDataFieldsForm.$invalid" ng-click="addHoursEntry()" data-i18n="_SaveHeading_"></button>
 				</form>
 			</div>
-			<div style="height: 59%!important;" class="container-fluid horizontalContainer">
+			<div id="gridContainer" style="height: 59%!important;" class="container-fluid horizontalContainer scrollVertical">
+				<div class="gridStyle" ng-grid="enteredHoursGridOptions"></div>
 			</div>
 		</div>
 	</div>
