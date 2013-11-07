@@ -11,46 +11,82 @@
 	<div class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div id="Div1" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
 			<div>
-				<div class="tabbable">
-					<!-- Only required for left/right tabs -->
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
-						<li><a href="#tab2" data-toggle="tab">Section 2</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab1">
+				<tabset>
+					<tab heading="Contact Details">
+						<form class="form-horizontal" name="contactDetaisForm" novalidate>
+						<div class="tab-pane active" id="Div2">
 							<div class="control-group">
-								<label for="title" class="control-label" data-i18n="_TitleHeading_"></label>
+								<label for="titleId" class="control-label" data-i18n="_TitleHeading_"></label>
 								<div class="controls">
-									<select id="title" data-ng-model="selectedContact.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+									<select id="titleId" data-ng-model="selectedContact.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+								</div>
+							</div>
+							<st-input label-name="_NameHeading_" label-class="control-label">
+								<input id="entityNameInput" type="text" data-ng-model="selectedContact.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
+							</st-input>
+							<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
+								<input id="surnamePrefixInput" type="text" data-ng-model="selectedContact.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+							<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
+								<input id="surnameInput" type="text" data-ng-model="selectedContact.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
+							</st-input>
+							<st-input label-name="_MaidenNamePrefixHeading_" st-hide="false" label-class="control-label">
+								<input id="maidenNamePrefixInput" type="text" data-ng-model="selectedContact.MaidenNamePrefix" name="maidenNamePrefixInput"  ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+
+							<st-input label-name="_PlaceOfBirthHeading_" st-hide="false" label-class="control-label">
+								<input id="placeOfBirthInput" type="text" data-ng-model="selectedContact.PlaceOfBirth" name="placeOfBirthInput"  ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+							<div class="control-group" >
+								<label class="control-label" data-i18n="_DateOfBirthHeading_"></label>
+								<div class="controls">
+									<input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  />
+									<button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+								</div>
+							</div>
+							<st-input label-name="_NationalityHeading_" st-hide="false" label-class="control-label">
+								<input id="nationalityInput" type="text" data-ng-model="selectedContact.Nationality" name="nationalityInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+
+						</div>
+						</form>
+					</tab>
+					<tab heading="Contact Info">
+						<form class="form-horizontal" name="elementForm" novalidate>
+							
+							<div class="control-group">
+								<label for="entityTypeId" class="control-label" data-i18n="_EntityTypeHeading_"></label>
+								<div class="controls">
+									<select id="entityTypeId" data-ng-model="selectedContact.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="entityType" class="control-label" data-i18n="_EntityTypeHeading_"></label>
+								<label for="contactTypeId" class="control-label" data-i18n="_ContactTypeHeading_"></label>
 								<div class="controls">
-									<select id="entityType" data-ng-model="selectedContact.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
+									<select id="contactTypeId" data-ng-model="selectedContact.ContactTypeId" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="contactType" class="control-label" data-i18n="_ContactTypeHeading_"></label>
+								<label for="occupationNameId" class="control-label" data-i18n="_OccupationNamesHeading_"></label>
 								<div class="controls">
-									<select id="contactType" data-ng-model="selectedContact.ContactTypeId" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
+									<select id="occupationNameId" data-ng-model="selectedContact.OccupationNameId" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
 								</div>
 							</div>
 
-							<div class="control-group">
-								<label for="occupationName" class="control-label" data-i18n="_OccupationNamesHeading_"></label>
+							<st-input label-name="_ValueHeading_" st-hide="false" label-class="control-label">
+								<input id="valueInput" type="text" data-ng-model="selectedContact.Value" name="valueInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+
+							<div class="control-group" >					
+								<label for="prefferedInput" class="control-label" data-i18n="_PrefferedHeading_"></label>
 								<div class="controls">
-									<select id="occupationName" data-ng-model="selectedContact.OccupationNameId" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
+									<input id="prefferedInput" type="checkbox" data-ng-model="selectedContact.Preffered" />
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane" id="tab2">
-							<p>Howdy, I'm in Section 2.</p>
-						</div>
-					</div>
-				</div>
-			</div>
+						</form>
+					</tab>
+				</tabset>
 		</div>
 	</div>
+</div>
 </div>

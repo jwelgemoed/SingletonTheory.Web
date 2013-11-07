@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('ContactManagementCtrl',
-	['$rootScope', '$scope', '$location', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', function ($rootScope, $scope, $location, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource) {
+	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', function ($rootScope, $scope, $location, $timeout, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource) {
 
 
 		// ************************ INFO AREA ************************************************************************
@@ -73,11 +73,10 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.isEdit = true;
 			$scope.passwordIsRequired = false;
 
-			$scope.elementResource = new userResource();
+			$scope.elementResource = new contactResource();
 
 			contactResource.get({ Id: row.entity.Id }, function (response) {
 				$scope.elementResource = response;
-				$scope.userRole = $scope.elementResource.Roles[0];
 			},
 			function (error) {
 				$scope.error = error;
@@ -139,7 +138,20 @@ userApplicationModule.controller('ContactManagementCtrl',
 			occupationNamesResource.get({}, function (response) {
 				$scope.occupationNames = response;
 			});
+			$scope.dt = new Date();
+		};
+		
+		//DatePicker
+		
+		$scope.open = function () {
+			$timeout(function () {
+				$scope.opened = true;
+			});
+		};
 
+		$scope.dateOptions = {
+			'year-format': "'yy'",
+			'starting-day': 1
 		};
 	}]);
 
