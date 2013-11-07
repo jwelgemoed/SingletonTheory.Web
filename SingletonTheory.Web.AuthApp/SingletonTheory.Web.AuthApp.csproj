@@ -97,6 +97,7 @@
     <Content Include="app\js\services\BreadcrumbService.js" />
     <Content Include="app\js\services\ContactService.js" />
     <Content Include="app\js\services\ExceptionService.js" />
+    <Content Include="app\js\services\HoursService.js" />
     <Content Include="app\js\services\LocalizationService.js" />
     <Content Include="app\js\services\TypeService.js" />
     <Content Include="app\js\services\UserService.js" />
