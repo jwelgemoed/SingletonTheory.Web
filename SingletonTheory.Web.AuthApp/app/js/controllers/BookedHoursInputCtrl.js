@@ -15,13 +15,12 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 				$scope.itemHoursResource = new ItemHoursEntryResource();
 				
 				CostCentreResource.query({}, function (result) {
-					$scope.costCentres = result;
 					for (var i = 0; i < result.length; i++) {
 						if (result[i].LookupCode == "PROD" ) {
-							$scope.productionCostCentre = result[i];
+							$scope.costCentres[0] = result[i];
 						}
 						if (result[i].LookupCode == "PNTG") {
-							$scope.paintingCostCentre = result[i];
+							$scope.costCentres[1] = result[i];
 						}
 					}
 				}, function (err) { $scope.error = err; }
@@ -42,8 +41,13 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 			$scope.addHoursEntry = function () {
 				$scope.itemHoursResource.HourType = $scope.bookedHourType;
 				$scope.itemHoursResource.HourTypeId = $scope.bookedHourType.Id;
+				if ($scope.itemHoursResource.CostCentreId == $scope.costCentres[0].Id) {
+					$scope.itemHoursResource.CostCentre = $scope.costCentres[0];
+				} else {
+					$scope.itemHoursResource.CostCentre = $scope.costCentres[1];
+				}
 				$scope.itemHoursResource.$add({}, function () {
-					alert('success');
+					$scope.itemHoursResource = new ItemHoursEntryResource();
 				}, function (err) { $scope.error = err; }
 					);
 			};
