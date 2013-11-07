@@ -26,6 +26,7 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					for (var i = 0; i < result.length; i++) {
 						if (result[i].LookupCode == "PROD" ) {
 							$scope.costCentres[0] = result[i];
+							$scope.itemHoursResource.CostCentreId = $scope.costCentres[i].Id;
 						}
 						if (result[i].LookupCode == "PNTG") {
 							$scope.costCentres[1] = result[i];
@@ -49,12 +50,15 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 			$scope.addHoursEntry = function () {
 				$scope.itemHoursResource.HourType = $scope.bookedHourType;
 				$scope.itemHoursResource.HourTypeId = $scope.bookedHourType.Id;
+				
 				if ($scope.itemHoursResource.CostCentreId == $scope.costCentres[0].Id) {
 					$scope.itemHoursResource.CostCentre = $scope.costCentres[0];
 				} else {
 					$scope.itemHoursResource.CostCentre = $scope.costCentres[1];
 				}
+				
 				$scope.itemHoursResource.$add({}, function () {
+					
 					var enteredHoursItem = {
 						HourType: $scope.itemHoursResource.HourType.Description,
 						PersonNumber: $scope.itemHoursResource.PersonNumber,
@@ -69,6 +73,7 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 
 					$scope.gridSource[$scope.gridSource.length] = enteredHoursItem;
 					$scope.itemHoursResource = new ItemHoursEntryResource();
+					$scope.itemHoursResource.CostCentreId = $scope.costCentres[0].Id;
 				}, function (err) { $scope.error = err; }
 					);
 			};
