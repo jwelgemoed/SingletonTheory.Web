@@ -42,14 +42,14 @@ userApplicationModule.controller('ContactManagementCtrl',
 				//NOTE : This event is called twice once to select and then to decelect
 				if (data.entity.Id != $scope.lastRowId) {
 					$scope.setContentArea();
-					setSelectedContact(data.entity);
+					$scope.editContact(data);
 					$scope.lastRowId = data.entity.Id;
 				}
 			}
 		};
 
 		var setSelectedContact = function (entity) {
-			$scope.selectedContact = entity;
+			$scope.elementResource = entity;
 		};
 
 		// Edit area
@@ -71,7 +71,6 @@ userApplicationModule.controller('ContactManagementCtrl',
 		$scope.editContact = function (row) {
 			$scope.isNew = false;
 			$scope.isEdit = true;
-			$scope.passwordIsRequired = false;
 
 			$scope.elementResource = new contactResource();
 
@@ -86,9 +85,6 @@ userApplicationModule.controller('ContactManagementCtrl',
 		};
 
 		$scope.saveNewContact = function () {
-			if ($scope.elementResource.Active == '')
-				$scope.elementResource.Active = true;
-
 			$scope.elementResource.$add(function () {
 				$scope.toggleCollapse();
 				$scope.refresh();
@@ -99,7 +95,6 @@ userApplicationModule.controller('ContactManagementCtrl',
 		};
 
 		$scope.saveContact = function () {
-			$scope.elementResource.Roles[0] = $scope.userRole;
 			$scope.elementResource.$update(function () {
 				$scope.toggleCollapse();
 				$scope.refresh();

@@ -14,41 +14,41 @@
 				<tabset>
 					<tab heading="Contact Details">
 						<form class="form-horizontal" name="contactDetaisForm" novalidate>
-						<div class="tab-pane active" id="Div2">
-							<div class="control-group">
-								<label for="titleId" class="control-label" data-i18n="_TitleHeading_"></label>
-								<div class="controls">
-									<select id="titleId" data-ng-model="selectedContact.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+							<div class="tab-pane active" id="Div2">
+								<div class="control-group">
+									<label for="titleId" class="control-label" data-i18n="_TitleHeading_"></label>
+									<div class="controls">
+										<select id="titleId" data-ng-model="elementResource.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+									</div>
 								</div>
-							</div>
-							<st-input label-name="_NameHeading_" label-class="control-label">
-								<input id="entityNameInput" type="text" data-ng-model="selectedContact.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
-							</st-input>
-							<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
-								<input id="surnamePrefixInput" type="text" data-ng-model="selectedContact.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
-							</st-input>
-							<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
-								<input id="surnameInput" type="text" data-ng-model="selectedContact.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
-							</st-input>
-							<st-input label-name="_MaidenNamePrefixHeading_" st-hide="false" label-class="control-label">
-								<input id="maidenNamePrefixInput" type="text" data-ng-model="selectedContact.MaidenNamePrefix" name="maidenNamePrefixInput"  ng-minlength="0" ng-maxlength="60" />
-							</st-input>
+								<st-input label-name="_NameHeading_" label-class="control-label">
+									<input id="entityNameInput" type="text" data-ng-model="elementResource.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
+								</st-input>
+								<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
+									<input id="surnamePrefixInput" type="text" data-ng-model="elementResource.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
+								</st-input>
+								<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
+									<input id="surnameInput" type="text" data-ng-model="elementResource.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
+								</st-input>
+								<st-input label-name="_MaidenNamePrefixHeading_" st-hide="false" label-class="control-label">
+									<input id="maidenNamePrefixInput" type="text" data-ng-model="elementResource.MaidenNamePrefix" name="maidenNamePrefixInput"  ng-minlength="0" ng-maxlength="60" />
+								</st-input>
 
-							<st-input label-name="_PlaceOfBirthHeading_" st-hide="false" label-class="control-label">
-								<input id="placeOfBirthInput" type="text" data-ng-model="selectedContact.PlaceOfBirth" name="placeOfBirthInput"  ng-minlength="0" ng-maxlength="60" />
-							</st-input>
-							<div class="control-group" >
-								<label class="control-label" data-i18n="_DateOfBirthHeading_"></label>
-								<div class="controls">
-									<input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  />
-									<button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+								<st-input label-name="_PlaceOfBirthHeading_" st-hide="false" label-class="control-label">
+									<input id="placeOfBirthInput" type="text" data-ng-model="elementResource.PlaceOfBirth" name="placeOfBirthInput"  ng-minlength="0" ng-maxlength="60" />
+								</st-input>
+								<div class="control-group" >
+									<label class="control-label" data-i18n="_DateOfBirthHeading_"></label>
+									<div class="controls">
+										<input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  />
+										<button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+									</div>
 								</div>
-							</div>
-							<st-input label-name="_NationalityHeading_" st-hide="false" label-class="control-label">
-								<input id="nationalityInput" type="text" data-ng-model="selectedContact.Nationality" name="nationalityInput" ng-minlength="0" ng-maxlength="60" />
-							</st-input>
+								<st-input label-name="_NationalityHeading_" st-hide="false" label-class="control-label">
+									<input id="nationalityInput" type="text" data-ng-model="elementResource.Nationality" name="nationalityInput" ng-minlength="0" ng-maxlength="60" />
+								</st-input>
 
-						</div>
+							</div>
 						</form>
 					</tab>
 					<tab heading="Contact Info">
@@ -57,35 +57,38 @@
 							<div class="control-group">
 								<label for="entityTypeId" class="control-label" data-i18n="_EntityTypeHeading_"></label>
 								<div class="controls">
-									<select id="entityTypeId" data-ng-model="selectedContact.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
+									<select id="entityTypeId" data-ng-model="elementResource.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
 								</div>
 							</div>
 							<div class="control-group">
 								<label for="contactTypeId" class="control-label" data-i18n="_ContactTypeHeading_"></label>
 								<div class="controls">
-									<select id="contactTypeId" data-ng-model="selectedContact.ContactTypeId" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
+									<select id="contactTypeId" data-ng-model="elementResource.ContactTypeId" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
 								</div>
 							</div>
 							<div class="control-group">
 								<label for="occupationNameId" class="control-label" data-i18n="_OccupationNamesHeading_"></label>
 								<div class="controls">
-									<select id="occupationNameId" data-ng-model="selectedContact.OccupationNameId" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
+									<select id="occupationNameId" data-ng-model="elementResource.OccupationNameId" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
 								</div>
 							</div>
 
 							<st-input label-name="_ValueHeading_" st-hide="false" label-class="control-label">
-								<input id="valueInput" type="text" data-ng-model="selectedContact.Value" name="valueInput" ng-minlength="0" ng-maxlength="60" />
+								<input id="valueInput" type="text" data-ng-model="elementResource.Value" name="valueInput" ng-minlength="0" ng-maxlength="60" />
 							</st-input>
 
 							<div class="control-group" >					
 								<label for="prefferedInput" class="control-label" data-i18n="_PrefferedHeading_"></label>
 								<div class="controls">
-									<input id="prefferedInput" type="checkbox" data-ng-model="selectedContact.Preffered" />
+									<input id="prefferedInput" type="checkbox" data-ng-model="elementResource.Preffered" />
 								</div>
 							</div>
 						</form>
 					</tab>
 				</tabset>
+											<button id="saveEditedContactButton" class="btn btn-default" ng-show="true"
+								ng-disabled="elementForm.$invalid" ng-click="saveContact()" data-i18n="_UpdateHeading_">
+							</button>
 		</div>
 	</div>
 </div>
