@@ -2,27 +2,26 @@
 	<div id="infoContainer" class="span12 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
 		<div resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
 			<div id="staticDataBar" style="height: 20%!important;" class="container-fluid horizontalContainer scrollVertical">
+				<span class="label label-default btn-block st-centered" data-i18n="_HoursForHeading_"></span>
 				<form class="form-inline" name="hoursMainFieldsForm" novalidate>
-					<div class="row" style="margin-top: 10px; margin-left: 10px;" resize-to="staticDataBar" resize-type="elementId" resize-reduction="50">
-						<div class="control-group span2">
-							<label data-i18n="_HoursDateHeading_"></label>
-							<div class="form-horizontal">
-								<input class="span7" type="text" datepicker-popup="dd-MM-yyyy" datepicker-append-to-body="true" ng-model="itemHoursResource.Date" is-open="openedDtStart" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
-								<button class="btn" ng-click="openDtStart()"><i class="icon-calendar"></i></button>
-							</div>
+					<div class="row verticalRowStyle"  resize-to="staticDataBar" resize-type="elementId" resize-reduction="70">
+						<div class="span2">
+							<st-input label-name="_HoursDateHeading_">
+								<input class="span8" id="dateInputId" ng-blur="personDateChanged()" data-ng-model="itemHoursResource.Date"  type="date" name="dateInput" required="required"  />
+							</st-input>
 						</div>
 						<div class="span2">
 							<st-input label-name="_PersonNumberHeading_">
-								<input class="span8" id="personNumberInputId" data-ng-model="itemHoursResource.PersonNumber"  type="text" name="personNumberInput" required="required" ng-minlength="4" ng-maxlength="4" />
+								<input class="span8" id="personNumberInputId" ng-blur="personDateChanged()" data-ng-model="itemHoursResource.PersonNumber"  type="text" name="personNumberInput" required="required" maxlength="4" ng-minlength="4" ng-maxlength="4" />
 							</st-input>
 						</div>
 					</div>
-					<button class="btn btn-default pull-right" ng-disabled="hoursMainFieldsForm.$invalid" data-i18n="_SelectHeading_"></button>
 				</form>
 			</div>
-			<div id="hoursDataBar" style="height: 20%!important;" class="container-fluid horizontalContainer scrollVertical">
+			<div id="hoursDataBar" style="height: 25%!important;" class="container-fluid horizontalContainer scrollVertical">
+				<span class="label label-default btn-block st-centered" data-i18n="_HoursDetailHeading_"></span>
 				<form class="form-inline" name="hoursDataFieldsForm" novalidate>
-					<div class="row" style="margin-top: 10px; margin-left: 10px;" resize-to="hoursDataBar" resize-type="elementId" resize-reduction="50">
+					<div class="row verticalRowStyle"  resize-to="hoursDataBar" resize-type="elementId" resize-reduction="70">
 						<div class="span2">
 							<label for="costCentreSelection" data-i18n="_CostCentreHeading_"></label>
 							<div class="controls">
@@ -31,17 +30,17 @@
 						</div>
 						<div class="span2">
 							<st-input label-name="_OrderNumberHeading_">
-								<input class="span8" id="orderNumberInputId" data-ng-model="itemHoursResource.OrderNumber"  type="text" name="orderNumberInput" required="required" ng-minlength="4" ng-maxlength="4" />
+								<input class="span8" id="orderNumberInputId" data-ng-model="itemHoursResource.OrderNumber"  type="text" name="orderNumberInput" required="required" maxlength="4" ng-minlength="4" ng-maxlength="4" />
 							</st-input>
 						</div>
 						<div class="span2">
 							<st-input label-name="_RoomNumberHeading_">
-								<input class="span8" id="roomNumberInputId" data-ng-model="itemHoursResource.RoomNumber"  type="text" name="roomNumberInput" required="required" ng-minlength="2" ng-maxlength="2" />
+								<input class="span8" id="roomNumberInputId" data-ng-model="itemHoursResource.RoomNumber"  type="text" name="roomNumberInput" required="required" maxlength="2" ng-minlength="2" ng-maxlength="2" />
 							</st-input>
 						</div>
 						<div class="span2">
 							<st-input label-name="_ItemNumberHeading_">
-								<input class="span8" id="itemNumberInputId" data-ng-model="itemHoursResource.ItemNumber"  type="text" name="itemNumberInput" required="required" ng-minlength="3" ng-maxlength="3" />
+								<input class="span8" id="itemNumberInputId" data-ng-model="itemHoursResource.ItemNumber"  type="text" name="itemNumberInput" required="required" maxlength="3" ng-minlength="3" ng-maxlength="3" />
 							</st-input>
 						</div>
 						<div class="span2">
@@ -51,15 +50,16 @@
 						</div>
 						<div class="span2">
 							<st-input label-name="_DescriptionHeading_">
-								<input class="span8" id="descriptionInputId" data-ng-model="itemHoursResource.Description"  type="text" name="descriptionInput" ng-minlength=2 ng-maxlength="22" />
+								<input class="span8" id="descriptionInputId" data-ng-model="itemHoursResource.Description"  type="text" name="descriptionInput" maxlength="22" ng-minlength=2 ng-maxlength="22" />
 							</st-input>
 						</div>
 					</div>
-					<button class="btn btn-default pull-right" ng-disabled="hoursDataFieldsForm.$invalid" ng-click="addHoursEntry()" data-i18n="_SaveHeading_"></button>
+					<button class="btn btn-default pull-right" ng-disabled="hoursDataFieldsForm.$invalid||hoursMainFieldsForm.$invalid" ng-click="addHoursEntry()" data-i18n="_SaveHeading_"></button>
 				</form>
 			</div>
 			<div id="gridContainer" style="height: 59%!important;" class="container-fluid horizontalContainer scrollVertical">
-				<div class="gridStyle" ng-grid="enteredHoursGridOptions"></div>
+				<span class="label label-default btn-block st-centered" data-i18n="_HoursForCurrentPersonDateSessionHeading_"></span>
+				<div class="gridStyle" ng-grid="enteredHoursGridOptions" ng-hide="gridSource.length == 0"></div>
 			</div>
 		</div>
 	</div>
