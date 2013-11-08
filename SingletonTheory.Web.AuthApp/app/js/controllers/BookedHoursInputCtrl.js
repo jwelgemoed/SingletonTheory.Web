@@ -11,6 +11,8 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 			$scope.productionCostCentre = "";
 			$scope.paintingCostCentre = "";
 			$scope.gridSource = [];
+			var previousBlurPerson = "";
+			var previousBlurDate = "";
 			
 			$scope.enteredHoursGridOptions = {
 				data: 'gridSource',
@@ -26,7 +28,7 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					for (var i = 0; i < result.length; i++) {
 						if (result[i].LookupCode == "PROD" ) {
 							$scope.costCentres[0] = result[i];
-							$scope.itemHoursResource.CostCentreId = $scope.costCentres[i].Id;
+							$scope.itemHoursResource.CostCentreId = $scope.costCentres[0].Id;
 						}
 						if (result[i].LookupCode == "PNTG") {
 							$scope.costCentres[1] = result[i];
@@ -45,6 +47,15 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					}
 				}, function (err) { $scope.error = err; }
 						);
+			};
+
+			$scope.personDateChanged = function () {
+				if ($scope.itemHoursResource.PersonNumber != previousBlurPerson || $scope.itemHoursResource.Date != previousBlurDate) {
+					previousBlurPerson = $scope.itemHoursResource.PersonNumber;
+					previousBlurDate = $scope.itemHoursResource.Date;
+					resetHourDetails();
+					$scope.gridSource.length = 0;
+				}
 			};
 
 			$scope.addHoursEntry = function () {
@@ -72,11 +83,32 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					};
 
 					$scope.gridSource[$scope.gridSource.length] = enteredHoursItem;
-					$scope.itemHoursResource = new ItemHoursEntryResource();
+					resetHourDetails();
 					$scope.itemHoursResource.CostCentreId = $scope.costCentres[0].Id;
+					document.getElementById('costCentreSelection').focus();
 				}, function (err) { $scope.error = err; }
 					);
 			};
+
+			function resetHourDetails() {
+				resetDetailFields();
+				$scope.itemHoursResource.Date = previousBlurDate;
+			}
+
+			function resetMainFields() {
+				resetDetailFields();
+				$scope.itemHoursResource.Date = "";
+				$scope.itemHoursResource.PersonNumber = "";
+			}
+
+			function resetDetailFields() {
+				$scope.itemHoursResource.Id = 0;
+				$scope.itemHoursResource.OrderNumber = "";
+				$scope.itemHoursResource.RoomNumber = "";
+				$scope.itemHoursResource.ItemNumber = "";
+				$scope.itemHoursResource.Hours = "";
+				$scope.itemHoursResource.Description = "";
+			}
 
 			//DatePickers ----------
 
