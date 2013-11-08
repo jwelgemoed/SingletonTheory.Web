@@ -3,7 +3,11 @@
 userApplicationModule.controller('ContactManagementCtrl',
 	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', function ($rootScope, $scope, $location, $timeout, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource) {
 
-
+		$scope.canCreate = true;
+		$scope.isCollapsed = true;
+		$scope.isNew = false;
+		$scope.isEdit = false;
+		
 		// ************************ INFO AREA ************************************************************************
 		//Filters
 		$scope.filterOptions = {
@@ -54,16 +58,14 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 		// Edit area
 
-		$scope.addContact = function () {
+		$scope.addNewContact = function () {
 			$scope.isNew = true;
 			$scope.isEdit = false;
 
 			$scope.passwordIsRequired = true;
 
 			$scope.elementResource = new contactResource();
-			$scope.elementResource.Id = 0;
-			$scope.elementResource.Active = true;
-			$scope.elementResource.Language = $scope.Language;
+
 
 			$scope.toggleCollapse();
 		};

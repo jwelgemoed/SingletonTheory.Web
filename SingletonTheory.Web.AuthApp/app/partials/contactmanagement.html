@@ -3,6 +3,40 @@
 		<div id="elementContainer" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
 			<div>
 				<span class="label label-default btn-block st-centered" data-i18n="_ContactManagementHeading_"></span>
+				<div>
+					<button ng-show="canCreate" class="btn btn-default" ng-click="addNewContact()" data-ng-disabled="isAddDisabled"><i class="icon-plus-sign icon-white"></i></button>
+					&nbsp;
+					<!--					<div collapse="isCollapsed">
+						<form class="well well-small form-inline" name="elementForm" novalidate>
+							<div class="controls">
+							<div class="control-group">
+								<label for="entityTypeId1" class="control-label" data-i18n="_EntityTypeHeading_"></label>
+								<div class="controls">
+									<select id="entityTypeId1" data-ng-model="elementResource.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
+								</div>
+							</div>
+								<div class="control-group">
+									<label for="titleId1" class="control-label" data-i18n="_TitleHeading_"></label>
+									<div class="controls">
+										<select id="titleId1" data-ng-model="elementResource.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+									</div>
+								</div>
+								<st-input label-name="_NameHeading_" label-class="control-label">
+									<input id="entityName1" type="text" data-ng-model="elementResource.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
+								</st-input>
+								<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
+									<input id="surnamePrefix1" type="text" data-ng-model="elementResource.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
+								</st-input>
+								<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
+									<input id="surname1" type="text" data-ng-model="elementResource.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
+								</st-input>
+
+							</div>
+							<button class="btn btn-default" id="btnSave" data-ng-disabled="elementForm.$invalid" ng-click="saveNewContact()" data-i18n="_SaveHeading_" data-ng-show="!roleMove"></button>
+							<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
+						</form>
+					</div>-->
+				</div>
 			</div>
 			<div class="gridStyle" ng-grid="contactsGrid"></div>
 		</div>
@@ -86,10 +120,12 @@
 						</form>
 					</tab>
 				</tabset>
-											<button id="saveEditedContactButton" class="btn btn-default" ng-show="true"
-								ng-disabled="elementForm.$invalid" ng-click="saveContact()" data-i18n="_UpdateHeading_">
-							</button>
+				<div class="control-group">
+					<button id="saveEditedContactButton" class="btn btn-default" data-ng-show="isEdit" data-ng-disabled="elementForm.$invalid" data-ng-click="saveContact()" data-i18n="_UpdateHeading_"></button>
+					<button class="btn btn-default" id="btnSave" data-ng-show="isNew"  data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContact()" data-i18n="_SaveHeading_" ></button>
+					<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 </div>
