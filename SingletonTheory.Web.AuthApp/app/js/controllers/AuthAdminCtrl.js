@@ -339,6 +339,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 			switch ($scope.element) {
 				case '_RoleHeading_':
 					$scope.isRole = true;
+					$scope.isAddDisabled = true;
 					authAdminRoleTreeResource.get({}, function (response) {
 						$scope.roleListRaw = response;
 						//roleList to treeview
@@ -350,6 +351,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					break;
 				case '_DomainPermissionHeading_':
 					$scope.isRole = false;
+					$scope.isAddDisabled = false;
 					authAdminDomainPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 						selectFirst(result);
@@ -358,6 +360,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					break;
 				case '_FunctionalPermissionHeading_':
 					$scope.isRole = false;
+					$scope.isAddDisabled = false;
 					authAdminFunctionalPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 						selectFirst(result);
@@ -366,6 +369,7 @@ userApplicationModule.controller('AuthAdminCtrl', ['$rootScope', '$scope', 'Auth
 					break;
 				case '_PermissionHeading_':
 					$scope.isRole = false;
+					$scope.isAddDisabled = false;
 					authAdminPermissionsResource.query({}, function (result) {
 						$scope.elementDictionary = result;
 					}, function (err) { $scope.error = err; }
