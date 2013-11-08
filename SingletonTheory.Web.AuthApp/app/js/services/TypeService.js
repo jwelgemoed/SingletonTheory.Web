@@ -30,3 +30,10 @@ var OccupationNamesResource = userApplicationModule.factory('OccupationNamesReso
 		get: { method: 'GET', params: {}, isArray: true }
 	});
 });
+
+var AddressTypesResource = userApplicationModule.factory('AddressTypesResource', function ($resource) {
+	return $resource('/typesapi/addresstypes', {},
+	{
+		get: { method: 'GET', params: {}, isArray: true }
+	});
+});

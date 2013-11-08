@@ -119,10 +119,51 @@
 							</div>
 						</form>
 					</tab>
+					<tab heading="Address Info">
+						<form class="form-horizontal" name="elementForm" novalidate>
+							
+							<div class="control-group">
+								<label for="addressTypeId" class="control-label" data-i18n="_AddressTypeHeading_"></label>
+								<div class="controls">
+									<select id="addressTypeId" data-ng-model="addressResource.addressTypeId" data-ng-options="opt.Id as opt.Description for opt in addressTypes"></select>
+								</div>
+							</div>
+							<div class="control-group" >					
+								<label for="prefferedAddressInput" class="control-label" data-i18n="_PrefferedHeading_"></label>
+								<div class="controls">
+									<input id="prefferedAddressInput" type="checkbox" data-ng-model="addressResource.Preffered" />
+								</div>
+							</div>
+							<st-input label-name="_StreetHeading_" st-hide="false" label-class="control-label">
+								<input id="streetInput" type="text" data-ng-model="addressResource.Street" name="streetInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+							
+							<st-input label-name="_StreetNumberHeading_" st-hide="false" label-class="control-label">
+								<input id="streetNumberInput" type="text" data-ng-model="addressResource.StreetNumber" name="streetNumberInput" ng-minlength="0" ng-maxlength="10" />
+							</st-input>
+							
+							<st-input label-name="_StreetNumberAdditionHeading_" st-hide="false" label-class="control-label">
+								<input id="streetNumberAdditionInput" type="text" data-ng-model="addressResource.StreetNumberAddition" name="streetNumberAdditionInput" ng-minlength="0" ng-maxlength="10" />
+							</st-input>
+							
+							<st-input label-name="_PostalCodeHeading_" st-hide="false" label-class="control-label">
+								<input id="postalCodeInput" type="text" data-ng-model="addressResource.PostalCode" name="postalCodeInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+
+							<st-input label-name="_CityHeading_" st-hide="false" label-class="control-label">
+								<input id="cityInput" type="text" data-ng-model="addressResource.City" name="cityInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+
+							<st-input label-name="_CountryCodeHeading_" st-hide="false" label-class="control-label">
+								<input id="countryCodeInput" type="text" data-ng-model="addressResource.CountryCode" name="countryCodeInput" ng-minlength="0" ng-maxlength="60" />
+							</st-input>
+
+						</form>
+					</tab>
 				</tabset>
 				<div class="control-group">
 					<button id="saveEditedContactButton" class="btn btn-default" data-ng-show="isEdit" data-ng-disabled="elementForm.$invalid" data-ng-click="saveContact()" data-i18n="_UpdateHeading_"></button>
-					<button class="btn btn-default" id="btnSave" data-ng-show="isNew"  data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContact()" data-i18n="_SaveHeading_" ></button>
+					<button class="btn btn-default" id="btnSave" data-ng-show="isNew" data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContact()" data-i18n="_SaveHeading_"></button>
 					<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
 				</div>
 			</div>

@@ -1,12 +1,13 @@
 ﻿'use strict';
 
 userApplicationModule.controller('ContactManagementCtrl',
-	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', function ($rootScope, $scope, $location, $timeout, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource) {
+	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', 'AddressesResource', 'AddressResource', 'AddressTypesResource', function ($rootScope, $scope, $location, $timeout, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource, addressesResource, addressResource, addressTypesResource) {
 
 		$scope.canCreate = true;
 		$scope.isCollapsed = true;
-		$scope.isNew = false;
+		$scope.isNew = true;
 		$scope.isEdit = false;
+		$scope.selectedElement = [];
 		
 		// ************************ INFO AREA ************************************************************************
 		//Filters
@@ -24,6 +25,8 @@ userApplicationModule.controller('ContactManagementCtrl',
 		$scope.refresh = function () {
 			contactsResource.get({}, function (response) {
 				$scope.contacts = response;
+				$scope.selectedElement[0] = $scope.contacts[0];
+				$scope.editContact($scope.contacts[0]);
 			});
 			
 			$scope.setContentArea();
@@ -46,7 +49,8 @@ userApplicationModule.controller('ContactManagementCtrl',
 				//NOTE : This event is called twice once to select and then to decelect
 				if (data.entity.Id != $scope.lastRowId) {
 					$scope.setContentArea();
-					$scope.editContact(data);
+					$scope.editContact(data.entity);
+					$scope.editAddresses(data.entity);
 					$scope.lastRowId = data.entity.Id;
 				}
 			}
@@ -65,18 +69,44 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.passwordIsRequired = true;
 
 			$scope.elementResource = new contactResource();
-
-
+			$scope.elementResource.TitleId = $scope.titles[0].Id;
+			$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
+			$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
+			$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+			
 			$scope.toggleCollapse();
 		};
+		
+		$scope.editAddresses = function (entity) {
+			$scope.isNew = false;
+			$scope.isEdit = true;
 
-		$scope.editContact = function (row) {
+			$scope.addressesResource = new addressesResource();
+			$scope.addressResource = new addressResource();
+			$scope.addressResource = entity.Id;
+			
+			addressesResource.get({ Id: entity.Id }, function (response) {
+				$scope.addressesResource = response;
+				$scope.addressResource = $scope.addressesResource[0];
+			},
+			function (error) {
+				$scope.error = error;
+			});
+
+			$scope.isCollapsed = true;
+		};
+		
+		$scope.editContact = function (entity) {
 			$scope.isNew = false;
 			$scope.isEdit = true;
 
 			$scope.elementResource = new contactResource();
-
-			contactResource.get({ Id: row.entity.Id }, function (response) {
+			$scope.elementResource.TitleId = $scope.titles[0].Id;
+			$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
+			$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
+			$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+			
+			contactResource.get({ Id: entity.Id }, function (response) {
 				$scope.elementResource = response;
 			},
 			function (error) {
@@ -135,6 +165,11 @@ userApplicationModule.controller('ContactManagementCtrl',
 			occupationNamesResource.get({}, function (response) {
 				$scope.occupationNames = response;
 			});
+			
+			addressTypesResource.get({}, function (response) {
+				$scope.addressTypes = response;
+			});
+			
 			$scope.dt = new Date();
 		};
 		
