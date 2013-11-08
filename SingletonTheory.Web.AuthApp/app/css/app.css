@@ -177,3 +177,7 @@ body {
 	margin-bottom: 2px!important; 
 	background-color: white!important;
 }
+
+.nav, .pagination, .carousel a {
+	cursor: pointer;
+}
