@@ -46,7 +46,7 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			controller: 'LocaleAdminCtrl',
 			access: 'LocalizationAdministration_Access'
 		}); 
-	$routeProvider.when('/bookedhoursinput',
+	$routeProvider.when('/hoursmanagement/bookedhoursinput',
 		{
 			templateUrl: '/partials/bookedhoursinput.html',
 			controller: 'BookedHoursInputCtrl'

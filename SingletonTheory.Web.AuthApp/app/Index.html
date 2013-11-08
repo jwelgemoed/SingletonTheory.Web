@@ -55,7 +55,7 @@
 					<ul class="dropdown-menu">
 						<li class="nav-header" data-i18n="_HoursInputHeader_" ></li>
 						<li show-permission="UserAdministration_Access" active-nav>
-							<a id="bookedHoursInputMenuItem" href="/bookedhoursinput" data-i18n="_BookedHoursInputHeading_"></a>
+							<a id="bookedHoursInputMenuItem" href="/hoursmanagement/bookedhoursinput" data-i18n="_BookedHoursInputHeading_"></a>
 						</li>
 					</ul>
 				</li>
@@ -97,7 +97,7 @@
 	<div id="contentCanvas" data-ng-view="ng-view" class="container-fluid  mini-layout fluid darkenMore" resize-to="body" resize-type="element" resize-reduction="20" style="padding: 10px;"></div>
 	<div id="footerCtrl" class="navbar-fixed-bottom footer ">
 		<div class="pull-right">
-			&copy; 2013 <span>Singleton Theory</span>
+			&copy; 2013 <span>Bridge</span>
 		</div>
 	</div>
 	<!-- General Scripts -->
@@ -124,6 +124,7 @@
 	<script src="/js/services/AuthAdminService.js"></script>
 	<script src="/js/services/ContactService.js"></script>
 	<script src="/js/services/TypeService.js"></script>
+	<script src="/js/services/HoursService.js"></script>
 	<!-- Controllers -->
 	<script src="/js/controllers/UserAdminCtrl.js"></script>
 	<script src="/js/controllers/HomeCtrl.js"></script>

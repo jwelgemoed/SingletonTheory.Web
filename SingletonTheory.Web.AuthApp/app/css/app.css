@@ -178,6 +178,11 @@ body {
 	background-color: white!important;
 }
 
+.verticalRowStyle {
+	margin-top: 10px; 
+	margin-left: 10px
+}
+
 .nav, .pagination, .carousel a {
 	cursor: pointer;
 }
