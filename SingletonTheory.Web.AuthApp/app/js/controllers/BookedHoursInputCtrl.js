@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 userApplicationModule.controller('BookedHoursInputCtrl',
-	['$rootScope', '$scope', '$timeout', 'localize', 'AuthService', 'ItemHoursEntryResource', 'CostCentreResource', 'HourTypeResource',
-		function ($rootScope, $scope, $timeout, localize, AuthService, ItemHoursEntryResource, CostCentreResource, HourTypeResource) {
+	['$rootScope', '$scope', '$timeout', '$exceptionHandler', 'localize', 'AuthService', 'ItemHoursEntryResource', 'CostCentreResource', 'HourTypeResource',
+		function ($rootScope, $scope, $timeout, $exceptionHandler, localize, AuthService, ItemHoursEntryResource, CostCentreResource, HourTypeResource) {
 
 			$scope.itemHoursResource = [];
 			$scope.costCentres = [];
@@ -13,10 +13,38 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 			$scope.gridSource = [];
 			var previousBlurPerson = "";
 			var previousBlurDate = "";
+			$scope.dateFormat = "dd-MMMM-yyyy";
+			
+			setupGrids();
+
+			$scope.$on('localizeResourcesUpdates', function () {
+				setupGrids();
+			});
+			
+			function setupGrids() {
+				$scope.hourTypeHeading = localize.getLocalizedString('_HourTypeHeading_');
+				$scope.personNumberHeading = localize.getLocalizedString('_PersonNumberHeading_');
+				$scope.hoursDateHeading = localize.getLocalizedString('_HoursDateHeading_');
+				$scope.costCentreHeading = localize.getLocalizedString('_CostCentreHeading_');
+				$scope.orderNumberHeading = localize.getLocalizedString('_OrderNumberHeading_');
+				$scope.roomNumberHeading = localize.getLocalizedString('_RoomNumberHeading_');
+				$scope.itemNumberHeading = localize.getLocalizedString('_ItemNumberHeading_');
+				$scope.hoursHeading = localize.getLocalizedString('_HoursHeading_');
+				$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
+				$scope.hoursEntryGridHeaders = [{ field: 'HourType', displayName: $scope.hourTypeHeading },
+					{ field: 'PersonNumber', displayName: $scope.personNumberHeading },
+					{ field: 'Date', displayName: $scope.hoursDateHeading },
+					{ field: 'CostCentre', displayName: $scope.costCentreHeading },
+					{ field: 'OrderNumber', displayName: $scope.orderNumberHeading },
+					{ field: 'RoomNumber', displayName: $scope.roomNumberHeading },
+					{ field: 'ItemNumber', displayName: $scope.itemNumberHeading },
+					{ field: 'Hours', displayName: $scope.hoursHeading },
+					{ field: 'Description', displayName: $scope.descriptionHeading }];
+			}
 			
 			$scope.enteredHoursGridOptions = {
 				data: 'gridSource',
-		//		columnDefs: 'mainKeyColumnDefs',
+				columnDefs: 'hoursEntryGridHeaders',
 				enableRowSelection: false,
 				plugins: [new ngGridFlexibleHeightPlugin()]
 			};
@@ -34,7 +62,7 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 							$scope.costCentres[1] = result[i];
 						}
 					}
-				}, function (err) { $scope.error = err; }
+				}, function (err) { throw localize.getLocalizedString('_CostCentreError_'); }
 						);
 				
 				HourTypeResource.query({}, function (result) {
@@ -45,8 +73,15 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 							break;
 						}
 					}
-				}, function (err) { $scope.error = err; }
+				}, function (err) { throw localize.getLocalizedString('_HourTypeError_'); }
 						);
+			};
+
+			$scope.error = "fuck you";
+			// TODO: Add to seperate library
+
+			$scope.parseJsonDateValue = function (dateValue) {
+				return new Date(parseInt(dateValue.substr(6))).toString($scope.dateFormat);
 			};
 
 			$scope.personDateChanged = function () {
@@ -73,7 +108,7 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					var enteredHoursItem = {
 						HourType: $scope.itemHoursResource.HourType.Description,
 						PersonNumber: $scope.itemHoursResource.PersonNumber,
-						Date: $scope.itemHoursResource.Date,
+						Date: $scope.parseJsonDateValue($scope.itemHoursResource.Date),
 						ConstCentre: $scope.itemHoursResource.CostCentre.Description,
 						OrderNumber: $scope.itemHoursResource.OrderNumber,
 						RoomNumber: $scope.itemHoursResource.RoomNumber,
@@ -86,19 +121,14 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 					resetHourDetails();
 					$scope.itemHoursResource.CostCentreId = $scope.costCentres[0].Id;
 					document.getElementById('costCentreSelection').focus();
-				}, function (err) { $scope.error = err; }
+					
+				}, function (err) { throw localize.getLocalizedString('_HourAddError_'); }
 					);
 			};
 
 			function resetHourDetails() {
 				resetDetailFields();
 				$scope.itemHoursResource.Date = previousBlurDate;
-			}
-
-			function resetMainFields() {
-				resetDetailFields();
-				$scope.itemHoursResource.Date = "";
-				$scope.itemHoursResource.PersonNumber = "";
 			}
 
 			function resetDetailFields() {
@@ -109,25 +139,4 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 				$scope.itemHoursResource.Hours = "";
 				$scope.itemHoursResource.Description = "";
 			}
-
-			//DatePickers ----------
-
-			$scope.dateOptions = {
-				'year-format': "'yy'",
-				'starting-day': 1
-			};
-
-			$scope.openDtStart = function () {
-				$timeout(function () {
-					$scope.openedDtStart = true;
-				});
-			};
-
-			$scope.openDtEnd = function () {
-				if ($scope.useEndDate) {
-					$timeout(function () {
-						$scope.openedDtEnd = true;
-					});
-				}
-			};
 		}]);
