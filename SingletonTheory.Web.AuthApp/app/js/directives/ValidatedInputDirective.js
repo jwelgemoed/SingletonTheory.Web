@@ -68,6 +68,11 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 					switch (properties[i]) {
 						case 'required':
 							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_requiredFieldDescription_') + '</span><br/>';
+							for (var index = 0; index < properties.length; index++) {
+								if (properties[index] == 'number') {
+									validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_numberCheckDescription_') + '</span><br/>';
+								}
+							}
 							break;
 						case 'useravailability':
 							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_userAvailabilityDescription_') + '</span><br/>';
@@ -81,9 +86,6 @@ userApplicationModule.directive('stInput', ['$compile', '$filter', 'localize', f
 							var maxLength = element.find(':input').attr('ng-maxlength');
 							var maxLengthDescription = $filter('stringFormat')(localize.getLocalizedString('_maxLengthDescription_'), [maxLength]);
 							validationString += '<span ' + colourStyle + '">' + maxLengthDescription + '</span><br/>';
-							break;
-						case 'number':
-							validationString += '<span ' + colourStyle + '">' + localize.getLocalizedString('_numberCheckDescription_') + '</span><br/>';
 							break;
 						case 'min':
 							var min = element.find(':input').attr('min');
