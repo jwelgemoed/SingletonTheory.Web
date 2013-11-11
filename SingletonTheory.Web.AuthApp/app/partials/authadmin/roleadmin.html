@@ -1,0 +1,75 @@
+﻿<div class="row-fluid sortme" ng-init="init()">
+	<div id="infoContainer" class="span4 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div id="elementContainer" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div class="dropdown">
+				<span class="label label-default btn-block st-centered" data-i18n="_RoleHeading_"></span>
+			</div>
+			<div>
+				<button ng-show="canCreate" class="btn btn-default" ng-click="addNewElement()" data-ng-disabled="isAddDisabled"><i class="icon-plus-sign icon-white"></i></button>
+				&nbsp;
+					<div collapse="!isCollapsed">
+						<form class="well well-small form-inline" name="elementForm" novalidate>
+							<div class="controls">
+								<div class="control-group" data-ng-show="!roleMove">
+									<st-input label-name="_LabelHeading_" >
+										<input id="labelRoleInputId" type="text" data-ng-model="elementResource.Label" name="labelInput2" ng-required="true" ng-minlength="5" ng-maxlength="60" role-available ng-readonly="editCurrentRole" />
+									</st-input>
+									<st-input label-name="_DescriptionHeading_" >
+										<input id="descriptionInputId" type="text" data-ng-model="elementResource.Description" name="descriptionInput" ng-minlength="5" ng-maxlength="250" />
+									</st-input>
+									<div class="control-group" >
+										<label for="rootRole" class="checkbox">
+											<input id="rootRole" type="checkbox" data-ng-model="rootRole" />
+											<span data-i18n="_RootRoleHeading_"></span>
+										</label>
+									</div>
+									<br />
+								</div>
+								<div class="control-group" data-ng-show="roleMove">
+									<label for="role" class="control-label" data-i18n="_RoleHeading_"></label>
+									<div class="controls">
+										<select id="role" data-ng-model="availableRoleSelected" data-ng-options="opt.Id as opt.Label for opt in rolesAvailable"></select>
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-default" id="btnMove" data-ng-click="saveElement()" data-i18n="_SaveHeading_" data-ng-show="roleMove"></button>
+							<button class="btn btn-default" id="btnSave" data-ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_" data-ng-show="!roleMove"></button>
+							<button type="button" class="btn btn-warning" data-ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+						</form>
+					</div>
+			</div>
+			<div
+				data-angular-treeview="true"
+				data-tree-id="roleTree"
+				data-tree-model="roleListMain"
+				data-tree-add="addRole"
+				data-tree-edit="editRole"
+				data-tree-move="moveRole"
+				data-tree-remove="deleteRole"
+				data-node-id="Id"
+				data-node-label="Label"
+				data-node-children="Children">
+			</div>
+		</div>
+	</div>
+	<div id="permissionContentBody" class="span8 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div class="row-fluid sortme">
+			<div id="assignedContainer" class="span6 well well-small element scrollVertical" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
+				<span class="label label-default btn-block st-centered" data-i18n="_AssignedDomainPermissionHeading_"></span>
+				<button class="btn btn-default btn-block" ng-disabled="!canUpdate" type="button" ng-click="assign('unAssign')" data-i18n="_UnAssignButtonHeading_"></button>
+				<div class="gridStyle" ng-grid="assignedGridOptions"></div>
+			</div>
+			<div id="unAssignedContainer" class="span6 well well-small element scrollVertical" data-ng-hide="hideSublevels" resize-to="permissionContentBody" resize-type="elementId" resize-reduction="50">
+				<span class="label label-default btn-block st-centered" data-i18n="_AvailableDomainPermissionHeading_"></span>
+				<button class="btn btn-default btn-block" ng-disabled="!canUpdate" type="button" ng-click="assign('assign')" data-i18n="_AssignButtonHeading_"></button>
+				<div class="gridStyle" ng-grid="unAssignedGridOptions"></div>
+			</div>
+		</div>
+		<div data-ng-hide="hideSublevels" class="pull-right">
+			<button class="btn btn-default" ng-disabled="madeSubListChanges" ng-click="saveSubElements()" data-i18n="_SaveHeading_"></button>
+			<button type="button" ng-disabled="!canUpdate" class="btn btn-warning" ng-click="cancelSubElementEdit()" data-i18n="_CancelHeading_"></button>
+		</div>
+	</div>
+</div>
+
+
