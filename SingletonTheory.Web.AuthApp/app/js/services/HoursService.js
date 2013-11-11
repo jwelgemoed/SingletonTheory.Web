@@ -12,6 +12,16 @@ var ItemHoursEntryResource = userApplicationModule.factory('ItemHoursEntryResour
 	});
 });
 
+var ItemHoursEntryResource = userApplicationModule.factory('RoomHoursEntryResource', function ($resource) {
+	return $resource('/hoursmanagementapi/roomentry', {},
+	{
+		//	query: { method: 'GET', params: { Surname: '' }, isArray: false },
+		//	get: { method: 'GET', params: { Id: 0 }, isArray: false },
+		add: { method: 'POST', params: {}, isArray: false }
+		//	update: { method: 'PUT', params: {}, isArray: false }
+	});
+});
+
 var ItemHoursEntryResource = userApplicationModule.factory('CostCentreResource', function ($resource) {
 	return $resource('/hoursmanagementapi/costcentres', {},
 	{

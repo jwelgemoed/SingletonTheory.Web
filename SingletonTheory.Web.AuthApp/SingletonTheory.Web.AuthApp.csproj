@@ -67,6 +67,7 @@
     <Content Include="app\img\folder.png" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers\AuthAdminCtrl.js" />
+    <Content Include="app\js\controllers\BudgetedHoursInputCtrl.js" />
     <Content Include="app\js\controllers\ContactManagementCtrl.js" />
     <Content Include="app\js\controllers\HomeCtrl.js" />
     <Content Include="app\js\controllers\BookedHoursInputCtrl.js" />
@@ -141,6 +142,7 @@
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.6.0.js" />
     <Content Include="app\lib\ui-bootstrap\ui-bootstrap-tpls-0.6.0.min.js" />
     <Content Include="app\partials\authadmin.html" />
+    <Content Include="app\partials\budgetedhoursinput.html" />
     <Content Include="app\partials\contactmanagement.html" />
     <Content Include="app\partials\header.html" />
     <Content Include="app\partials\bookedhoursinput.html" />

@@ -51,7 +51,14 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			templateUrl: '/partials/bookedhoursinput.html',
 			controller: 'BookedHoursInputCtrl'
 			,
-			access: 'LocalizationAdministration_Access'
+			access: 'Administrator_Access'
+		});
+	$routeProvider.when('/hoursmanagement/budgetedhoursinput',
+		{
+			templateUrl: '/partials/budgetedhoursinput.html',
+			controller: 'BudgetedHoursInputCtrl'
+			,
+			access: 'Administrator_Access'
 		});
 	$routeProvider.when('/contactmanagement',
 	{
