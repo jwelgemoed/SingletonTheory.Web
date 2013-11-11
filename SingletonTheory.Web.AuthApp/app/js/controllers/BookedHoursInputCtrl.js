@@ -77,7 +77,6 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 						);
 			};
 
-			$scope.error = "fuck you";
 			// TODO: Add to seperate library
 
 			$scope.parseJsonDateValue = function (dateValue) {
