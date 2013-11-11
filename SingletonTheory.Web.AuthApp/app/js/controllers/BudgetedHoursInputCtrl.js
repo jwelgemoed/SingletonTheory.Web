@@ -12,6 +12,7 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 			$scope.paintingCostCentre = "";
 			$scope.gridSource = [];
 			var previousBlurPerson = "";
+			var previousBlurRoom = "";
 			var previousBlurDate = "";
 			$scope.dateFormat = "dd-MMMM-yyyy";
 
@@ -23,20 +24,18 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 
 			function setupGrids() {
 				$scope.hourTypeHeading = localize.getLocalizedString('_HourTypeHeading_');
-				$scope.personNumberHeading = localize.getLocalizedString('_PersonNumberHeading_');
-				$scope.hoursDateHeading = localize.getLocalizedString('_HoursDateHeading_');
+				$scope.deliveryDateHeading = localize.getLocalizedString('_DeliveryDateHeading_');
 				$scope.costCentreHeading = localize.getLocalizedString('_CostCentreHeading_');
 				$scope.orderNumberHeading = localize.getLocalizedString('_OrderNumberHeading_');
 				$scope.roomNumberHeading = localize.getLocalizedString('_RoomNumberHeading_');
 				$scope.hoursHeading = localize.getLocalizedString('_HoursHeading_');
 				$scope.descriptionHeading = localize.getLocalizedString('_DescriptionHeading_');
 				$scope.hoursEntryGridHeaders = [{ field: 'HourType', displayName: $scope.hourTypeHeading },
-					{ field: 'PersonNumber', displayName: $scope.personNumberHeading },
-					{ field: 'Date', displayName: $scope.hoursDateHeading },
-					{ field: 'CostCentre', displayName: $scope.costCentreHeading },
 					{ field: 'OrderNumber', displayName: $scope.orderNumberHeading },
 					{ field: 'RoomNumber', displayName: $scope.roomNumberHeading },
+					{ field: 'CostCentre', displayName: $scope.costCentreHeading },
 					{ field: 'Hours', displayName: $scope.hoursHeading },
+					{ field: 'DeliveryDate', displayName: $scope.deliveryDateHeading },
 					{ field: 'Description', displayName: $scope.descriptionHeading }];
 			}
 
@@ -74,10 +73,11 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 				return new Date(parseInt(dateValue.substr(6))).toString($scope.dateFormat);
 			};
 
-			$scope.personDateChanged = function () {
-				if ($scope.roomHoursResource.PersonNumber != previousBlurPerson || $scope.roomHoursResource.Date != previousBlurDate) {
+			$scope.mainDataChanged = function () {
+				if ($scope.roomHoursResource.PersonNumber != previousBlurPerson || $scope.roomHoursResource.DeliveryDate != previousBlurDate || $scope.roomHoursResource.RoomNumber != previousBlurRoom) {
 					previousBlurPerson = $scope.roomHoursResource.PersonNumber;
-					previousBlurDate = $scope.roomHoursResource.Date;
+					previousBlurRoom = $scope.roomHoursResource.RoomNumber;
+					previousBlurDate = $scope.roomHoursResource.DeliveryDate;
 					resetHourDetails();
 					$scope.gridSource.length = 0;
 				}
@@ -98,7 +98,7 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 					var enteredHoursItem = {
 						HourType: $scope.roomHoursResource.HourType.Description,
 						PersonNumber: $scope.roomHoursResource.PersonNumber,
-						Date: $scope.parseJsonDateValue($scope.roomHoursResource.Date),
+						DeliveryDate: $scope.parseJsonDateValue($scope.roomHoursResource.DeliveryDate),
 						CostCentre: $scope.roomHoursResource.CostCentre.Code + ' - ' + $scope.roomHoursResource.CostCentre.Description,
 						OrderNumber: $scope.roomHoursResource.OrderNumber,
 						RoomNumber: $scope.roomHoursResource.RoomNumber,
@@ -117,14 +117,12 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 
 			function resetHourDetails() {
 				resetDetailFields();
-				$scope.roomHoursResource.Date = previousBlurDate;
 			}
 
 			function resetDetailFields() {
 				$scope.roomHoursResource.Id = 0;
-				$scope.roomHoursResource.OrderNumber = "";
-				$scope.roomHoursResource.RoomNumber = "";
 				$scope.roomHoursResource.Hours = "";
+				$scope.roomHoursResource.DeliveryDate = "";
 				$scope.roomHoursResource.Description = "";
 			}
 		}]);

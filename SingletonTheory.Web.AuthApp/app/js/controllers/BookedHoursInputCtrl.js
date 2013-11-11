@@ -77,13 +77,14 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 						);
 			};
 
+			$scope.error = "fuck you";
 			// TODO: Add to seperate library
 
 			$scope.parseJsonDateValue = function (dateValue) {
 				return new Date(parseInt(dateValue.substr(6))).toString($scope.dateFormat);
 			};
 
-			$scope.personDataChanged = function () {
+			$scope.personDateChanged = function () {
 				if ($scope.itemHoursResource.PersonNumber != previousBlurPerson || $scope.itemHoursResource.Date != previousBlurDate) {
 					previousBlurPerson = $scope.itemHoursResource.PersonNumber;
 					previousBlurDate = $scope.itemHoursResource.Date;
@@ -109,7 +110,7 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 						PersonNumber: $scope.itemHoursResource.PersonNumber,
 						Date: $scope.parseJsonDateValue($scope.itemHoursResource.Date),
 						CostCentre: $scope.itemHoursResource.CostCentre.Code + ' - ' + $scope.itemHoursResource.CostCentre.Description,
-						OrderNumber:  $scope.itemHoursResource.OrderNumber,
+						OrderNumber: $scope.itemHoursResource.OrderNumber,
 						RoomNumber: $scope.itemHoursResource.RoomNumber,
 						ItemNumber: $scope.itemHoursResource.ItemNumber,
 						Hours: $scope.itemHoursResource.Hours,
