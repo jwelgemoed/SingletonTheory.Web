@@ -58,6 +58,12 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 				controller: 'FunctionalPermissionAdminCtrl',
 				access: 'AuthorizationAdministration_Access'
 			});
+	$routeProvider.when('/auth/authadmin/permissionadmin',
+			{
+				templateUrl: '/partials/authadmin/permissionadmin.html',
+				controller: 'PermissionAdminCtrl',
+				access: 'AuthorizationAdministration_Access'
+			});
 	$routeProvider.when('/auth/localeadmin',
 		{
 			templateUrl: '/partials/localeadmin.html',

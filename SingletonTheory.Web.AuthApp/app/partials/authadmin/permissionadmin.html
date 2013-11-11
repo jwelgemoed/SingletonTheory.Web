@@ -1,9 +1,30 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
+﻿<div class="row-fluid sortme" ng-init="init()">
+	<div id="infoContainer" class="span12 well well-small darken" resize-to="contentCanvas" resize-type="elementId" resize-reduction="0">
+		<div id="elementContainer" class="span12 well well-small element scrollVertical" resize-to="infoContainer" resize-type="elementId" resize-reduction="0">
+			<div class="dropdown">
+				<span class="label label-default btn-block st-centered" data-i18n="_PermissionHeading_"></span>
+			</div>
+			<div>
+				<button ng-show="canCreate" class="btn btn-default" ng-click="addNewElement()" data-ng-disabled="isAddDisabled"><i class="icon-plus-sign icon-white"></i></button>
+				&nbsp;
+					<div collapse="!isCollapsed">
+						<form class="well well-small form-inline" name="elementForm" novalidate>
+							<div class="controls">
+								<div class="control-group" data-ng-show="!roleMove">
+									<st-input label-name="_NameHeading_" >
+									<input id="nameInputId" type="text" data-ng-model="elementResource.Name" name="nameInput" ng-required="true" ng-minlength="5" ng-maxlength="60" />
+								</st-input>
+									<br />
+								</div>
+							</div>
+							<button class="btn btn-default" id="btnSave" data-ng-disabled="elementForm.$invalid" ng-click="saveElement()" data-i18n="_SaveHeading_" ></button>
+							<button type="button" class="btn btn-warning" data-ng-click="cancelElementSave()" data-i18n="_CancelHeading_"></button>
+						</form>
+					</div>
+			</div>
+			<div class="gridStyle" ng-grid="elementGridOptions"></div>
+		</div>
+	</div>
+</div>
 
-</body>
-</html>
+
