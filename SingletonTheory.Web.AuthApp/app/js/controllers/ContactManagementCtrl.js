@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('ContactManagementCtrl',
-	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactsResource', 'ContactResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', 'AddressesResource', 'AddressResource', 'AddressTypesResource', function ($rootScope, $scope, $location, $timeout, authService, contactsResource, contactResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource, addressesResource, addressResource, addressTypesResource) {
+	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactDetailsResource', 'ContactDetailResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', 'AddressesResource', 'AddressResource', 'AddressTypesResource', function ($rootScope, $scope, $location, $timeout, authService, contactDetailsResource, contactDetailResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource, addressesResource, addressResource, addressTypesResource) {
 
 		$scope.canCreate = true;
 		$scope.isCollapsed = true;
@@ -23,7 +23,7 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 		//========== refresh ==========
 		$scope.refresh = function () {
-			contactsResource.get({}, function (response) {
+			contactDetailsResource.get({}, function (response) {
 				$scope.contacts = response;
 				$scope.selectedElement[0] = $scope.contacts[0];
 				$scope.editContact($scope.contacts[0]);
@@ -56,10 +56,6 @@ userApplicationModule.controller('ContactManagementCtrl',
 			}
 		};
 
-		var setSelectedContact = function (entity) {
-			$scope.elementResource = entity;
-		};
-
 		// Edit area
 
 		$scope.addNewContact = function () {
@@ -68,7 +64,7 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 			$scope.passwordIsRequired = true;
 
-			$scope.elementResource = new contactResource();
+			$scope.elementResource = new contactDetailResource();
 			$scope.elementResource.TitleId = $scope.titles[0].Id;
 			$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
 			$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
@@ -100,13 +96,13 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.isNew = false;
 			$scope.isEdit = true;
 
-			$scope.elementResource = new contactResource();
+			$scope.elementResource = new contactDetailResource();
 			$scope.elementResource.TitleId = $scope.titles[0].Id;
 			$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
 			$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
 			$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
 			
-			contactResource.get({ Id: entity.Id }, function (response) {
+			contactDetailResource.get({ Id: entity.Id }, function (response) {
 				$scope.elementResource = response;
 			},
 			function (error) {

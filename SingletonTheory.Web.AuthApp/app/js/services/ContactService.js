@@ -2,8 +2,8 @@
 
 /// <reference path="~/app/js/app.js" />
 
-var ContactResource = userApplicationModule.factory('ContactResource', function ($resource) {
-	return $resource('/contactdetailsapi/contact', {},
+var ContactDetailResource = userApplicationModule.factory('ContactDetailResource', function ($resource) {
+	return $resource('/contactdetailsapi/contactdetail', {},
 	{
 		query: { method: 'GET', params: { Surname: '' }, isArray: false },
 		get: { method: 'GET', params: { Id: 0 }, isArray: false },
@@ -12,8 +12,8 @@ var ContactResource = userApplicationModule.factory('ContactResource', function 
 	});
 });
 
-var ContactsResource = userApplicationModule.factory('ContactsResource', function ($resource) {
-	return $resource('/contactdetailsapi/contacts', {},
+var ContactDetailsResource = userApplicationModule.factory('ContactDetailsResource', function ($resource) {
+	return $resource('/contactdetailsapi/contactdetails', {},
 	{
 		get: { method: 'GET', params: {}, isArray: true }
 	});
