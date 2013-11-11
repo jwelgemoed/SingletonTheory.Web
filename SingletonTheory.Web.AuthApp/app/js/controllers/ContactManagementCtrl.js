@@ -5,6 +5,7 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 		$scope.canCreate = true;
 		$scope.isCollapsed = true;
+		$scope.isAddressCollapsed = true;
 		$scope.isNew = true;
 		$scope.isEdit = false;
 		$scope.selectedElement = [];
@@ -23,13 +24,13 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 		//========== refresh ==========
 		$scope.refresh = function () {
+			$scope.setTypes();
 			contactDetailsResource.get({}, function (response) {
 				$scope.contacts = response;
 				$scope.selectedElement[0] = $scope.contacts[0];
 				$scope.editContact($scope.contacts[0]);
+				$scope.editAddresses($scope.contacts[0]);
 			});
-			
-			$scope.setContentArea();
 		};
 
 		// ******** info area grid *************************
@@ -47,11 +48,11 @@ userApplicationModule.controller('ContactManagementCtrl',
 			plugins: [new ngGridFlexibleHeightPlugin()],
 			afterSelectionChange: function (data) {
 				//NOTE : This event is called twice once to select and then to decelect
-				if (data.entity.Id != $scope.lastRowId) {
-					$scope.setContentArea();
+				if (data.entity.EntityId != $scope.lastRowId) {
+					$scope.setTypes();
 					$scope.editContact(data.entity);
 					$scope.editAddresses(data.entity);
-					$scope.lastRowId = data.entity.Id;
+					$scope.lastRowId = data.entity.EntityId;
 				}
 			}
 		};
@@ -65,31 +66,16 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.passwordIsRequired = true;
 
 			$scope.elementResource = new contactDetailResource();
-			$scope.elementResource.TitleId = $scope.titles[0].Id;
-			$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
-			$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
-			$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+			try {
+				$scope.elementResource.TitleId = $scope.titles[0].Id;
+				$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
+				$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
+				$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+			} catch(e) {
+				$scope.error = e;
+			} 
 			
 			$scope.toggleCollapse();
-		};
-		
-		$scope.editAddresses = function (entity) {
-			$scope.isNew = false;
-			$scope.isEdit = true;
-
-			$scope.addressesResource = new addressesResource();
-			$scope.addressResource = new addressResource();
-			$scope.addressResource = entity.Id;
-			
-			addressesResource.get({ Id: entity.Id }, function (response) {
-				$scope.addressesResource = response;
-				$scope.addressResource = $scope.addressesResource[0];
-			},
-			function (error) {
-				$scope.error = error;
-			});
-
-			$scope.isCollapsed = true;
 		};
 		
 		$scope.editContact = function (entity) {
@@ -97,13 +83,19 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.isEdit = true;
 
 			$scope.elementResource = new contactDetailResource();
-			$scope.elementResource.TitleId = $scope.titles[0].Id;
-			$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
-			$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
-			$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
-			
-			contactDetailResource.get({ Id: entity.Id }, function (response) {
+
+			try {
+				$scope.elementResource.TitleId = $scope.titles[0].Id;
+				$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
+				$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
+				$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+			} catch(err) {
+				$scope.error = err;
+			} 
+
+			contactDetailResource.get({ EntityId: entity.EntityId }, function (response) {
 				$scope.elementResource = response;
+
 			},
 			function (error) {
 				$scope.error = error;
@@ -144,7 +136,7 @@ userApplicationModule.controller('ContactManagementCtrl',
 		// ----------------------------------------------------------------------------
 		// ************************ CONTENT AREA **************************************
 
-		$scope.setContentArea = function () {
+		$scope.setTypes = function () {
 
 			titlesResource.get({}, function (response) {
 				$scope.titles = response;
@@ -181,5 +173,184 @@ userApplicationModule.controller('ContactManagementCtrl',
 			'year-format': "'yy'",
 			'starting-day': 1
 		};
+		
+
+		//ADRESS ---------------------------------------------------------------------
+		
+		$scope.isAddressCollapsed = true;
+		$scope.addressData = [];
+		$scope.addressData.length = 0;
+		$scope.usedAddressTypeIds = [];
+		$scope.usedAddressTypeIds.length = 0;
+		$scope.availableAddressTypes = [];
+		$scope.availableAddressTypes.length = 0;
+		$scope.canUpdateAddress = true;
+		// ******** info area grid *************************
+		$scope.editableInPopup = '<button type="button" ng-disabled="!canUpdateAddress"  class="btn btn-default" ng-click="editAddress(row)"><i class="icon-edit icon-black"></i></button> ';
+		
+		$scope.lastRowAddressId = 0;
+		$scope.mainAddressColumnDefs = [{ field: 'AddressType', displayName: localize.getLocalizedString('_AddressTypeHeading_') },
+				{ field: 'Preferred', displayName: localize.getLocalizedString('_PreferredHeading_') },
+				{ field: 'Street', displayName: localize.getLocalizedString('_StreetHeading_') },
+				{ field: 'PostalCode', displayName: localize.getLocalizedString('_PostalCodeHeading_') },
+				{ field: 'City', displayName: localize.getLocalizedString('_CityHeading_') },
+				 { displayName: '', cellTemplate: $scope.editableInPopup, width: 40 }];
+		//{ Id: id, EntityId: entityId, AddressType: addressType, Preferred: preferred, Street: street, PostalCode: postalCode, City: city };
+		$scope.addressGridOptions = {
+			data: 'addressData',
+			//filterOptions: $scope.filterOptions,
+			showFilter: false,
+			columnDefs: 'mainAddressColumnDefs',
+			selectedItems: $scope.selectedAdress,
+			multiSelect: false,
+			plugins: [new ngGridFlexibleHeightPlugin()],
+			afterSelectionChange: function (data) {
+				//NOTE : This event is called twice once to select and then to decelect
+				if (data.entity.Id != $scope.lastRowAddressId) {
+					$scope.editAddress(data.entity);
+					$scope.lastRowAddressId = data.entity.Id;
+				}
+			}
+		};
+
+		$scope.editAddresses = function (entity) {
+
+			$scope.addressData.length = 0;
+			
+			$scope.addressesResource = new addressesResource();
+			$scope.addressResource = new addressResource();
+			$scope.addressResource.EntityId = entity.EntityId;
+			$scope.addressResource.addressTypeId = $scope.addressTypes[0].Id;
+
+			addressesResource.get({ EntityId: entity.EntityId }, function (response) {
+				$scope.addressesResource = response;
+				$scope.addressResource = $scope.addressesResource[0];
+				
+				setAddressGridData();
+			},
+			function (error) {
+				$scope.error = error;
+			});
+
+			$scope.isAddressCollapsed = true;
+		};
+		
+		var setAddressGridData = function () {
+			$scope.usedAddressTypeIds.length = 0;
+			for (var i = 0; i < $scope.addressesResource.length; i++) {
+				var id = $scope.addressesResource[i].Id;
+				var entityId = $scope.addressesResource[i].EntityId;
+				var addressType = getAddressType($scope.addressesResource[i].AddressTypeId);
+				var street = $scope.addressesResource[i].Street;
+				var preferred = $scope.addressesResource[i].Preferred;
+				var postalCode = $scope.addressesResource[i].PostalCode;
+				var city = $scope.addressesResource[i].City;
+				var address = { Id: id, EntityId: entityId, AddressType: addressType, Preferred: preferred, Street: street, PostalCode: postalCode, City: city };
+				$scope.addressData.push(address);
+				$scope.usedAddressTypeIds.push($scope.addressesResource[i].AddressTypeId);
+			}
+		};
+
+		var setAddressTypesAvailable = function (id) {
+			$scope.availableAddressTypes.length = 0;
+			var ids = $scope.usedAddressTypeIds;
+			remove(ids,id);
+			for (var i = 0; i < $scope.addressTypes.length; i++) {
+				if (!contains(ids, $scope.addressTypes[i].Id)) {
+					$scope.availableAddressTypes.push($scope.addressTypes[i]);
+				}
+			}
+		};
+
+		var getAddressType = function(addressTypeId) {
+			for (var i = 0; i < $scope.addressTypes.length; i++) {
+				if (addressTypeId == $scope.addressTypes[i].Id) {
+					return $scope.addressTypes[i].Description;
+				}
+			}
+			return "";
+		};
+		
+		$scope.addNewAddress = function () {
+			$scope.isAddressNew = true;
+			$scope.isAddressEdit = false;
+
+			$scope.addressResource = new addressResource();
+			setAddressTypesAvailable(-1);
+			$scope.addressResource.AddressTypeId = $scope.availableAddressTypes[0].Id;
+			$scope.toggleAddressCollapse();
+		};
+		
+		$scope.editAddress = function (entity) {
+			$scope.isAddressNew = false;
+			$scope.isAddressEdit = true;
+
+			$scope.addressResource = new addressResource();
+			
+			addressResource.get({ Id: entity.Id }, function (response) {
+				$scope.addressResource = response;
+				setAddressTypesAvailable(response.AddressTypeId);
+			},
+			function (error) {
+				$scope.error = error;
+			});
+
+			$scope.isAddressCollapsed = false;
+		};
+
+		$scope.saveNewAddress = function () {
+			$scope.addressResource.$add(function () {
+				$scope.toggleAddressCollapse();
+				$scope.editAddresses($scope.selectedElement[0]);
+			},
+			function (error) {
+				$scope.error = error;
+			});
+		};
+
+		$scope.saveAddress = function () {
+			$scope.addressResource.$update(function () {
+				$scope.toggleAddressCollapse();
+				$scope.editAddresses($scope.selectedElement[0]);
+			},
+			function (error) {
+				$scope.error = error;
+			});
+		};
+
+		$scope.cancelAddressSave = function () {
+			$scope.toggleAddressCollapse();
+		};
+
+		$scope.toggleAddressCollapse = function () {
+			$scope.isAddressCollapsed = !$scope.isAddressCollapsed;
+		};
+
+		//Address ---------------------------------------------------------------------
+		
+
+
+		$scope.parseJsonDateValue = function (dateValue) {
+			return new Date(parseInt(dateValue.substr(6))).toString($scope.dateFormat);
+		};
+
+
+		var contains = function (arr, obj) {
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i] === obj) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		var remove = function (arr, item) {
+			for (var i = arr.length; i--;) {
+				if (arr[i] === item) {
+					arr.splice(i, 1);
+				}
+			}
+		};
+		
 	}]);
 

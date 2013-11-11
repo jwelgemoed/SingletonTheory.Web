@@ -6,7 +6,7 @@ var ContactDetailResource = userApplicationModule.factory('ContactDetailResource
 	return $resource('/contactdetailsapi/contactdetail', {},
 	{
 		query: { method: 'GET', params: { Surname: '' }, isArray: false },
-		get: { method: 'GET', params: { Id: 0 }, isArray: false },
+		get: { method: 'GET', params: { EntityId: 0 }, isArray: false },
 		add: { method: 'POST', params: {}, isArray: false },
 		update: { method: 'PUT', params: {}, isArray: false }
 	});

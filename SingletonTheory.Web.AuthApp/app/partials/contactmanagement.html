@@ -6,36 +6,7 @@
 				<div>
 					<button ng-show="canCreate" class="btn btn-default" ng-click="addNewContact()" data-ng-disabled="isAddDisabled"><i class="icon-plus-sign icon-white"></i></button>
 					&nbsp;
-					<!--					<div collapse="isCollapsed">
-						<form class="well well-small form-inline" name="elementForm" novalidate>
-							<div class="controls">
-							<div class="control-group">
-								<label for="entityTypeId1" class="control-label" data-i18n="_EntityTypeHeading_"></label>
-								<div class="controls">
-									<select id="entityTypeId1" data-ng-model="elementResource.EntityTypeId" data-ng-options="opt.Id as opt.Description for opt in entityTypes"></select>
-								</div>
-							</div>
-								<div class="control-group">
-									<label for="titleId1" class="control-label" data-i18n="_TitleHeading_"></label>
-									<div class="controls">
-										<select id="titleId1" data-ng-model="elementResource.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
-									</div>
-								</div>
-								<st-input label-name="_NameHeading_" label-class="control-label">
-									<input id="entityName1" type="text" data-ng-model="elementResource.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
-								</st-input>
-								<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
-									<input id="surnamePrefix1" type="text" data-ng-model="elementResource.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
-								</st-input>
-								<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
-									<input id="surname1" type="text" data-ng-model="elementResource.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
-								</st-input>
 
-							</div>
-							<button class="btn btn-default" id="btnSave" data-ng-disabled="elementForm.$invalid" ng-click="saveNewContact()" data-i18n="_SaveHeading_" data-ng-show="!roleMove"></button>
-							<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
-						</form>
-					</div>-->
 				</div>
 			</div>
 			<div class="gridStyle" ng-grid="contactsGrid"></div>
@@ -67,7 +38,11 @@
 								<st-input label-name="_MaidenNamePrefixHeading_" st-hide="false" label-class="control-label">
 									<input id="maidenNamePrefixInput" type="text" data-ng-model="elementResource.MaidenNamePrefix" name="maidenNamePrefixInput"  ng-minlength="0" ng-maxlength="60" />
 								</st-input>
-
+							</div>
+							<div class="control-group">
+								<button id="saveEditedContactButton" class="btn btn-default" data-ng-show="isEdit" data-ng-disabled="elementForm.$invalid" data-ng-click="saveContact()" data-i18n="_UpdateHeading_"></button>
+								<button class="btn btn-default" id="btnSave" data-ng-show="isNew" data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContact()" data-i18n="_SaveHeading_"></button>
+								<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
 							</div>
 						</form>
 					</tab>
@@ -99,12 +74,18 @@
 									<select id="occupationNameId" data-ng-model="elementResource.OccupationNameId" data-ng-options="opt.Id as opt.Description for opt in occupationNames"></select>
 								</div>
 							</div>
+							
+											<div class="control-group">
+					<button id="Button1" class="btn btn-default" data-ng-show="isEdit" data-ng-disabled="elementForm.$invalid" data-ng-click="saveContact()" data-i18n="_UpdateHeading_"></button>
+					<button class="btn btn-default" id="Button2" data-ng-show="isNew" data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContact()" data-i18n="_SaveHeading_"></button>
+					<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
+				</div>
 						</form>
 					</tab>
 					<tab heading="Contact Info">
 						<form class="form-horizontal" name="contactInfoForm" novalidate>
 										
-							<div class="control-group">
+						<div class="control-group">
 								<label for="contactTypeId" class="control-label" data-i18n="_ContactTypeHeading_"></label>
 								<div class="controls">
 									<select id="contactTypeId" data-ng-model="elementResource.ContactTypeId" data-ng-options="opt.Id as opt.Description for opt in contactTypes"></select>
@@ -116,27 +97,32 @@
 							</st-input>
 										
 							<div class="control-group" >					
-								<label for="prefferedInput" class="control-label" data-i18n="_PrefferedHeading_"></label>
+								<label for="preferredInput" class="control-label" data-i18n="_PreferredHeading_"></label>
 								<div class="controls">
-									<input id="prefferedInput" type="checkbox" data-ng-model="elementResource.Preffered" />
+									<input id="preferredInput" type="checkbox" data-ng-model="elementResource.Preferred" />
 								</div>
 							</div>
 
 						</form>
 					</tab>
 					<tab heading="Address Info">
-						<form class="form-horizontal" name="elementForm" novalidate>
-							
-							<div class="control-group">
+				<div>
+
+				<button data-ng-show="true"  class="btn btn-default" ng-click="addNewAddress()" data-ng-disabled="false"><i class="icon-plus-sign icon-white"></i></button>
+				<br />
+				<div collapse="isAddressCollapsed">
+					<form class="well well-small form-inline" name="addressForm">
+						<div class="controls">
+										<div class="control-group">
 								<label for="addressTypeId" class="control-label" data-i18n="_AddressTypeHeading_"></label>
 								<div class="controls">
-									<select id="addressTypeId" data-ng-model="addressResource.addressTypeId" data-ng-options="opt.Id as opt.Description for opt in addressTypes"></select>
+									<select id="addressTypeId"  data-ng-model="addressResource.AddressTypeId" data-ng-options="opt.Id as opt.Description for opt in availableAddressTypes"></select>
 								</div>
 							</div>
 							<div class="control-group" >					
-								<label for="prefferedAddressInput" class="control-label" data-i18n="_PrefferedHeading_"></label>
+								<label for="preferredAddressInput" class="control-label" data-i18n="_PreferredHeading_"></label>
 								<div class="controls">
-									<input id="prefferedAddressInput" type="checkbox" data-ng-model="addressResource.Preffered" />
+									<input id="preferredAddressInput" type="checkbox" data-ng-model="addressResource.Preferred" />
 								</div>
 							</div>
 							<st-input label-name="_StreetHeading_" st-hide="false" label-class="control-label">
@@ -162,16 +148,23 @@
 							<st-input label-name="_CountryCodeHeading_" st-hide="false" label-class="control-label">
 								<input id="countryCodeInput" type="text" data-ng-model="addressResource.CountryCode" name="countryCodeInput" ng-minlength="0" ng-maxlength="60" />
 							</st-input>
-
-						</form>
-					</tab>
-				</tabset>
-				<div class="control-group">
-					<button id="saveEditedContactButton" class="btn btn-default" data-ng-show="isEdit" data-ng-disabled="elementForm.$invalid" data-ng-click="saveContact()" data-i18n="_UpdateHeading_"></button>
-					<button class="btn btn-default" id="btnSave" data-ng-show="isNew" data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContact()" data-i18n="_SaveHeading_"></button>
-					<button type="button" class="btn btn-warning" data-ng-click="cancelContactSave()" data-i18n="_CancelHeading_"></button>
+							<br />
+							<button id="btnAddNewAddress" class="btn btn-default" ng-show="isAddressNew"
+								ng-click="saveNewAddress()"
+								data-i18n="_SaveHeading_">
+							</button>
+							<button id="btnUpdateAddress" class="btn btn-default" ng-show="isAddressEdit"
+								ng-disabled="dpForm.$invalid" ng-click="saveAddress()" data-i18n="_UpdateHeading_">
+							</button>
+							<button type="button" class="btn btn-warning" ng-click="cancelAddressSave()" data-i18n="_CancelHeading_"></button>
+						</div>
+					</form>
 				</div>
 			</div>
-		</div>
+			<div class="gridStyle" ng-grid="addressGridOptions"></div>
+			</tab>
+		</tabset>
 	</div>
+	</div>
+</div>
 </div>
