@@ -182,3 +182,7 @@ body {
 	margin-top: 10px; 
 	margin-left: 10px
 }
+
+.nav, .pagination, .carousel a {
+	cursor: pointer;
+}
