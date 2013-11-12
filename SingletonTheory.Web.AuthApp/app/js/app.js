@@ -34,12 +34,6 @@ userApplicationModule.config(['$routeProvider', '$locationProvider', '$httpProvi
 			controller: 'UserAdminCtrl',
 			access: 'UserAdministration_Access'
 		});
-	$routeProvider.when('/auth/authadmin',
-			{
-				templateUrl: '/partials/authadmin.html',
-				controller: 'AuthAdminCtrl',
-				access: 'AuthorizationAdministration_Access'
-			});
 	$routeProvider.when('/auth/authadmin/roleadmin',
 			{
 				templateUrl: '/partials/authadmin/roleadmin.html',
