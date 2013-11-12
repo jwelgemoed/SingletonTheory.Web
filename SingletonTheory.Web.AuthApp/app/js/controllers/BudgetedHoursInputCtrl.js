@@ -14,7 +14,6 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 			var previousBlurPerson = "";
 			var previousBlurRoom = "";
 			var previousBlurDate = "";
-			$scope.dateFormat = "dd-MMMM-yyyy";
 
 			setupGrids();
 
@@ -35,7 +34,7 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 					{ field: 'RoomNumber', displayName: $scope.roomNumberHeading },
 					{ field: 'CostCentre', displayName: $scope.costCentreHeading },
 					{ field: 'Hours', displayName: $scope.hoursHeading },
-					{ field: 'DeliveryDate', displayName: $scope.deliveryDateHeading },
+					{ field: 'DeliveryDate', displayName: $scope.deliveryDateHeading, cellFilter: 'date:\'shortDate\'' },
 					{ field: 'Description', displayName: $scope.descriptionHeading }];
 			}
 
@@ -67,10 +66,8 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 						);
 			};
 
-			// TODO: Add to seperate library
-
 			$scope.parseJsonDateValue = function (dateValue) {
-				return new Date(parseInt(dateValue.substr(6))).toString($scope.dateFormat);
+				return new Date(parseInt(dateValue.replace('/Date(', '')));
 			};
 
 			$scope.mainDataChanged = function () {
