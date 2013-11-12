@@ -11,9 +11,8 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 			$scope.productionCostCentre = "";
 			$scope.paintingCostCentre = "";
 			$scope.gridSource = [];
-			var previousBlurPerson = "";
+			var previousBlurOrder = "";
 			var previousBlurRoom = "";
-			var previousBlurDate = "";
 
 			setupGrids();
 
@@ -71,11 +70,10 @@ userApplicationModule.controller('BudgetedHoursInputCtrl',
 			};
 
 			$scope.mainDataChanged = function () {
-				if ($scope.roomHoursResource.PersonNumber != previousBlurPerson || $scope.roomHoursResource.DeliveryDate != previousBlurDate || $scope.roomHoursResource.RoomNumber != previousBlurRoom) {
-					previousBlurPerson = $scope.roomHoursResource.PersonNumber;
+				if (($scope.roomHoursResource.OrderNumber != undefined && $scope.roomHoursResource.OrderNumber != previousBlurOrder) ||
+					($scope.roomHoursResource.RoomNumber != undefined && $scope.roomHoursResource.RoomNumber != previousBlurRoom)) {
+					previousBlurOrder = $scope.roomHoursResource.OrderNumber;
 					previousBlurRoom = $scope.roomHoursResource.RoomNumber;
-					previousBlurDate = $scope.roomHoursResource.DeliveryDate;
-					resetHourDetails();
 					$scope.gridSource.length = 0;
 				}
 			};

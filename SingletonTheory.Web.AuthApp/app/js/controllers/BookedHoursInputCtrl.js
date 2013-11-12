@@ -80,11 +80,11 @@ userApplicationModule.controller('BookedHoursInputCtrl',
 				return new Date(parseInt(dateValue.replace('/Date(', '')));
 			};
 
-			$scope.personDateChanged = function () {
-				if ($scope.itemHoursResource.PersonNumber != previousBlurPerson || $scope.itemHoursResource.Date != previousBlurDate) {
+			$scope.mainDataChanged = function () {
+				if (($scope.itemHoursResource.PersonNumber != undefined && $scope.itemHoursResource.PersonNumber != previousBlurPerson)
+					|| ($scope.itemHoursResource.Date != undefined && $scope.itemHoursResource.Date != previousBlurDate)) {
 					previousBlurPerson = $scope.itemHoursResource.PersonNumber;
 					previousBlurDate = $scope.itemHoursResource.Date;
-					resetHourDetails();
 					$scope.gridSource.length = 0;
 				}
 			};
