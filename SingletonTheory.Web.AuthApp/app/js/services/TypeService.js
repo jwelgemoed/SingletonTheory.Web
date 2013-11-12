@@ -37,3 +37,10 @@ var AddressTypesResource = userApplicationModule.factory('AddressTypesResource',
 		get: { method: 'GET', params: {}, isArray: true }
 	});
 });
+
+var GenderTypesResource = userApplicationModule.factory('GenderTypesResource', function ($resource) {
+	return $resource('/typesapi/gendertypes', {},
+	{
+		get: { method: 'GET', params: {}, isArray: true }
+	});
+});

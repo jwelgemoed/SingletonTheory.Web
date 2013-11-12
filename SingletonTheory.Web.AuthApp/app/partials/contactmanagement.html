@@ -18,27 +18,34 @@
 			<div>
 				<tabset>
 						<tab heading="Person Details">
-							<form class="form-horizontal" name="contactDetaisForm" novalidate>
-							<div class="tab-pane active" id="Div2">
-							<div class="control-group">
-							<label for="titleId" class="control-label" data-i18n="_TitleHeading_"></label>
-							<div class="controls">
-							<select id="titleId" data-ng-model="elementResource.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
-							</div>
-							</div>
-							<st-input label-name="_NameHeading_" label-class="control-label">
-							<input id="entityNameInput" type="text" data-ng-model="elementResource.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
-							</st-input>
-							<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
-							<input id="surnamePrefixInput" type="text" data-ng-model="elementResource.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
-							</st-input>
-							<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
-							<input id="surnameInput" type="text" data-ng-model="elementResource.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
-							</st-input>
-							<st-input label-name="_MaidenNamePrefixHeading_" st-hide="false" label-class="control-label">
-							<input id="maidenNamePrefixInput" type="text" data-ng-model="elementResource.MaidenNamePrefix" name="maidenNamePrefixInput"  ng-minlength="0" ng-maxlength="60" />
-							</st-input>
-							</div>
+							<form class="well well-small form-horizontal" name="contactDetaisForm" novalidate>
+								<div class="tab-pane active" id="Div2">
+									<div class="control-group">
+										<label for="titleId" class="control-label" data-i18n="_TitleHeading_"></label>
+										<div class="controls">
+											<select id="titleId" data-ng-model="elementResource.TitleId" data-ng-options="opt.Id as opt.Description for opt in titles"></select>
+										</div>
+									</div>
+									<st-input label-name="_NameHeading_" label-class="control-label">
+										<input id="entityNameInput" type="text" data-ng-model="elementResource.EntityName" name="entityNameInput" ng-required="true" ng-minlength="1" ng-maxlength="60" />
+									</st-input>
+									<st-input label-name="_SurnamePrefixHeading_" st-hide="false" label-class="control-label">
+										<input id="surnamePrefixInput" type="text" data-ng-model="elementResource.SurnamePrefix" name="surnamePrefixInput" ng-minlength="0" ng-maxlength="60" />
+									</st-input>
+									<st-input label-name="_SurnameHeading_" st-hide="false" label-class="control-label">
+										<input id="surnameInput" type="text" data-ng-model="elementResource.Surname" name="surnameInput" ng-required="true" ng-minlength="2" ng-maxlength="60" />
+									</st-input>
+									<st-input label-name="_MaidenNamePrefixHeading_" st-hide="false" label-class="control-label">
+										<input id="maidenNamePrefixInput" type="text" data-ng-model="elementResource.MaidenNamePrefix" name="maidenNamePrefixInput"  ng-minlength="0" ng-maxlength="60" />
+									</st-input>
+									<div class="control-group">
+										<label for="genderTypeId" class="control-label" data-i18n="_GenderTypeHeading_"></label>
+										<div class="controls">
+											<select id="genderTypeId" data-ng-model="elementResource.GenderTypeId" data-ng-options="opt.Id as opt.Description for opt in genderTypes"></select>
+										</div>
+									</div>
+								</div>
+
 							<div class="control-group">
 							<button id="saveEditedContactButton" class="btn btn-default" data-ng-show="isEdit" data-ng-disabled="elementForm.$invalid" data-ng-click="saveContactDetail()" data-i18n="_UpdateHeading_"></button>
 							<button class="btn btn-default" id="btnSave" data-ng-show="isNew" data-ng-disabled="elementForm.$invalid" data-ng-click="saveNewContactDetail()" data-i18n="_SaveHeading_"></button>
@@ -47,7 +54,7 @@
 							</form>
 						</tab>
 						<tab heading="Contact Details">
-							<form class="form-horizontal" name="elementForm" novalidate>
+							<form class="well well-small form-horizontal" name="elementForm" novalidate>
 							<st-input label-name="_PlaceOfBirthHeading_" st-hide="false" label-class="control-label">
 							<input id="placeOfBirthInput" type="text" data-ng-model="elementResource.PlaceOfBirth" name="placeOfBirthInput"  ng-minlength="0" ng-maxlength="60" />
 							</st-input>
@@ -87,8 +94,8 @@
 
 							<button data-ng-show="true"  class="btn btn-default" ng-click="addNewContact()" data-ng-disabled="false"><i class="icon-plus-sign icon-white"></i></button>
 							<br />
-								<div collapse="isContactCollapsed">
-										<form class="form-horizontal" name="contactForm">
+								<div collapse="isContactCollapsed" >
+										<form class="well well-small form-horizontal" name="contactForm">
 												<div class="control-group">
 												<label for="contactTypeId" class="control-label" data-i18n="_ContactTypeHeading_"></label>
 												<div class="controls">
@@ -122,7 +129,7 @@
 							<button data-ng-show="true"  class="btn btn-default" ng-click="addNewAddress()" data-ng-disabled="false"><i class="icon-plus-sign icon-white"></i></button>
 							<br />
 								<div collapse="isAddressCollapsed">
-										<form class="form-horizontal" name="addressForm">
+										<form class="well well-small form-horizontal" name="addressForm">
 
 												<div class="control-group">
 												<label for="addressTypeId" class="control-label" data-i18n="_AddressTypeHeading_"></label>

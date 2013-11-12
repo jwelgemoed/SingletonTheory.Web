@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 userApplicationModule.controller('ContactManagementCtrl',
-	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactDetailsResource', 'ContactDetailResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', 'AddressesResource', 'AddressResource', 'AddressTypesResource', 'ContactsResource', 'ContactResource', function ($rootScope, $scope, $location, $timeout, authService, contactDetailsResource, contactDetailResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource, addressesResource, addressResource, addressTypesResource, contactsResource, contactResource) {
+	['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 'ContactDetailsResource', 'ContactDetailResource', 'localize', 'TitlesResource', 'ContactTypesResource', 'EntityTypesResource', 'OccupationNamesResource', 'AddressesResource', 'AddressResource', 'AddressTypesResource', 'ContactsResource', 'ContactResource', 'GenderTypesResource', function ($rootScope, $scope, $location, $timeout, authService, contactDetailsResource, contactDetailResource, localize, titlesResource, contactTypesResource, entityTypesResource, occupationNamesResource, addressesResource, addressResource, addressTypesResource, contactsResource, contactResource, genderTypesResource) {
 
 		$scope.canCreate = true;
 		$scope.isCollapsed = true;
@@ -69,9 +69,10 @@ userApplicationModule.controller('ContactManagementCtrl',
 			$scope.elementResource = new contactDetailResource();
 			try {
 				$scope.elementResource.TitleId = $scope.titles[0].Id;
-				$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
-				$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
-				$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+				$scope.elementResource.ContactTypeId = $scope.contactTypes[0].Id;
+				$scope.elementResource.EntityTypeId = $scope.entityTypes[0].Id;
+				$scope.elementResource.OccupationNameId = $scope.occupationNames[0].Id;
+				$scope.elementResource.GenderTypeId = $scope.occupationNames[0].Id;
 			} catch (e) {
 				$scope.error = e;
 			}
@@ -87,9 +88,10 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 			try {
 				$scope.elementResource.TitleId = $scope.titles[0].Id;
-				$scope.elementResource.ContactTypesId = $scope.contactTypes[0].Id;
-				$scope.elementResource.EntityTypesId = $scope.entityTypes[0].Id;
-				$scope.elementResource.OccupationNamesId = $scope.occupationNames[0].Id;
+				$scope.elementResource.ContactTypeId = $scope.contactTypes[0].Id;
+				$scope.elementResource.EntityTypeId = $scope.entityTypes[0].Id;
+				$scope.elementResource.OccupationNameId = $scope.occupationNames[0].Id;
+				$scope.elementResource.GenderTypeId = $scope.occupationNames[0].Id;
 			} catch (err) {
 				$scope.error = err;
 			}
@@ -157,6 +159,10 @@ userApplicationModule.controller('ContactManagementCtrl',
 
 			addressTypesResource.get({}, function (response) {
 				$scope.addressTypes = response;
+			});
+			
+			genderTypesResource.get({}, function (response) {
+				$scope.genderTypes = response;
 			});
 
 			$scope.dt = new Date();
